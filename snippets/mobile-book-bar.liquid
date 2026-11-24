@@ -1,0 +1,80 @@
+{%- comment -%}
+  Mobile Book Bar - Pinned booking CTA at bottom of mobile screens
+  Hides/shows on scroll, configurable per template
+{%- endcomment -%}
+
+{%- liquid
+  assign book_bar_enabled = settings.mobile_book_bar_enabled
+  assign book_label = settings.mobile_book_bar_label | default: 'Book Treatment'
+  assign book_link = settings.mobile_book_bar_link
+  assign app_trigger = settings.mobile_book_bar_app_trigger
+  
+  # Allow template-level override
+  if template.suffix == 'hidden-book-bar'
+    assign book_bar_enabled = false
+  endif
+  
+  # Default link to booking page if set
+  if book_link == blank and settings.booking_page != blank
+    assign book_link = pages[settings.booking_page].url
+  endif
+-%}
+
+{%- if book_bar_enabled -%}
+  <style>
+    .mobile-book-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background-color: var(--color-soft-black);
+      padding: var(--spacing-sm) var(--container-padding);
+      transform: translateY(0);
+      transition: transform 0.3s var(--transition-easing);
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .mobile-book-bar.hidden {
+      transform: translateY(100%);
+    }
+    
+    .mobile-book-bar__button {
+      width: 100%;
+      min-height: var(--tap-target-min);
+      background-color: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-ivory);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .mobile-book-bar__button:hover {
+      background-color: var(--color-ivory);
+      color: var(--color-soft-black);
+      border-color: var(--color-ivory);
+    }
+    
+    @media (min-width: 768px) {
+      .mobile-book-bar {
+        display: none;
+      }
+    }
+  </style>
+
+  <div 
+    class="mobile-book-bar" 
+    {% if app_trigger != blank %}data-app-trigger="{{ app_trigger | escape }}"{% endif %}
+  >
+    <a 
+      href="{{ book_link | default: '#book' }}"
+      class="button mobile-book-bar__button"
+      data-book-cta
+      data-cta-type="book"
+      aria-label="{{ book_label }}"
+    >
+      {{ book_label }}
+    </a>
+  </div>
+{%- endif -%}

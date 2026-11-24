@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": true
+      }
+    },
+    "booking": {
+      "type": "booking-app",
+      "settings": {
+        "heading": "",
+        "subheading": "Select your preferred date and time below"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "booking"
+  ]
+}

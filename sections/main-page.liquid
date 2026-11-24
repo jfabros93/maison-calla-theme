@@ -1,0 +1,87 @@
+{%- comment -%}
+  Main Page Section
+{%- endcomment -%}
+
+<style>
+  .page {
+    padding: var(--section-spacing) 0;
+  }
+  
+  .page__header {
+    margin-bottom: var(--spacing-2xl);
+  }
+  
+  .page__title {
+    font-size: var(--font-size-3xl);
+    text-align: center;
+  }
+  
+  .page__content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .page__content .rte {
+    line-height: 1.7;
+    color: var(--color-text-light);
+  }
+  
+  .page__content .rte h2,
+  .page__content .rte h3,
+  .page__content .rte h4 {
+    color: var(--color-text);
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .page__content .rte p {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .page__content .rte ul,
+  .page__content .rte ol {
+    margin-left: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .page__content .rte li {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .page__content .rte a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+</style>
+
+<div class="page">
+  <div class="container">
+    {%- if section.settings.show_title -%}
+      <div class="page__header">
+        <h1 class="page__title">{{ page.title }}</h1>
+      </div>
+    {%- endif -%}
+    
+    {%- if page.content != blank -%}
+      <div class="page__content">
+        <div class="rte">
+          {{ page.content }}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show Page Title",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

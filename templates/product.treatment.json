@@ -1,0 +1,62 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product-treatment",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "duration": {
+          "type": "duration",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "what_to_expect": {
+          "type": "what_to_expect",
+          "settings": {}
+        },
+        "aftercare": {
+          "type": "aftercare",
+          "settings": {}
+        },
+        "booking_cta": {
+          "type": "booking_cta",
+          "settings": {}
+        },
+        "app_block_1": {
+          "type": "@app"
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "duration",
+        "description",
+        "what_to_expect",
+        "aftercare",
+        "booking_cta",
+        "app_block_1"
+      ],
+      "settings": {}
+    },
+    "related_treatments": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You May Also Like",
+        "products_to_show": 3
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related_treatments"
+  ]
+}

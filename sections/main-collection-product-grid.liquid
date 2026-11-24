@@ -1,0 +1,46 @@
+{%- comment -%}
+  Collection Product Grid
+{%- endcomment -%}
+
+{%- paginate collection.products by section.settings.products_per_page -%}
+  <div class="collection-grid section">
+    <div class="container">
+      {%- if collection.products.size > 0 -%}
+        <div class="grid grid--3-col">
+          {%- for product in collection.products -%}
+            {% render 'treatment-card', product: product %}
+          {%- endfor -%}
+        </div>
+        
+        {%- if paginate.pages > 1 -%}
+          <div style="margin-top: var(--spacing-2xl);">
+            {% render 'pagination', paginate: paginate %}
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        <div class="collection-empty" style="text-align: center; padding: var(--spacing-2xl);">
+          <p style="color: var(--color-text-light); font-size: var(--font-size-lg);">
+            No treatments found in this collection.
+          </p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection Product Grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 6,
+      "max": 24,
+      "step": 3,
+      "default": 12
+    }
+  ]
+}
+{% endschema %}

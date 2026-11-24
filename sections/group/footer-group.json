@@ -1,0 +1,17 @@
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "heading": "Maison Calla",
+        "description": "Clinical excellence meets luxurious care. Book your treatment today.",
+        "menu_heading": "Quick Links"
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}
