@@ -1,0 +1,234 @@
+{%- comment -%}
+  Site footer with concept notice, social links, and navigation
+{%- endcomment -%}
+
+<style>
+  .footer {
+    background-color: var(--color-soft-black);
+    color: var(--color-ivory);
+    padding-top: var(--section-spacing);
+    padding-bottom: var(--spacing-xl);
+    margin-top: var(--section-spacing);
+  }
+  
+  .footer__inner {
+    display: grid;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  @media (min-width: 768px) {
+    .footer__inner {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+  }
+  
+  .footer__about h2 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-ivory);
+  }
+  
+  .footer__about p {
+    color: rgba(250, 249, 247, 0.8);
+    line-height: 1.6;
+  }
+  
+  .footer__menu h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-md);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-ivory);
+  }
+  
+  .footer__menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer__menu li {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .footer__menu a {
+    color: rgba(250, 249, 247, 0.8);
+    text-decoration: none;
+    transition: color var(--transition-speed) var(--transition-easing);
+  }
+  
+  .footer__menu a:hover {
+    color: var(--color-accent);
+  }
+  
+  .footer__social h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-md);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-ivory);
+  }
+  
+  .footer__social-links {
+    display: flex;
+    gap: var(--spacing-md);
+  }
+  
+  .footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--tap-target-min);
+    min-height: var(--tap-target-min);
+    color: rgba(250, 249, 247, 0.8);
+    transition: color var(--transition-speed) var(--transition-easing);
+  }
+  
+  .footer__social-link:hover {
+    color: var(--color-accent);
+  }
+  
+  .footer__bottom {
+    border-top: 1px solid rgba(250, 249, 247, 0.2);
+    padding-top: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: center;
+    text-align: center;
+  }
+  
+  @media (min-width: 768px) {
+    .footer__bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+  
+  .footer__copyright {
+    font-size: var(--font-size-sm);
+    color: rgba(250, 249, 247, 0.6);
+  }
+  
+  .footer__concept-notice {
+    font-size: var(--font-size-sm);
+    color: rgba(250, 249, 247, 0.6);
+    font-style: italic;
+  }
+  
+  .footer__concept-notice a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+</style>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__about">
+        <h2>{{ section.settings.heading | default: shop.name }}</h2>
+        {%- if section.settings.description != blank -%}
+          <p>{{ section.settings.description }}</p>
+        {%- endif -%}
+      </div>
+      
+      {%- if section.settings.menu.links.size > 0 -%}
+        <div class="footer__menu">
+          <h3>{{ section.settings.menu_heading | default: 'Menu' }}</h3>
+          <ul>
+            {%- for link in section.settings.menu.links -%}
+              <li>
+                <a href="{{ link.url }}">{{ link.title }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+      
+      <div class="footer__social">
+        <h3>{{ 'sections.footer.social' | t }}</h3>
+        <div class="footer__social-links">
+          {%- if settings.social_instagram_link != blank -%}
+            <a 
+              href="{{ settings.social_instagram_link }}" 
+              class="footer__social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              {% render 'icon', icon: 'instagram' %}
+            </a>
+          {%- endif -%}
+          
+          {%- if settings.social_facebook_link != blank -%}
+            <a 
+              href="{{ settings.social_facebook_link }}" 
+              class="footer__social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+            >
+              {% render 'icon', icon: 'facebook' %}
+            </a>
+          {%- endif -%}
+          
+          {%- if settings.social_tiktok_link != blank -%}
+            <a 
+              href="{{ settings.social_tiktok_link }}" 
+              class="footer__social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok"
+            >
+              {% render 'icon', icon: 'tiktok' %}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer__bottom">
+      <p class="footer__copyright">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
+      </p>
+      
+      <p class="footer__concept-notice">
+        {{ 'concept.notice' | t }}
+      </p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Maison Calla"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Clinical excellence meets luxurious care. Book your treatment today."
+    },
+    {
+      "type": "text",
+      "id": "menu_heading",
+      "label": "Menu Heading",
+      "default": "Quick Links"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Footer Menu",
+      "default": "footer"
+    }
+  ]
+}
+{% endschema %}

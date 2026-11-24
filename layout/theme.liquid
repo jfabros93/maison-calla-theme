@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_ivory }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.font_heading.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; {{ 'general.meta.tags' | t: tags: current_tags.first }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+
+    <style>
+      :root {
+        /* Colors */
+        --color-ivory: {{ settings.color_ivory }};
+        --color-stone: {{ settings.color_stone }};
+        --color-soft-black: {{ settings.color_soft_black }};
+        --color-rose: {{ settings.color_rose }};
+        --color-gold: {{ settings.color_gold }};
+        --color-accent: {% if settings.accent_color_scheme == 'gold' %}var(--color-gold){% else %}var(--color-rose){% endif %};
+        
+        --color-bg: var(--color-ivory);
+        --color-bg-secondary: var(--color-stone);
+        --color-text: var(--color-soft-black);
+        --color-text-light: rgba(42, 42, 42, 0.7);
+        
+        /* Typography */
+        --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+        --font-body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+        --font-heading-weight: {{ settings.font_heading.weight }};
+        --font-body-weight: {{ settings.font_body.weight }};
+        --font-heading-style: {{ settings.font_heading.style }};
+        --font-body-style: {{ settings.font_body.style }};
+        
+        --font-size-base: {{ settings.font_body_scale | times: 0.16 }}rem;
+        --font-size-sm: {{ settings.font_body_scale | times: 0.14 }}rem;
+        --font-size-lg: {{ settings.font_body_scale | times: 0.18 }}rem;
+        --font-size-xl: {{ settings.font_heading_scale | times: 0.24 }}rem;
+        --font-size-2xl: {{ settings.font_heading_scale | times: 0.32 }}rem;
+        --font-size-3xl: {{ settings.font_heading_scale | times: 0.48 }}rem;
+        
+        /* Spacing */
+        --spacing-base: {{ settings.spacing_base }}px;
+        --spacing-sm: calc(var(--spacing-base) * 0.5);
+        --spacing-md: calc(var(--spacing-base) * 1);
+        --spacing-lg: calc(var(--spacing-base) * 1.5);
+        --spacing-xl: calc(var(--spacing-base) * 2);
+        --spacing-2xl: calc(var(--spacing-base) * 3);
+        --section-spacing: {{ settings.section_spacing }}px;
+        
+        /* Layout */
+        --container-max-width: {{ settings.container_max_width }}px;
+        --container-padding: var(--spacing-md);
+        
+        /* Interactive */
+        --tap-target-min: 44px;
+        --focus-outline: 2px solid var(--color-accent);
+        --focus-offset: 2px;
+        
+        /* Transitions */
+        --transition-speed: 0.2s;
+        --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      @media (prefers-reduced-motion: reduce) {
+        :root {
+          --transition-speed: 0.01ms;
+        }
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+
+    {{ content_for_header }}
+
+    <link rel="stylesheet" href="{{ 'base.css' | asset_url }}">
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+  </head>
+
+  <body class="template-{{ template.name | handle }}">
+    <a class="skip-to-content-link visually-hidden" href="#MainContent">
+      {{ 'general.accessibility.skip_to_content' | t }}
+    </a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {% if settings.mobile_book_bar_enabled %}
+      {% render 'mobile-book-bar' %}
+    {% endif %}
+
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{ 'general.accessibility.refresh_page' | t }}</li>
+      <li id="a11y-new-window-message">{{ 'general.accessibility.new_window' | t }}</li>
+    </ul>
+
+    <script>
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}'
+      };
+
+    window.cartStrings = {
+      error: 'There was an error updating your cart. Please try again.',
+      quantityError: 'You can only add [quantity] of this item to your cart.'
+    };
+
+      window.variantStrings = {
+        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+        soldOut: `{{ 'products.product.sold_out' | t }}`,
+        unavailable: `{{ 'products.product.unavailable' | t }}`,
+        unavailable_with_option: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "Header",
+  "type": "header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_text": "Maison Calla",
+        "book_label": "Book"
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
+}

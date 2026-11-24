@@ -1,0 +1,21 @@
+{
+  "current": {
+    "color_ivory": "#FAF9F7",
+    "color_stone": "#E8E6E3",
+    "color_soft_black": "#2A2A2A",
+    "accent_color_scheme": "rose",
+    "color_rose": "#D4A5A5",
+    "color_gold": "#C9A961",
+    "font_heading": "playfair_display_n4",
+    "font_heading_scale": 120,
+    "font_body": "assistant_n4",
+    "font_body_scale": 100,
+    "spacing_base": 24,
+    "section_spacing": 80,
+    "container_max_width": 1400,
+    "mobile_book_bar_enabled": true,
+    "mobile_book_bar_label": "Book Treatment",
+    "booking_button_label": "Book Treatment",
+    "consult_button_label": "Schedule Consultation"
+  }
+}

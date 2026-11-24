@@ -1,0 +1,375 @@
+{%- comment -%}
+  Main Product Treatment Section
+  Displays treatment details without shipping/cart UI
+  Includes @app block slots for booking integrations
+{%- endcomment -%}
+
+<style>
+  .treatment-page {
+    padding: var(--section-spacing) 0;
+  }
+  
+  .treatment-page__grid {
+    display: grid;
+    gap: var(--spacing-2xl);
+  }
+  
+  @media (min-width: 768px) {
+    .treatment-page__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .treatment-page__media {
+    position: sticky;
+    top: calc(var(--spacing-xl) + 70px);
+    align-self: start;
+  }
+  
+  .treatment-page__image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  
+  .treatment-page__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  
+  .treatment-block {
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-stone);
+  }
+  
+  .treatment-block:last-child {
+    border-bottom: none;
+  }
+  
+  .treatment-block__title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .treatment-block__price {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .treatment-block__price-label {
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .treatment-block__duration {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+  }
+  
+  .treatment-block__duration-label {
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .treatment-block__heading {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .treatment-block__description {
+    line-height: 1.7;
+    color: var(--color-text-light);
+  }
+  
+  .treatment-block__description ul,
+  .treatment-block__description ol {
+    margin-left: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .treatment-block__description li {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .treatment-block__cta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  @media (min-width: 768px) {
+    .treatment-block__cta {
+      flex-direction: row;
+    }
+  }
+  
+  .treatment-block__app {
+    margin-top: var(--spacing-md);
+  }
+</style>
+
+<div class="treatment-page">
+  <div class="container">
+    <div class="treatment-page__grid">
+      <div class="treatment-page__media">
+        {%- if product.featured_media -%}
+          <img
+            srcset="
+              {{ product.featured_media | image_url: width: 400 }} 400w,
+              {{ product.featured_media | image_url: width: 600 }} 600w,
+              {{ product.featured_media | image_url: width: 800 }} 800w,
+              {{ product.featured_media | image_url: width: 1000 }} 1000w
+            "
+            src="{{ product.featured_media | image_url: width: 800 }}"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="{{ product.featured_media.alt | escape }}"
+            class="treatment-page__image"
+            loading="eager"
+            fetchpriority="high"
+            width="800"
+            height="600"
+          >
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'treatment-page__image' }}
+        {%- endif -%}
+      </div>
+      
+      <div class="treatment-page__content">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'title' -%}
+              <div class="treatment-block" {{ block.shopify_attributes }}>
+                <h1 class="treatment-block__title">{{ product.title }}</h1>
+              </div>
+            
+            {%- when 'price' -%}
+              <div class="treatment-block" {{ block.shopify_attributes }}>
+                <div class="treatment-block__price">
+                  <span class="treatment-block__price-label">
+                    {%- if product.price_varies -%}
+                      {{ 'products.treatment.starting_at' | t }}
+                    {%- else -%}
+                      {{ 'products.product.price' | t }}
+                    {%- endif -%}
+                  </span>
+                  <div>
+                    {%- if product.price_varies -%}
+                      {{ product.price_min | money }}
+                    {%- else -%}
+                      {{ product.price | money }}
+                    {%- endif -%}
+                    {%- if block.settings.show_per_session -%}
+                      <span style="font-size: var(--font-size-sm);">
+                        {{ 'products.treatment.per_session' | t }}
+                      </span>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            
+            {%- when 'duration' -%}
+              {%- liquid
+                assign duration = product.metafields.custom.treatment_duration | default: block.settings.default_duration
+              -%}
+              {%- if duration != blank -%}
+                <div class="treatment-block" {{ block.shopify_attributes }}>
+                  <div class="treatment-block__duration">
+                    {% render 'icon', icon: 'clock' %}
+                    <div>
+                      <span class="treatment-block__duration-label">
+                        {{ 'products.treatment.duration' | t }}
+                      </span>
+                      <div>{{ duration }}</div>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            
+            {%- when 'description' -%}
+              {%- if product.description != blank -%}
+                <div class="treatment-block" {{ block.shopify_attributes }}>
+                  <div class="treatment-block__description rte">
+                    {{ product.description }}
+                  </div>
+                </div>
+              {%- endif -%}
+            
+            {%- when 'what_to_expect' -%}
+              {%- liquid
+                assign what_to_expect = product.metafields.custom.what_to_expect
+              -%}
+              {%- if what_to_expect != blank -%}
+                <div class="treatment-block" {{ block.shopify_attributes }}>
+                  <h2 class="treatment-block__heading">
+                    {{ block.settings.heading | default: 'What to Expect' }}
+                  </h2>
+                  <div class="treatment-block__description rte">
+                    {{ what_to_expect }}
+                  </div>
+                </div>
+              {%- endif -%}
+            
+            {%- when 'aftercare' -%}
+              {%- liquid
+                assign aftercare = product.metafields.custom.aftercare
+              -%}
+              {%- if aftercare != blank -%}
+                <div class="treatment-block" {{ block.shopify_attributes }}>
+                  <h2 class="treatment-block__heading">
+                    {{ block.settings.heading | default: 'Aftercare' }}
+                  </h2>
+                  <div class="treatment-block__description rte">
+                    {{ aftercare }}
+                  </div>
+                </div>
+              {%- endif -%}
+            
+            {%- when 'booking_cta' -%}
+              {%- liquid
+                assign needs_consult = product.metafields.custom.consultation_required | default: false
+                assign book_link = block.settings.book_link
+                if book_link == blank and settings.booking_page != blank
+                  assign book_link = pages[settings.booking_page].url
+                endif
+                assign consult_link = block.settings.consult_link
+                if consult_link == blank and settings.consult_page != blank
+                  assign consult_link = pages[settings.consult_page].url
+                endif
+              -%}
+              <div class="treatment-block" {{ block.shopify_attributes }}>
+                <div class="treatment-block__cta">
+                  {%- if needs_consult -%}
+                    <a 
+                      href="{{ consult_link | default: '#consult' }}" 
+                      class="button button--primary button--full-width"
+                      data-book-cta
+                      data-cta-type="consult"
+                      data-treatment-name="{{ product.title | escape }}"
+                      data-treatment-price="{{ product.price | money }}"
+                    >
+                      {{ settings.consult_button_label | default: 'Schedule Consultation' }}
+                    </a>
+                  {%- else -%}
+                    <a 
+                      href="{{ book_link | default: '#book' }}" 
+                      class="button button--primary button--full-width"
+                      data-book-cta
+                      data-cta-type="book"
+                      data-treatment-name="{{ product.title | escape }}"
+                      data-treatment-price="{{ product.price | money }}"
+                    >
+                      {{ settings.booking_button_label | default: 'Book Treatment' }}
+                    </a>
+                  {%- endif -%}
+                </div>
+              </div>
+            
+            {%- when '@app' -%}
+              <div class="treatment-block treatment-block__app" {{ block.shopify_attributes }}>
+                {% render block %}
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Treatment Page",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_per_session",
+          "label": "Show 'per session' label",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "duration",
+      "name": "Duration",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "default_duration",
+          "label": "Default Duration",
+          "default": "60 minutes",
+          "info": "Used if product metafield is not set"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1
+    },
+    {
+      "type": "what_to_expect",
+      "name": "What to Expect",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "What to Expect"
+        }
+      ]
+    },
+    {
+      "type": "aftercare",
+      "name": "Aftercare",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Aftercare"
+        }
+      ]
+    },
+    {
+      "type": "booking_cta",
+      "name": "Booking CTA",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "url",
+          "id": "book_link",
+          "label": "Book Link"
+        },
+        {
+          "type": "url",
+          "id": "consult_link",
+          "label": "Consultation Link"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}

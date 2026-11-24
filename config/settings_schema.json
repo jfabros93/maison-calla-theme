@@ -1,0 +1,249 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Maison Calla",
+    "theme_version": "1.0.0",
+    "theme_author": "Cart & Canvas",
+    "theme_documentation_url": "https://github.com/cartandcanvas/maison-calla-theme",
+    "theme_support_url": "https://github.com/cartandcanvas/maison-calla-theme/issues"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Base Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_ivory",
+        "label": "Ivory",
+        "default": "#FAF9F7"
+      },
+      {
+        "type": "color",
+        "id": "color_stone",
+        "label": "Stone",
+        "default": "#E8E6E3"
+      },
+      {
+        "type": "color",
+        "id": "color_soft_black",
+        "label": "Soft Black",
+        "default": "#2A2A2A"
+      },
+      {
+        "type": "header",
+        "content": "Accent Color"
+      },
+      {
+        "type": "select",
+        "id": "accent_color_scheme",
+        "label": "Accent Color",
+        "options": [
+          {
+            "value": "rose",
+            "label": "Rose"
+          },
+          {
+            "value": "gold",
+            "label": "Gold"
+          }
+        ],
+        "default": "rose"
+      },
+      {
+        "type": "color",
+        "id": "color_rose",
+        "label": "Rose Accent",
+        "default": "#D4A5A5"
+      },
+      {
+        "type": "color",
+        "id": "color_gold",
+        "label": "Gold Accent",
+        "default": "#C9A961"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading Font",
+        "default": "playfair_display_n4",
+        "info": "Serif font for headings"
+      },
+      {
+        "type": "range",
+        "id": "font_heading_scale",
+        "label": "Heading Scale",
+        "min": 100,
+        "max": 150,
+        "step": 5,
+        "unit": "%",
+        "default": 120
+      },
+      {
+        "type": "header",
+        "content": "Body Text"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body Font",
+        "default": "assistant_n4",
+        "info": "Clean sans-serif for body text"
+      },
+      {
+        "type": "range",
+        "id": "font_body_scale",
+        "label": "Body Scale",
+        "min": 100,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Spacing"
+      },
+      {
+        "type": "range",
+        "id": "spacing_base",
+        "label": "Base Spacing",
+        "min": 16,
+        "max": 48,
+        "step": 4,
+        "unit": "px",
+        "default": 24,
+        "info": "Generous spacing for clinical feel"
+      },
+      {
+        "type": "range",
+        "id": "section_spacing",
+        "label": "Section Spacing",
+        "min": 48,
+        "max": 120,
+        "step": 8,
+        "unit": "px",
+        "default": 80
+      },
+      {
+        "type": "header",
+        "content": "Container"
+      },
+      {
+        "type": "range",
+        "id": "container_max_width",
+        "label": "Max Width",
+        "min": 1200,
+        "max": 1600,
+        "step": 100,
+        "unit": "px",
+        "default": 1400
+      }
+    ]
+  },
+  {
+    "name": "Mobile Book Bar",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "mobile_book_bar_enabled",
+        "label": "Enable Mobile Book Bar",
+        "default": true,
+        "info": "Pinned booking button at bottom of mobile screens"
+      },
+      {
+        "type": "text",
+        "id": "mobile_book_bar_label",
+        "label": "Button Label",
+        "default": "Book Treatment"
+      },
+      {
+        "type": "url",
+        "id": "mobile_book_bar_link",
+        "label": "Button Link",
+        "info": "Link to booking page or leave empty for app integration"
+      },
+      {
+        "type": "textarea",
+        "id": "mobile_book_bar_app_trigger",
+        "label": "App Trigger Code (Optional)",
+        "info": "JavaScript code to trigger booking app modal, e.g., window.bookingApp.open()"
+      }
+    ]
+  },
+  {
+    "name": "Booking",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Button Labels"
+      },
+      {
+        "type": "text",
+        "id": "booking_button_label",
+        "label": "Book Button",
+        "default": "Book Treatment"
+      },
+      {
+        "type": "text",
+        "id": "consult_button_label",
+        "label": "Consult Button",
+        "default": "Schedule Consultation"
+      },
+      {
+        "type": "header",
+        "content": "Pages"
+      },
+      {
+        "type": "page",
+        "id": "booking_page",
+        "label": "Booking Page"
+      },
+      {
+        "type": "page",
+        "id": "consult_page",
+        "label": "Consultation Page"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Accounts"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok"
+      }
+    ]
+  }
+]

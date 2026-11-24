@@ -1,0 +1,111 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "refresh_page": "Choosing a selection results in a full page refresh.",
+      "new_window": "Opens in a new window.",
+      "close": "Close"
+    },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search treatments and products"
+    },
+    "booking": {
+      "book_treatment": "Book Treatment",
+      "schedule_consult": "Schedule Consultation",
+      "view_treatment": "View Treatment",
+      "book_now": "Book Now",
+      "consult_first": "Consultation Required"
+    }
+  },
+  "sections": {
+    "header": {
+      "menu": "Menu",
+      "book": "Book"
+    },
+    "footer": {
+      "social": "Follow Us",
+      "newsletter": "Stay Updated"
+    },
+    "hero": {
+      "book_treatment": "Book Treatment",
+      "shop_retail": "Shop Retail"
+    },
+    "treatments": {
+      "heading": "Our Treatments",
+      "duration": "Duration",
+      "from": "From"
+    },
+    "credentials": {
+      "heading": "Trusted Expertise"
+    },
+    "faq": {
+      "heading": "Frequently Asked Questions"
+    },
+    "booking": {
+      "heading": "Book Your Treatment",
+      "subheading": "Schedule your appointment"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "value_unavailable": "{{ option_value }} - Unavailable",
+      "quantity": "Quantity",
+      "price": "Price",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price"
+    },
+    "treatment": {
+      "duration": "Treatment Duration",
+      "what_to_expect": "What to Expect",
+      "aftercare": "Aftercare",
+      "book_treatment": "Book This Treatment",
+      "schedule_consult": "Schedule a Consultation",
+      "starting_at": "Starting at",
+      "per_session": "per session"
+    }
+  },
+  "collections": {
+    "general": {
+      "all_treatments": "All Treatments",
+      "filter": "Filter",
+      "sort": "Sort"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your Cart",
+      "continue_shopping": "Continue Shopping",
+      "checkout": "Checkout",
+      "subtotal": "Subtotal",
+      "empty": "Your cart is empty"
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "send": "Send Message",
+      "success": "Thank you for contacting us. We'll be in touch soon.",
+      "error": "There was an error sending your message. Please try again."
+    }
+  },
+  "newsletter": {
+    "email": "Email address",
+    "submit": "Subscribe",
+    "success": "Thanks for subscribing!",
+    "error": "Please enter a valid email address."
+  },
+  "concept": {
+    "notice": "Maison Calla is a concept brand. Demo by Cart & Canvas."
+  }
+}

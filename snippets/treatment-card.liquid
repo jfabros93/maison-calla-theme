@@ -1,0 +1,85 @@
+{%- comment -%}
+  Reusable treatment card snippet
+  Usage: {% render 'treatment-card', product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  assign product = product
+  
+  # Get treatment duration from metafield
+  assign duration = product.metafields.custom.treatment_duration | default: '60 min'
+  
+  # Get consultation required flag
+  assign needs_consult = product.metafields.custom.consultation_required | default: false
+  
+  # Determine CTA type
+  if needs_consult
+    assign cta_label = settings.consult_button_label | default: 'Schedule Consultation'
+    assign cta_type = 'consult'
+  else
+    assign cta_label = settings.booking_button_label | default: 'Book Treatment'
+    assign cta_type = 'book'
+  endif
+-%}
+
+<article class="card treatment-card">
+  <a href="{{ product.url }}" class="card__link">
+    {%- if product.featured_image != blank -%}
+      <img
+        srcset="
+          {{ product.featured_image | image_url: width: 400 }} 400w,
+          {{ product.featured_image | image_url: width: 600 }} 600w,
+          {{ product.featured_image | image_url: width: 800 }} 800w
+        "
+        src="{{ product.featured_image | image_url: width: 600 }}"
+        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+        alt="{{ product.featured_image.alt | escape }}"
+        class="card__image"
+        loading="lazy"
+        width="600"
+        height="450"
+      >
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'card__image' }}
+    {%- endif -%}
+  </a>
+  
+  <div class="card__content">
+    <div class="treatment-card__meta">
+      <span class="treatment-card__duration">
+        {% render 'icon', icon: 'clock' %}
+        {{ duration }}
+      </span>
+      <span class="treatment-card__price">
+        {%- if product.price_varies -%}
+          From {{ product.price_min | money }}
+        {%- else -%}
+          {{ product.price | money }}
+        {%- endif -%}
+      </span>
+    </div>
+    
+    <h3 class="treatment-card__title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+    
+    {%- if product.description != blank -%}
+      <div class="treatment-card__description">
+        {{ product.description | strip_html | truncatewords: 20 }}
+      </div>
+    {%- endif -%}
+    
+    <div class="treatment-card__cta">
+      <a 
+        href="{{ product.url }}" 
+        class="button button--primary button--full-width"
+        data-book-cta
+        data-cta-type="{{ cta_type }}"
+        data-treatment-name="{{ product.title | escape }}"
+        data-treatment-price="{{ product.price | money }}"
+      >
+        {{ cta_label }}
+      </a>
+    </div>
+  </div>
+</article>

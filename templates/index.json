@@ -1,0 +1,135 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading": "Clinical Excellence, Luxurious Care",
+        "subheading": "Experience transformative treatments in our serene med spa",
+        "book_label": "Book Treatment",
+        "shop_label": "Shop Retail"
+      }
+    },
+    "treatment_cards": {
+      "type": "treatment-cards",
+      "settings": {
+        "heading": "Our Treatments",
+        "subheading": "Discover our range of clinically-proven treatments",
+        "products_to_show": 6,
+        "view_all_label": "View All Treatments"
+      }
+    },
+    "credentials": {
+      "type": "credentials",
+      "blocks": {
+        "credential_1": {
+          "type": "credential",
+          "settings": {
+            "icon": true,
+            "title": "Board Certified",
+            "description": "Licensed medical professionals"
+          }
+        },
+        "credential_2": {
+          "type": "credential",
+          "settings": {
+            "icon": true,
+            "title": "15+ Years",
+            "description": "Combined experience"
+          }
+        },
+        "credential_3": {
+          "type": "credential",
+          "settings": {
+            "icon": true,
+            "title": "Medical Grade",
+            "description": "FDA-approved treatments"
+          }
+        },
+        "credential_4": {
+          "type": "credential",
+          "settings": {
+            "icon": true,
+            "title": "Safe & Effective",
+            "description": "Proven results"
+          }
+        }
+      },
+      "block_order": [
+        "credential_1",
+        "credential_2",
+        "credential_3",
+        "credential_4"
+      ],
+      "settings": {
+        "heading": "Trusted Expertise"
+      }
+    },
+    "product_row": {
+      "type": "product-row",
+      "settings": {
+        "heading": "Shop Professional Skincare",
+        "subheading": "Take your results home with medical-grade products",
+        "products_to_show": 4,
+        "view_all_label": "Shop All Products"
+      }
+    },
+    "booking_app": {
+      "type": "booking-app",
+      "settings": {
+        "heading": "Book Your Treatment",
+        "subheading": "Select your preferred date and time"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I book an appointment?",
+            "answer": "<p>You can book online through our booking system above, or call us directly at the number listed on our contact page.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What should I expect during my first visit?",
+            "answer": "<p>Your first visit includes a comprehensive consultation where we discuss your goals, assess your skin or treatment area, and create a personalized treatment plan tailored to your needs.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you require a consultation before treatment?",
+            "answer": "<p>Some treatments require an initial consultation to ensure they're right for you. This will be noted on the individual treatment pages.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What is your cancellation policy?",
+            "answer": "<p>We require 24 hours notice for cancellations. Late cancellations or no-shows may be subject to a fee.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "subheading": "Everything you need to know about our treatments"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "treatment_cards",
+    "credentials",
+    "product_row",
+    "booking_app",
+    "faq"
+  ]
+}

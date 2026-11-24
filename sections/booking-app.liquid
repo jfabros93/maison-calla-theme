@@ -1,0 +1,146 @@
+{%- comment -%}
+  Booking App Section
+  Supports @app blocks from Sesami, Cowlendar, Appointo, BookX, Meety, Downpay
+  Also supports custom embeds for Acuity, Square, Zenoti, Dingg
+{%- endcomment -%}
+
+<style>
+  .booking-app {
+    background-color: var(--color-bg);
+  }
+  
+  .booking-app__header {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+  }
+  
+  .booking-app__heading {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .booking-app__subheading {
+    color: var(--color-text-light);
+    font-size: var(--font-size-lg);
+  }
+  
+  .booking-app__content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .booking-app__embed {
+    margin-top: var(--spacing-lg);
+  }
+  
+  .booking-app__app-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+</style>
+
+<section class="booking-app section" id="book">
+  <div class="container">
+    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+      <div class="booking-app__header">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="booking-app__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        
+        {%- if section.settings.subheading != blank -%}
+          <p class="booking-app__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    
+    <div class="booking-app__content">
+      {%- comment -%} App blocks render here {%- endcomment -%}
+      {%- if section.blocks.size > 0 -%}
+        <div class="booking-app__app-blocks">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                <div {{ block.shopify_attributes }}>
+                  {% render block %}
+                </div>
+              
+              {%- when 'custom_embed' -%}
+                <div class="booking-app__embed" {{ block.shopify_attributes }}>
+                  {%- if block.settings.embed_url != blank -%}
+                    <div class="responsive-embed">
+                      <iframe
+                        src="{{ block.settings.embed_url }}"
+                        title="Booking System"
+                        loading="lazy"
+                        allow="payment"
+                        sandbox="allow-forms allow-scripts allow-same-origin allow-top-navigation"
+                      ></iframe>
+                    </div>
+                  {%- elsif block.settings.embed_code != blank -%}
+                    <div class="booking-app__custom-code">
+                      {{ block.settings.embed_code }}
+                    </div>
+                  {%- endif -%}
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <div class="booking-app__placeholder" style="text-align: center; padding: var(--spacing-2xl); background: var(--color-bg-secondary);">
+          <p style="color: var(--color-text-light);">
+            Add a booking app block from the theme editor to enable online booking.
+          </p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Booking App",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Book Your Treatment"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Select your preferred date and time"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "custom_embed",
+      "name": "Custom Booking Embed",
+      "settings": [
+        {
+          "type": "url",
+          "id": "embed_url",
+          "label": "Embed URL",
+          "info": "For Acuity, Square, Zenoti, or Dingg booking widgets"
+        },
+        {
+          "type": "html",
+          "id": "embed_code",
+          "label": "Custom HTML/JavaScript",
+          "info": "Paste embed code if URL option doesn't work"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Booking App"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,379 @@
+/* ============================================================================
+   Base Styles - Maison Calla Theme
+   ============================================================================ */
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: var(--font-body-weight);
+  font-style: var(--font-body-style);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  min-height: 100vh;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-style: var(--font-heading-style);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-soft-black);
+}
+
+h1 {
+  font-size: var(--font-size-3xl);
+}
+
+h2 {
+  font-size: var(--font-size-2xl);
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+}
+
+h4 {
+  font-size: var(--font-size-lg);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-speed) var(--transition-easing);
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+/* Focus Styles */
+*:focus {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Images */
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity var(--transition-speed) var(--transition-easing);
+}
+
+img.loaded {
+  opacity: 1;
+}
+
+/* Buttons */
+.button,
+button[type="submit"],
+button[type="button"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-target-min);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid currentColor;
+  background: transparent;
+  color: var(--color-soft-black);
+  cursor: pointer;
+  transition: all var(--transition-speed) var(--transition-easing);
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.button:hover,
+button[type="submit"]:hover,
+button[type="button"]:hover {
+  background-color: var(--color-soft-black);
+  color: var(--color-ivory);
+  border-color: var(--color-soft-black);
+}
+
+.button--primary {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-ivory);
+}
+
+.button--primary:hover {
+  background-color: var(--color-soft-black);
+  border-color: var(--color-soft-black);
+}
+
+.button--full-width {
+  width: 100%;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Container */
+.container {
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+@media (min-width: 768px) {
+  .container {
+    --container-padding: var(--spacing-xl);
+  }
+}
+
+/* Section Spacing */
+.section {
+  padding-top: var(--section-spacing);
+  padding-bottom: var(--section-spacing);
+}
+
+.section--small {
+  padding-top: calc(var(--section-spacing) * 0.5);
+  padding-bottom: calc(var(--section-spacing) * 0.5);
+}
+
+.section--large {
+  padding-top: calc(var(--section-spacing) * 1.5);
+  padding-bottom: calc(var(--section-spacing) * 1.5);
+}
+
+/* Grid System */
+.grid {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.grid--2-col {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .grid--2-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.grid--3-col {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .grid--3-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid--3-col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid--4-col {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .grid--4-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid--4-col {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Cards */
+.card {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-stone);
+  transition: transform var(--transition-speed) var(--transition-easing);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card__content {
+  padding: var(--spacing-lg);
+}
+
+.card__image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+/* Treatment Card Specific */
+.treatment-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.treatment-card__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+}
+
+.treatment-card__title {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-sm);
+}
+
+.treatment-card__description {
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-light);
+  flex-grow: 1;
+}
+
+.treatment-card__cta {
+  margin-top: auto;
+}
+
+/* Utility Classes */
+.visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.mb-0 { margin-bottom: 0; }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.mb-xl { margin-bottom: var(--spacing-xl); }
+
+.mt-0 { margin-top: 0; }
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mt-xl { margin-top: var(--spacing-xl); }
+
+/* Loading States */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Skip Link */
+.skip-to-content-link {
+  position: absolute;
+  z-index: 9999;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+  background: var(--color-soft-black);
+  color: var(--color-ivory);
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.skip-to-content-link:not(:focus) {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+/* Responsive Video/Embed */
+.responsive-embed {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+}
+
+.responsive-embed iframe,
+.responsive-embed object,
+.responsive-embed embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Mobile-first responsive adjustments */
+@media (max-width: 767px) {
+  :root {
+    --font-size-3xl: calc({{ settings.font_heading_scale | times: 0.36 }}rem);
+    --font-size-2xl: calc({{ settings.font_heading_scale | times: 0.24 }}rem);
+  }
+}
+
+/* Print styles */
+@media print {
+  .skip-to-content-link,
+  .mobile-book-bar,
+  header,
+  footer {
+    display: none;
+  }
+}
