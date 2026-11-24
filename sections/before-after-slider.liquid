@@ -1,0 +1,362 @@
+{%- comment -%}
+  Before/After Slider - Accessible comparison slider
+  Keyboard navigable, reduced-motion aware, with consent disclaimer
+{%- endcomment -%}
+
+<style>
+  .before-after {
+    background-color: var(--color-bg-secondary);
+  }
+  
+  .before-after__header {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+  }
+  
+  .before-after__heading {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .before-after__subheading {
+    color: var(--color-text-light);
+    font-size: var(--font-size-lg);
+  }
+  
+  .before-after__disclaimer {
+    max-width: 800px;
+    margin: 0 auto var(--spacing-2xl);
+    padding: var(--spacing-md);
+    background-color: var(--color-ivory);
+    border-left: 3px solid var(--color-accent);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    line-height: 1.6;
+  }
+  
+  .before-after__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+  
+  @media (min-width: 768px) {
+    .before-after__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .before-after-item {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-soft-black);
+  }
+  
+  .before-after-item__container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+  
+  .before-after-item__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .before-after-item__image--after {
+    clip-path: inset(0 50% 0 0);
+  }
+  
+  .before-after-item__divider {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background-color: var(--color-ivory);
+    pointer-events: none;
+  }
+  
+  .before-after-item__divider::before,
+  .before-after-item__divider::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-ivory);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .before-after-item__divider::before {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .before-after-item__labels {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    pointer-events: none;
+  }
+  
+  .before-after-item__label {
+    background-color: rgba(42, 42, 42, 0.8);
+    color: var(--color-ivory);
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .before-after-item__slider {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 40px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    outline: none;
+    cursor: ew-resize;
+  }
+  
+  .before-after-item__slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-ivory);
+    border-radius: 50%;
+    cursor: ew-resize;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .before-after-item__slider::-moz-range-thumb {
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-ivory);
+    border-radius: 50%;
+    cursor: ew-resize;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .before-after-item__slider:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  
+  .before-after-item__caption {
+    padding: var(--spacing-md);
+    background-color: var(--color-ivory);
+    text-align: center;
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .before-after-item__image--after {
+      transition: none !important;
+    }
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .before-after-item__image--after {
+      transition: clip-path 0.1s ease-out;
+    }
+  }
+</style>
+
+<section class="before-after section">
+  <div class="container">
+    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+      <div class="before-after__header">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="before-after__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        
+        {%- if section.settings.subheading != blank -%}
+          <p class="before-after__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    
+    {%- if section.settings.disclaimer != blank -%}
+      <div class="before-after__disclaimer">
+        {{ section.settings.disclaimer }}
+      </div>
+    {%- endif -%}
+    
+    <div class="before-after__grid">
+      {%- for block in section.blocks -%}
+        <div class="before-after-item" {{ block.shopify_attributes }}>
+          <div class="before-after-item__container">
+            {%- if block.settings.before_image != blank -%}
+              <img
+                src="{{ block.settings.before_image | image_url: width: 800 }}"
+                alt="Before {{ block.settings.treatment_name | escape }}"
+                class="before-after-item__image before-after-item__image--before"
+                loading="lazy"
+                width="800"
+                height="600"
+              >
+            {%- else -%}
+              <div class="before-after-item__image before-after-item__image--before" style="background-color: var(--color-stone);"></div>
+            {%- endif -%}
+            
+            {%- if block.settings.after_image != blank -%}
+              <img
+                src="{{ block.settings.after_image | image_url: width: 800 }}"
+                alt="After {{ block.settings.treatment_name | escape }}"
+                class="before-after-item__image before-after-item__image--after"
+                data-after-image
+                loading="lazy"
+                width="800"
+                height="600"
+              >
+            {%- else -%}
+              <div class="before-after-item__image before-after-item__image--after" data-after-image style="background-color: var(--color-accent);"></div>
+            {%- endif -%}
+            
+            <div class="before-after-item__divider"></div>
+            
+            <div class="before-after-item__labels">
+              <span class="before-after-item__label">Before</span>
+              <span class="before-after-item__label">After</span>
+            </div>
+            
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              class="before-after-item__slider"
+              data-slider
+              aria-label="Slide to compare before and after {{ block.settings.treatment_name | escape }}"
+            >
+          </div>
+          
+          {%- if block.settings.caption != blank -%}
+            <div class="before-after-item__caption">
+              {{ block.settings.caption }}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const sliders = document.querySelectorAll('[data-slider]');
+    
+    sliders.forEach(slider => {
+      const container = slider.closest('.before-after-item__container');
+      const afterImage = container.querySelector('[data-after-image]');
+      
+      function updateSlider(value) {
+        const percentage = value;
+        afterImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+      }
+      
+      slider.addEventListener('input', (e) => {
+        updateSlider(e.target.value);
+      });
+      
+      // Keyboard accessibility
+      slider.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          slider.value = Math.max(0, parseInt(slider.value) - 1);
+          updateSlider(slider.value);
+        } else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          slider.value = Math.min(100, parseInt(slider.value) + 1);
+          updateSlider(slider.value);
+        }
+      });
+      
+      // Initialize
+      updateSlider(slider.value);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Before/After Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Real Results"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "See the transformations our clients have experienced"
+    },
+    {
+      "type": "richtext",
+      "id": "disclaimer",
+      "label": "Disclaimer Text",
+      "default": "<p><strong>Important:</strong> Results may vary. All photos are of actual patients who have consented to their use. Individual results depend on many factors including skin type, age, and treatment adherence.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comparison",
+      "name": "Before/After Comparison",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "before_image",
+          "label": "Before Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "after_image",
+          "label": "After Image"
+        },
+        {
+          "type": "text",
+          "id": "treatment_name",
+          "label": "Treatment Name",
+          "default": "Hydrafacial Treatment"
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Caption",
+          "default": "After 3 treatments over 6 weeks"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Before/After Slider"
+    }
+  ]
+}
+{% endschema %}

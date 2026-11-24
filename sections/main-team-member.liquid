@@ -1,0 +1,270 @@
+{%- comment -%}
+  Main Team Member Section - Individual provider page
+{%- endcomment -%}
+
+<style>
+  .team-member-page {
+    padding: var(--section-spacing) 0;
+  }
+  
+  .team-member-page__grid {
+    display: grid;
+    gap: var(--spacing-2xl);
+  }
+  
+  @media (min-width: 768px) {
+    .team-member-page__grid {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+  
+  .team-member-page__image-wrapper {
+    position: sticky;
+    top: calc(var(--spacing-xl) + 70px);
+    align-self: start;
+  }
+  
+  .team-member-page__image {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+  
+  .team-member-page__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  
+  .team-member-page__title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .team-member-page__credentials {
+    font-size: var(--font-size-lg);
+    color: var(--color-accent);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .team-member-page__title-role {
+    color: var(--color-text-light);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .team-member-page__section {
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-stone);
+  }
+  
+  .team-member-page__section:last-child {
+    border-bottom: none;
+  }
+  
+  .team-member-page__section-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .team-member-page__bio {
+    color: var(--color-text-light);
+    line-height: 1.7;
+  }
+  
+  .team-member-page__specialties-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  @media (min-width: 768px) {
+    .team-member-page__specialties-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .team-member-page__specialty {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    color: var(--color-text-light);
+  }
+  
+  .team-member-page__specialty svg {
+    color: var(--color-accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  
+  .team-member-page__cta {
+    padding: var(--spacing-xl);
+    background-color: var(--color-bg-secondary);
+  }
+  
+  .team-member-page__cta-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+  }
+  
+  .team-member-page__cta-subtitle {
+    text-align: center;
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-lg);
+  }
+</style>
+
+<div class="team-member-page">
+  <div class="container">
+    <div class="team-member-page__grid">
+      <div class="team-member-page__image-wrapper">
+        {%- if section.settings.image != blank -%}
+          <img
+            srcset="
+              {{ section.settings.image | image_url: width: 400 }} 400w,
+              {{ section.settings.image | image_url: width: 600 }} 600w,
+              {{ section.settings.image | image_url: width: 800 }} 800w
+            "
+            src="{{ section.settings.image | image_url: width: 600 }}"
+            sizes="(min-width: 768px) 33vw, 100vw"
+            alt="{{ page.title | escape }}"
+            class="team-member-page__image"
+            loading="eager"
+            fetchpriority="high"
+            width="600"
+            height="800"
+          >
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'team-member-page__image' }}
+        {%- endif -%}
+      </div>
+      
+      <div class="team-member-page__content">
+        <div>
+          <h1 class="team-member-page__title">{{ page.title }}</h1>
+          
+          {%- if section.settings.credentials != blank -%}
+            <div class="team-member-page__credentials">{{ section.settings.credentials }}</div>
+          {%- endif -%}
+          
+          {%- if section.settings.title != blank -%}
+            <div class="team-member-page__title-role">{{ section.settings.title }}</div>
+          {%- endif -%}
+        </div>
+        
+        {%- if page.content != blank -%}
+          <div class="team-member-page__section">
+            <h2 class="team-member-page__section-title">About</h2>
+            <div class="team-member-page__bio rte">
+              {{ page.content }}
+            </div>
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.specialties != blank -%}
+          <div class="team-member-page__section">
+            <h2 class="team-member-page__section-title">Specialties</h2>
+            <ul class="team-member-page__specialties-list">
+              {%- assign specialties_list = section.settings.specialties | newline_to_br | split: '<br />' -%}
+              {%- for specialty in specialties_list -%}
+                {%- assign specialty_text = specialty | strip -%}
+                {%- if specialty_text != blank -%}
+                  <li class="team-member-page__specialty">
+                    {% render 'icon', icon: 'check' %}
+                    <span>{{ specialty_text }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.education != blank -%}
+          <div class="team-member-page__section">
+            <h2 class="team-member-page__section-title">Education & Certifications</h2>
+            <div class="team-member-page__bio">
+              {{ section.settings.education | newline_to_br }}
+            </div>
+          </div>
+        {%- endif -%}
+        
+        <div class="team-member-page__cta">
+          <h2 class="team-member-page__cta-title">Book with {{ page.title | split: ' ' | first }}</h2>
+          <p class="team-member-page__cta-subtitle">Schedule your appointment with this provider</p>
+          
+          {%- for block in section.blocks -%}
+            {%- if block.type == '@app' -%}
+              <div {{ block.shopify_attributes }}>
+                {% render block %}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+          
+          {%- if section.blocks.size == 0 -%}
+            <div style="text-align: center;">
+              <a 
+                href="{{ section.settings.book_link | default: '#book' }}" 
+                class="button button--primary"
+                data-book-cta
+                data-cta-type="book"
+                data-treatment-name="Appointment with {{ page.title | escape }}"
+              >
+                Book Appointment
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Team Member Page",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "credentials",
+      "label": "Credentials",
+      "default": "MD, Board Certified Dermatologist"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Medical Director"
+    },
+    {
+      "type": "textarea",
+      "id": "specialties",
+      "label": "Specialties (one per line)",
+      "default": "Injectable treatments\nLaser therapy\nSkin rejuvenation\nChemical peels"
+    },
+    {
+      "type": "textarea",
+      "id": "education",
+      "label": "Education & Certifications (one per line)",
+      "default": "MD, Stanford University School of Medicine\nBoard Certified, American Board of Dermatology\nFellow, American Academy of Dermatology"
+    },
+    {
+      "type": "url",
+      "id": "book_link",
+      "label": "Booking Link (if no app block)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}
