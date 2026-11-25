@@ -1,0 +1,271 @@
+{%- comment -%}
+  Step 1: Treatment Selection
+  Displays treatment tiles with category filters
+{%- endcomment -%}
+
+<style>
+  .treatment-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .treatment-filter-pill {
+    padding: 10px 20px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-pill);
+    background-color: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .treatment-filter-pill:hover {
+    background-color: var(--color-subtle-surface);
+  }
+  
+  .treatment-filter-pill[aria-pressed="true"] {
+    background-color: var(--color-text);
+    color: var(--color-surface);
+    border-color: var(--color-text);
+  }
+  
+  .treatment-tiles {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+  
+  @media (min-width: 640px) {
+    .treatment-tiles {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .treatment-tile {
+    padding: 24px;
+    border: 2px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .treatment-tile:hover {
+    border-color: var(--color-sage);
+    transform: translateY(-2px);
+  }
+  
+  .treatment-tile.selected {
+    border-color: var(--color-sage);
+    background-color: var(--color-sage-soft);
+  }
+  
+  .treatment-tile__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  
+  .treatment-tile__category {
+    display: inline-flex;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-beige);
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .treatment-tile__name {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .treatment-tile__description {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+    margin-bottom: 16px;
+  }
+  
+  .treatment-tile__meta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  
+  .treatment-tile__meta-chip {
+    display: inline-flex;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-subtle-surface);
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .treatment-tile__price {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .consult-card {
+    padding: 24px;
+    border: 2px dashed var(--color-line);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-sage-soft);
+    text-align: center;
+  }
+  
+  .consult-card__title {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .consult-card__description {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    margin-bottom: 16px;
+  }
+</style>
+
+<div class="booking-step-panel active" data-step="1" aria-hidden="false">
+  <h2 class="step-panel__title">{{ section.settings.step_1_heading | default: "Choose your treatment" }}</h2>
+  
+  <!-- Category Filters -->
+  <div class="treatment-filters">
+    <button 
+      type="button" 
+      class="treatment-filter-pill" 
+      data-category="all"
+      aria-pressed="true"
+    >
+      All treatments
+    </button>
+    <button 
+      type="button" 
+      class="treatment-filter-pill" 
+      data-category="facials"
+      aria-pressed="false"
+    >
+      Facials
+    </button>
+    <button 
+      type="button" 
+      class="treatment-filter-pill" 
+      data-category="injectables"
+      aria-pressed="false"
+    >
+      Injectables
+    </button>
+    <button 
+      type="button" 
+      class="treatment-filter-pill" 
+      data-category="laser"
+      aria-pressed="false"
+    >
+      Laser
+    </button>
+    <button 
+      type="button" 
+      class="treatment-filter-pill" 
+      data-category="body"
+      aria-pressed="false"
+    >
+      Body
+    </button>
+  </div>
+  
+  <!-- Treatment Tiles -->
+  <div class="treatment-tiles">
+    {%- liquid
+      assign treatments_collection = collections[section.settings.treatments_collection]
+      
+      if treatments_collection != blank and treatments_collection.products.size > 0
+        for product in treatments_collection.products limit: 10
+          assign category = product.metafields.custom.category | default: 'facials'
+          assign duration = product.metafields.custom.duration | default: '60 min'
+          assign downtime = product.metafields.custom.downtime | default: 'None'
+          
+          render 'booking-treatment-tile', 
+            product: product,
+            category: category,
+            duration: duration,
+            downtime: downtime
+        endfor
+      else
+        # Demo treatments
+        render 'booking-treatment-tile-demo', 
+          id: '1',
+          name: 'Signature Facial',
+          category: 'facials',
+          description: 'Deep cleansing, exfoliation, and hydration for glowing skin.',
+          duration: '60 min',
+          downtime: 'None',
+          price: 150
+        
+        render 'booking-treatment-tile-demo',
+          id: '2', 
+          name: 'Botox',
+          category: 'injectables',
+          description: 'Smooth fine lines and wrinkles with precision injections.',
+          duration: '30 min',
+          downtime: 'Minimal',
+          price: 350
+        
+        render 'booking-treatment-tile-demo',
+          id: '3',
+          name: 'Laser Hair Removal',
+          category: 'laser',
+          description: 'Permanent hair reduction for smooth, maintenance-free skin.',
+          duration: '45 min',
+          downtime: '1-2 days',
+          price: 200
+        
+        render 'booking-treatment-tile-demo',
+          id: '4',
+          name: 'Body Contouring',
+          category: 'body',
+          description: 'Non-invasive body sculpting for targeted fat reduction.',
+          duration: '90 min',
+          downtime: 'None',
+          price: 400
+        
+        render 'booking-treatment-tile-demo',
+          id: '5',
+          name: 'Microneedling',
+          category: 'facials',
+          description: 'Stimulate collagen production for firmer, smoother skin.',
+          duration: '75 min',
+          downtime: '2-3 days',
+          price: 250
+        
+        render 'booking-treatment-tile-demo',
+          id: '6',
+          name: 'Dermal Fillers',
+          category: 'injectables',
+          description: 'Restore volume and enhance facial contours naturally.',
+          duration: '45 min',
+          downtime: 'Minimal',
+          price: 500
+      endif
+    -%}
+    
+    <!-- Free Consultation Card -->
+    <div class="consult-card">
+      <div class="consult-card__title">Not sure? Book a free consultation</div>
+      <p class="consult-card__description">15 minutes with one of our licensed providers</p>
+      <button type="button" class="button button--compact button--light">
+        Book consultation
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,211 @@
+{%- comment -%}
+  Step 2: Provider & Location Selection
+{%- endcomment -%}
+
+<style>
+  .selection-section {
+    margin-bottom: var(--spacing-3xl);
+  }
+  
+  .selection-section__title {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .provider-tiles,
+  .location-tiles {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr;
+  }
+  
+  @media (min-width: 640px) {
+    .provider-tiles,
+    .location-tiles {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .provider-tile,
+  .location-tile {
+    padding: 20px;
+    border: 2px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .provider-tile:hover,
+  .location-tile:hover {
+    border-color: var(--color-sage);
+    transform: translateY(-2px);
+  }
+  
+  .provider-tile.selected,
+  .location-tile.selected {
+    border-color: var(--color-sage);
+    background-color: var(--color-sage-soft);
+  }
+  
+  .provider-tile__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .provider-tile__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--color-beige);
+    overflow: hidden;
+  }
+  
+  .provider-tile__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .provider-tile__info {
+    flex: 1;
+  }
+  
+  .provider-tile__name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  
+  .provider-tile__role {
+    font-size: 13px;
+    color: var(--color-text-muted);
+  }
+  
+  .location-tile__name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .location-tile__address {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+</style>
+
+<div class="booking-step-panel" data-step="2" aria-hidden="true">
+  <h2 class="step-panel__title">{{ section.settings.step_2_heading | default: "Choose provider & location" }}</h2>
+  
+  <!-- Provider Selection -->
+  <div class="selection-section">
+    <h3 class="selection-section__title">Select your provider</h3>
+    
+    <div class="provider-tiles">
+      <!-- Demo providers -->
+      <div 
+        class="provider-tile"
+        data-provider-id="1"
+        data-provider-name="Dr. Sarah Chen"
+        role="button"
+        tabindex="0"
+        aria-pressed="false"
+      >
+        <div class="provider-tile__header">
+          <div class="provider-tile__avatar">
+            <!-- Placeholder avatar -->
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="24" r="24" fill="#E9E1D6"/>
+              <circle cx="24" cy="18" r="8" fill="#6E6962"/>
+              <path d="M8 42c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="#6E6962"/>
+            </svg>
+          </div>
+          <div class="provider-tile__info">
+            <div class="provider-tile__name">Dr. Sarah Chen</div>
+            <div class="provider-tile__role">Licensed Provider</div>
+          </div>
+        </div>
+      </div>
+      
+      <div 
+        class="provider-tile"
+        data-provider-id="2"
+        data-provider-name="Lisa Martinez"
+        role="button"
+        tabindex="0"
+        aria-pressed="false"
+      >
+        <div class="provider-tile__header">
+          <div class="provider-tile__avatar">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="24" r="24" fill="#EEDBD3"/>
+              <circle cx="24" cy="18" r="8" fill="#6E6962"/>
+              <path d="M8 42c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="#6E6962"/>
+            </svg>
+          </div>
+          <div class="provider-tile__info">
+            <div class="provider-tile__name">Lisa Martinez</div>
+            <div class="provider-tile__role">Licensed Esthetician</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Location Selection -->
+  <div class="selection-section">
+    <h3 class="selection-section__title">Select your studio</h3>
+    
+    <div class="location-tiles">
+      <!-- Demo locations -->
+      <div 
+        class="location-tile"
+        data-location-id="1"
+        data-location-name="Downtown Studio"
+        role="button"
+        tabindex="0"
+        aria-pressed="false"
+      >
+        <div class="location-tile__name">Downtown Studio</div>
+        <div class="location-tile__address">
+          123 Main Street<br>
+          New York, NY 10001
+        </div>
+      </div>
+      
+      <div 
+        class="location-tile"
+        data-location-id="2"
+        data-location-name="Uptown Studio"
+        role="button"
+        tabindex="0"
+        aria-pressed="false"
+      >
+        <div class="location-tile__name">Uptown Studio</div>
+        <div class="location-tile__address">
+          456 Park Avenue<br>
+          New York, NY 10021
+        </div>
+      </div>
+      
+      <div 
+        class="location-tile"
+        data-location-id="3"
+        data-location-name="Brooklyn Studio"
+        role="button"
+        tabindex="0"
+        aria-pressed="false"
+      >
+        <div class="location-tile__name">Brooklyn Studio</div>
+        <div class="location-tile__address">
+          789 Bedford Avenue<br>
+          Brooklyn, NY 11211
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

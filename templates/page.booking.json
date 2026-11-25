@@ -1,21 +1,55 @@
 {
   "sections": {
-    "main": {
-      "type": "main-page",
+    "main-booking": {
+      "type": "main-booking",
       "settings": {
-        "show_title": true
+        "heading": "Book your visit.",
+        "step_1_label": "Treatment",
+        "step_2_label": "Provider & location",
+        "step_3_label": "Date & time",
+        "step_4_label": "Your details",
+        "step_5_label": "Confirm",
+        "summary_title": "Your booking",
+        "due_today_label": "Due today",
+        "due_visit_label": "Due at visit",
+        "policy_title": "Cancellation policy",
+        "policy_text": "Cancel or reschedule up to 24 hours before your appointment for a full refund of your deposit.",
+        "back_label": "Back",
+        "continue_label": "Continue",
+        "step_1_heading": "Choose your treatment",
+        "step_2_heading": "Choose provider & location",
+        "step_3_heading": "Select date & time",
+        "step_4_heading": "Your details",
+        "confirmation_title": "You're all set!",
+        "confirmation_message": "We've sent a confirmation email with all the details. We look forward to seeing you.",
+        "treatments_collection": "treatments"
+      },
+      "blocks": {}
+    },
+    "booking-consult": {
+      "type": "booking-consult",
+      "settings": {
+        "heading": "Not sure where to start?",
+        "subheading": "Book a free 15-minute consultation",
+        "description": "Connect with one of our licensed providers to discuss your skin goals and get personalized treatment recommendations."
       }
     },
-    "booking": {
-      "type": "booking-app",
+    "trust-row": {
+      "type": "trust-row",
+      "settings": {}
+    },
+    "booking-faq": {
+      "type": "faq",
       "settings": {
-        "heading": "",
-        "subheading": "Select your preferred date and time below"
+        "heading": "Booking FAQs",
+        "subheading": "Common questions about booking appointments"
       }
     }
   },
   "order": [
-    "main",
-    "booking"
+    "main-booking",
+    "booking-consult",
+    "trust-row",
+    "booking-faq"
   ]
 }

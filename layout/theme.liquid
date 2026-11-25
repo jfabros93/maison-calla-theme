@@ -30,50 +30,66 @@
 
     <style>
       :root {
-        /* Colors */
-        --color-ivory: {{ settings.color_ivory }};
-        --color-stone: {{ settings.color_stone }};
-        --color-soft-black: {{ settings.color_soft_black }};
-        --color-rose: {{ settings.color_rose }};
-        --color-gold: {{ settings.color_gold }};
-        --color-accent: {% if settings.accent_color_scheme == 'gold' %}var(--color-gold){% else %}var(--color-rose){% endif %};
+        /* Maison Calla Design System - Phase 2 */
         
-        --color-bg: var(--color-ivory);
-        --color-bg-secondary: var(--color-stone);
-        --color-text: var(--color-soft-black);
-        --color-text-light: rgba(42, 42, 42, 0.7);
+        /* Background & Surface Colors */
+        --color-page-bg: #F9F9F9;
+        --color-surface: #FFFFFF;
+        --color-subtle-surface: #F1F1F1;
+        
+        /* Tint Colors */
+        --color-beige: #E9E1D6;
+        --color-tan: #D8C2A4;
+        --color-blush: #EEDBD3;
+        --color-sage-soft: #DFE4D5;
+        --color-stone: #E3DFD8;
+        
+        /* Accent Colors */
+        --color-sage: #A3B18A;
+        --color-sage-deep: #5E6B4A;
+        
+        /* Text & Line Colors */
+        --color-text: #151515;
+        --color-text-muted: #6E6962;
+        --color-line: #DAD4CB;
+        
+        /* Legacy Support (for backward compatibility) */
+        --color-bg: var(--color-page-bg);
+        --color-accent: var(--color-sage);
+        --color-soft-black: var(--color-text);
+        --color-ivory: var(--color-surface);
+        
+        /* Border Radius Scale */
+        --radius-sm: 12px;
+        --radius-md: 20px;
+        --radius-lg: 28px;
+        --radius-xl: 36px;
+        --radius-pill: 999px;
+        
+        /* Spacing Scale (8px base) */
+        --spacing-xs: 8px;
+        --spacing-sm: 16px;
+        --spacing-md: 24px;
+        --spacing-lg: 32px;
+        --spacing-xl: 40px;
+        --spacing-2xl: 48px;
+        --spacing-3xl: 64px;
+        --spacing-4xl: 80px;
+        --spacing-5xl: 96px;
+        --spacing-6xl: 120px;
         
         /* Typography */
-        --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
-        --font-body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
-        --font-heading-weight: {{ settings.font_heading.weight }};
-        --font-body-weight: {{ settings.font_body.weight }};
-        --font-heading-style: {{ settings.font_heading.style }};
-        --font-body-style: {{ settings.font_body.style }};
-        
-        --font-size-base: {{ settings.font_body_scale | times: 0.16 }}rem;
-        --font-size-sm: {{ settings.font_body_scale | times: 0.14 }}rem;
-        --font-size-lg: {{ settings.font_body_scale | times: 0.18 }}rem;
-        --font-size-xl: {{ settings.font_heading_scale | times: 0.24 }}rem;
-        --font-size-2xl: {{ settings.font_heading_scale | times: 0.32 }}rem;
-        --font-size-3xl: {{ settings.font_heading_scale | times: 0.48 }}rem;
-        
-        /* Spacing */
-        --spacing-base: {{ settings.spacing_base }}px;
-        --spacing-sm: calc(var(--spacing-base) * 0.5);
-        --spacing-md: calc(var(--spacing-base) * 1);
-        --spacing-lg: calc(var(--spacing-base) * 1.5);
-        --spacing-xl: calc(var(--spacing-base) * 2);
-        --spacing-2xl: calc(var(--spacing-base) * 3);
-        --section-spacing: {{ settings.section_spacing }}px;
+        --font-heading: 'Manrope', {{ settings.font_heading.fallback_families }};
+        --font-body: 'Inter', {{ settings.font_body.fallback_families }};
         
         /* Layout */
-        --container-max-width: {{ settings.container_max_width }}px;
+        --container-max-width: 1200px;
         --container-padding: var(--spacing-md);
+        --section-spacing: var(--spacing-4xl);
         
         /* Interactive */
         --tap-target-min: 44px;
-        --focus-outline: 2px solid var(--color-accent);
+        --focus-outline: 2px solid var(--color-sage);
         --focus-offset: 2px;
         
         /* Transitions */

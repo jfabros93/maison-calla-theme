@@ -1,0 +1,270 @@
+{%- comment -%}
+  Step 4: Your Details Form
+  Includes skin concerns, first visit toggle, notes, SMS reminders, consent
+{%- endcomment -%}
+
+<style>
+  .booking-details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 600px;
+  }
+  
+  .form-row {
+    display: grid;
+    gap: 16px;
+  }
+  
+  @media (min-width: 640px) {
+    .form-row--2-col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  
+  .form-label--optional:after {
+    content: ' (optional)';
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+  
+  .first-visit-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: var(--color-subtle-surface);
+    border-radius: var(--radius-sm);
+  }
+  
+  .first-visit-toggle__label {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  
+  .skin-concerns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .concern-chip {
+    padding: 8px 16px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-surface);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  .concern-chip:hover {
+    border-color: var(--color-sage);
+  }
+  
+  .concern-chip.selected {
+    background-color: var(--color-sage);
+    border-color: var(--color-sage);
+    color: var(--color-surface);
+  }
+  
+  .switch-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  
+  .switch-row:last-child {
+    border-bottom: none;
+  }
+  
+  .switch-row__label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .switch-row__title {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  
+  .switch-row__description {
+    font-size: 13px;
+    color: var(--color-text-muted);
+  }
+  
+  .consent-box {
+    padding: 16px;
+    background-color: var(--color-sage-soft);
+    border-radius: var(--radius-sm);
+  }
+</style>
+
+<div class="booking-step-panel" data-step="4" aria-hidden="true">
+  <h2 class="step-panel__title">{{ section.settings.step_4_heading | default: "Your details" }}</h2>
+  
+  <form class="booking-details-form">
+    <!-- Name & Email -->
+    <div class="form-row form-row--2-col">
+      <div class="form-group">
+        <label class="form-label" for="booking-name">Full name</label>
+        <input 
+          type="text" 
+          id="booking-name" 
+          name="name" 
+          required 
+          placeholder="Enter your name"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label" for="booking-email">Email</label>
+        <input 
+          type="email" 
+          id="booking-email" 
+          name="email" 
+          required 
+          placeholder="you@example.com"
+        >
+      </div>
+    </div>
+    
+    <!-- Phone -->
+    <div class="form-group">
+      <label class="form-label" for="booking-phone">Phone number</label>
+      <input 
+        type="tel" 
+        id="booking-phone" 
+        name="phone" 
+        required 
+        placeholder="(555) 123-4567"
+      >
+    </div>
+    
+    <!-- First Visit Toggle -->
+    <div class="first-visit-toggle">
+      <label for="first-visit-toggle" class="first-visit-toggle__label">
+        Is this your first visit?
+      </label>
+      <div class="toggle">
+        <input type="checkbox" id="first-visit-toggle" name="first_visit">
+        <span class="toggle__slider"></span>
+      </div>
+    </div>
+    
+    <!-- Skin Concerns -->
+    <div class="form-group">
+      <label class="form-label form-label--optional">Skin concerns</label>
+      <div class="skin-concerns">
+        <button 
+          type="button" 
+          class="concern-chip" 
+          data-concern="acne"
+          aria-pressed="false"
+        >
+          Acne
+        </button>
+        <button 
+          type="button" 
+          class="concern-chip" 
+          data-concern="aging"
+          aria-pressed="false"
+        >
+          Aging
+        </button>
+        <button 
+          type="button" 
+          class="concern-chip" 
+          data-concern="dryness"
+          aria-pressed="false"
+        >
+          Dryness
+        </button>
+        <button 
+          type="button" 
+          class="concern-chip" 
+          data-concern="sensitivity"
+          aria-pressed="false"
+        >
+          Sensitivity
+        </button>
+        <button 
+          type="button" 
+          class="concern-chip" 
+          data-concern="pigmentation"
+          aria-pressed="false"
+        >
+          Pigmentation
+        </button>
+        <button 
+          type="button" 
+          class="concern-chip" 
+          data-concern="redness"
+          aria-pressed="false"
+        >
+          Redness
+        </button>
+      </div>
+    </div>
+    
+    <!-- Notes -->
+    <div class="form-group">
+      <label class="form-label form-label--optional" for="booking-notes">
+        Additional notes
+      </label>
+      <textarea 
+        id="booking-notes" 
+        name="notes" 
+        placeholder="Any allergies, preferences, or special requests..."
+        rows="4"
+      ></textarea>
+    </div>
+    
+    <!-- SMS Reminders -->
+    <div class="switch-row">
+      <div class="switch-row__label">
+        <div class="switch-row__title">SMS reminders</div>
+        <div class="switch-row__description">
+          Get text reminders 24 hours and 1 hour before your appointment
+        </div>
+      </div>
+      <div class="toggle">
+        <input type="checkbox" id="sms-reminders" name="sms_reminders" checked>
+        <span class="toggle__slider"></span>
+      </div>
+    </div>
+    
+    <!-- Consent -->
+    <div class="consent-box">
+      <label class="checkbox">
+        <input 
+          type="checkbox" 
+          id="consent-checkbox" 
+          name="consent" 
+          required
+        >
+        <span class="checkbox__label">
+          I agree to the <a href="/pages/terms" style="text-decoration: underline;">terms and conditions</a> and <a href="/pages/privacy" style="text-decoration: underline;">privacy policy</a>. I understand the cancellation policy and consent to treatment.
+        </span>
+      </label>
+    </div>
+  </form>
+</div>

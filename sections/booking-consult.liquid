@@ -1,0 +1,252 @@
+{%- comment -%}
+  Booking Consult Section
+  Promotes free 15-minute consultation with video/in-studio toggle
+{%- endcomment -%}
+
+<style>
+  .booking-consult {
+    padding: var(--spacing-4xl) 0;
+  }
+  
+  .consult-card {
+    padding: var(--spacing-3xl);
+    background-color: var(--color-sage-soft);
+    border-radius: var(--radius-xl);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .consult-card__header {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+  }
+  
+  .consult-card__heading {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .consult-card__subheading {
+    font-size: 19px;
+    color: var(--color-text-muted);
+    margin-bottom: 12px;
+  }
+  
+  .consult-card__description {
+    font-size: 16px;
+    color: var(--color-text-muted);
+  }
+  
+  .consult-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 6px;
+    background-color: var(--color-surface);
+    border-radius: var(--radius-pill);
+    margin-bottom: var(--spacing-3xl);
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .consult-toggle__option {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--radius-pill);
+    background-color: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .consult-toggle__option[aria-pressed="true"] {
+    background-color: var(--color-text);
+    color: var(--color-surface);
+  }
+  
+  .consult-steps {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr;
+    margin-bottom: var(--spacing-3xl);
+  }
+  
+  @media (min-width: 768px) {
+    .consult-steps {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .consult-step {
+    text-align: center;
+  }
+  
+  .consult-step__number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--color-surface);
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  .consult-step__title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .consult-step__description {
+    font-size: 14px;
+    color: var(--color-text-muted);
+  }
+  
+  .consult-cta {
+    text-align: center;
+  }
+</style>
+
+<div class="booking-consult">
+  <div class="container">
+    <div class="consult-card">
+      <div class="consult-card__header">
+        <h2 class="consult-card__heading">{{ section.settings.heading | default: "Not sure where to start?" }}</h2>
+        <p class="consult-card__subheading">{{ section.settings.subheading | default: "Book a free 15-minute consultation" }}</p>
+        <p class="consult-card__description">{{ section.settings.description | default: "Connect with one of our licensed providers to discuss your skin goals and get personalized treatment recommendations." }}</p>
+      </div>
+      
+      <!-- Video vs In-Studio Toggle -->
+      <div class="consult-toggle">
+        <button 
+          type="button" 
+          class="consult-toggle__option" 
+          data-consult-type="video"
+          aria-pressed="true"
+        >
+          Video call
+        </button>
+        <button 
+          type="button" 
+          class="consult-toggle__option" 
+          data-consult-type="studio"
+          aria-pressed="false"
+        >
+          In studio
+        </button>
+      </div>
+      
+      <!-- 3-Step Process -->
+      <div class="consult-steps">
+        <div class="consult-step">
+          <div class="consult-step__number">1</div>
+          <h3 class="consult-step__title">{{ section.settings.step_1_title | default: "Book your time" }}</h3>
+          <p class="consult-step__description">{{ section.settings.step_1_description | default: "Choose a convenient 15-minute slot" }}</p>
+        </div>
+        
+        <div class="consult-step">
+          <div class="consult-step__number">2</div>
+          <h3 class="consult-step__title">{{ section.settings.step_2_title | default: "Meet your provider" }}</h3>
+          <p class="consult-step__description">{{ section.settings.step_2_description | default: "Discuss your concerns and goals" }}</p>
+        </div>
+        
+        <div class="consult-step">
+          <div class="consult-step__number">3</div>
+          <h3 class="consult-step__title">{{ section.settings.step_3_title | default: "Get recommendations" }}</h3>
+          <p class="consult-step__description">{{ section.settings.step_3_description | default: "Receive a personalized treatment plan" }}</p>
+        </div>
+      </div>
+      
+      <div class="consult-cta">
+        <a href="{{ section.settings.consult_link | default: '#book-consult' }}" class="button" data-book-cta data-cta-type="consult">
+          {{ section.settings.cta_label | default: "Book free consultation" }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Booking Consult",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Not sure where to start?"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Book a free 15-minute consultation"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Connect with one of our licensed providers to discuss your skin goals and get personalized treatment recommendations."
+    },
+    {
+      "type": "text",
+      "id": "step_1_title",
+      "label": "Step 1 Title",
+      "default": "Book your time"
+    },
+    {
+      "type": "text",
+      "id": "step_1_description",
+      "label": "Step 1 Description",
+      "default": "Choose a convenient 15-minute slot"
+    },
+    {
+      "type": "text",
+      "id": "step_2_title",
+      "label": "Step 2 Title",
+      "default": "Meet your provider"
+    },
+    {
+      "type": "text",
+      "id": "step_2_description",
+      "label": "Step 2 Description",
+      "default": "Discuss your concerns and goals"
+    },
+    {
+      "type": "text",
+      "id": "step_3_title",
+      "label": "Step 3 Title",
+      "default": "Get recommendations"
+    },
+    {
+      "type": "text",
+      "id": "step_3_description",
+      "label": "Step 3 Description",
+      "default": "Receive a personalized treatment plan"
+    },
+    {
+      "type": "url",
+      "id": "consult_link",
+      "label": "Consultation Link"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Label",
+      "default": "Book free consultation"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Booking Consult"
+    }
+  ]
+}
+{% endschema %}
