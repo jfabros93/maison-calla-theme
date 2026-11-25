@@ -1,0 +1,371 @@
+{%- comment -%}
+  Package Tiles - Display membership and package offerings
+{%- endcomment -%}
+
+<style>
+  .package-tiles {
+    background-color: var(--color-bg);
+  }
+  
+  .package-tiles__header {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .package-tiles__heading {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .package-tiles__subheading {
+    color: var(--color-text-light);
+    font-size: var(--font-size-lg);
+  }
+  
+  .package-tiles__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+  
+  @media (min-width: 768px) {
+    .package-tiles__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .package-tiles__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .package-tile {
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-stone);
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-speed) var(--transition-easing),
+                border-color var(--transition-speed) var(--transition-easing);
+  }
+  
+  .package-tile:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-accent);
+  }
+  
+  .package-tile--featured {
+    border-color: var(--color-accent);
+    border-width: 3px;
+    position: relative;
+  }
+  
+  .package-tile__badge {
+    position: absolute;
+    top: calc(var(--spacing-md) * -1);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-accent);
+    color: var(--color-ivory);
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .package-tile__title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .package-tile__price {
+    font-size: var(--font-size-2xl);
+    font-family: var(--font-heading);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .package-tile__price-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .package-tile__sessions {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .package-tile__savings {
+    color: var(--color-accent);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .package-tile__description {
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+    flex-grow: 1;
+  }
+  
+  .package-tile__features {
+    list-style: none;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .package-tile__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-light);
+  }
+  
+  .package-tile__feature svg {
+    color: var(--color-accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  
+  .package-tile__cta {
+    margin-top: auto;
+  }
+</style>
+
+<section class="package-tiles section">
+  <div class="container">
+    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+      <div class="package-tiles__header">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="package-tiles__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        
+        {%- if section.settings.subheading != blank -%}
+          <p class="package-tiles__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    
+    <div class="package-tiles__grid">
+      {%- for block in section.blocks -%}
+        <div class="package-tile {% if block.settings.featured %}package-tile--featured{% endif %}" {{ block.shopify_attributes }}>
+          {%- if block.settings.featured and block.settings.badge_text != blank -%}
+            <span class="package-tile__badge">{{ block.settings.badge_text }}</span>
+          {%- endif -%}
+          
+          <h3 class="package-tile__title">{{ block.settings.title }}</h3>
+          
+          {%- if block.settings.price != blank -%}
+            <div class="package-tile__price">{{ block.settings.price }}</div>
+            {%- if block.settings.price_label != blank -%}
+              <div class="package-tile__price-label">{{ block.settings.price_label }}</div>
+            {%- endif -%}
+          {%- endif -%}
+          
+          {%- if block.settings.sessions != blank -%}
+            <div class="package-tile__sessions">{{ block.settings.sessions }}</div>
+          {%- endif -%}
+          
+          {%- if block.settings.savings != blank -%}
+            <div class="package-tile__savings">{{ block.settings.savings }}</div>
+          {%- endif -%}
+          
+          {%- if block.settings.description != blank -%}
+            <div class="package-tile__description">
+              {{ block.settings.description }}
+            </div>
+          {%- endif -%}
+          
+          {%- if block.settings.features != blank -%}
+            <ul class="package-tile__features">
+              {%- assign features_list = block.settings.features | newline_to_br | split: '<br />' -%}
+              {%- for feature in features_list -%}
+                {%- assign feature_text = feature | strip -%}
+                {%- if feature_text != blank -%}
+                  <li class="package-tile__feature">
+                    {% render 'icon', icon: 'check' %}
+                    <span>{{ feature_text }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          
+          <div class="package-tile__cta">
+            {%- liquid
+              assign needs_consult = block.settings.consultation_required
+              if needs_consult
+                assign cta_label = settings.consult_button_label | default: 'Schedule Consultation'
+                assign cta_type = 'consult'
+              else
+                assign cta_label = block.settings.cta_label | default: 'Book Package'
+                assign cta_type = 'book'
+              endif
+              
+              assign cta_link = block.settings.cta_link
+              if cta_link == blank and settings.booking_page != blank
+                assign cta_link = pages[settings.booking_page].url
+              endif
+            -%}
+            
+            <a 
+              href="{{ cta_link | default: '#book' }}" 
+              class="button button--primary button--full-width"
+              data-book-cta
+              data-cta-type="{{ cta_type }}"
+              data-treatment-name="{{ block.settings.title | escape }}"
+              data-treatment-price="{{ block.settings.price }}"
+            >
+              {{ cta_label }}
+            </a>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Package Tiles",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Packages & Memberships"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Save more with our treatment packages and membership programs"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "package",
+      "name": "Package",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Package Name",
+          "default": "Essential Package"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "$450"
+        },
+        {
+          "type": "text",
+          "id": "price_label",
+          "label": "Price Label",
+          "default": "per package"
+        },
+        {
+          "type": "text",
+          "id": "sessions",
+          "label": "Sessions Included",
+          "default": "3 sessions included"
+        },
+        {
+          "type": "text",
+          "id": "savings",
+          "label": "Savings Text",
+          "default": "Save $50"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "textarea",
+          "id": "features",
+          "label": "Features (one per line)",
+          "default": "3 treatment sessions\nFlexible scheduling\nValid for 6 months"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Featured Package",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Featured Badge Text",
+          "default": "Most Popular"
+        },
+        {
+          "type": "checkbox",
+          "id": "consultation_required",
+          "label": "Consultation Required",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "CTA Button Label",
+          "default": "Book Package"
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "CTA Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Package Tiles",
+      "blocks": [
+        {
+          "type": "package",
+          "settings": {
+            "title": "Essential",
+            "price": "$450",
+            "sessions": "3 sessions",
+            "savings": "Save $50",
+            "features": "3 treatment sessions\nFlexible scheduling\nValid for 6 months"
+          }
+        },
+        {
+          "type": "package",
+          "settings": {
+            "title": "Premium",
+            "price": "$850",
+            "sessions": "6 sessions",
+            "savings": "Save $150",
+            "featured": true,
+            "badge_text": "Most Popular",
+            "features": "6 treatment sessions\nPriority booking\nComplimentary consultation\nValid for 1 year"
+          }
+        },
+        {
+          "type": "package",
+          "settings": {
+            "title": "Elite Membership",
+            "price": "$199",
+            "price_label": "per month",
+            "sessions": "Monthly benefits",
+            "savings": "Best Value",
+            "features": "1 treatment per month\n20% off additional services\nExclusive member events\nCancel anytime"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

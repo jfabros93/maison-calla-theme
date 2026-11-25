@@ -1,0 +1,55 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-faq-page",
+      "blocks": {
+        "group_1": {
+          "type": "group",
+          "settings": {
+            "group_title": "Booking & Appointments",
+            "faqs": "How do I book an appointment? | You can book online through our booking system, call us directly, or visit us in person. Online booking is available 24/7.\nWhat is your cancellation policy? | We require 24 hours notice for cancellations. Late cancellations or no-shows may be subject to a fee.\nCan I request a specific provider? | Yes! When booking, you can select your preferred provider. We'll do our best to accommodate your request.\nHow early should I arrive for my appointment? | Please arrive 10-15 minutes early for your first visit to complete paperwork. For subsequent visits, arriving 5 minutes early is perfect."
+          }
+        },
+        "group_2": {
+          "type": "group",
+          "settings": {
+            "group_title": "Treatments & Services",
+            "faqs": "Do treatments hurt? | Most treatments cause minimal discomfort. We use numbing cream when appropriate and always prioritize your comfort.\nHow long do results last? | Results vary by treatment. Injectable treatments typically last 3-6 months, while laser treatments can last several years with proper skincare.\nAre your treatments safe? | Yes. All treatments are performed by licensed professionals using FDA-approved equipment and products.\nWhat should I do to prepare for my treatment? | Avoid sun exposure, retinoids, and certain medications before treatment. We'll provide detailed prep instructions during your consultation."
+          }
+        },
+        "group_3": {
+          "type": "group",
+          "settings": {
+            "group_title": "Pricing & Packages",
+            "faqs": "Do you offer package deals? | Yes! We offer treatment packages and membership programs that provide savings compared to individual sessions.\nWhat payment methods do you accept? | We accept all major credit cards, debit cards, and offer financing options through CareCredit.\nDo you take insurance? | Most cosmetic treatments are not covered by insurance. However, some medical treatments may be covered. Contact your insurance provider to verify.\nCan I use my HSA or FSA? | Yes! Many of our treatments qualify for HSA/FSA payment. Check with your plan administrator."
+          }
+        },
+        "group_4": {
+          "type": "group",
+          "settings": {
+            "group_title": "Safety & Credentials",
+            "faqs": "Are your providers licensed? | Yes. All our providers are licensed, board-certified medical professionals with extensive training in aesthetic treatments.\nIs your facility clean and safe? | Absolutely. We maintain the highest standards of cleanliness and follow all health department guidelines.\nWhat if I have sensitive skin? | We customize every treatment plan. During your consultation, we'll assess your skin type and any sensitivities to create a safe, effective plan.\nDo you use FDA-approved products? | Yes. We only use FDA-approved products and equipment from reputable manufacturers."
+          }
+        },
+        "group_5": {
+          "type": "group",
+          "settings": {
+            "group_title": "Locations & Hours",
+            "faqs": "Where are you located? | We have locations throughout the city. Visit our Locations page for addresses, hours, and directions.\nAre you open on weekends? | Yes! We're open Saturdays and some locations offer Sunday appointments. Hours vary by location.\nDo you offer virtual consultations? | Yes. We offer complimentary virtual consultations for treatment planning and follow-up appointments.\nIs parking available? | Yes. All locations offer free parking for clients."
+          }
+        }
+      },
+      "block_order": [
+        "group_1",
+        "group_2",
+        "group_3",
+        "group_4",
+        "group_5"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

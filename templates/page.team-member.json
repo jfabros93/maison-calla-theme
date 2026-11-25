@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-team-member",
+      "settings": {
+        "credentials": "MD, Board Certified Dermatologist",
+        "title": "Medical Director",
+        "specialties": "Injectable treatments (Botox, dermal fillers)\nLaser skin resurfacing\nSkin rejuvenation treatments\nChemical peels and facials\nBody contouring",
+        "education": "MD, Stanford University School of Medicine\nResidency, UCLA Department of Dermatology\nBoard Certified, American Board of Dermatology\nFellow, American Academy of Dermatology"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

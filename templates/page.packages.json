@@ -1,0 +1,123 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": true
+      }
+    },
+    "packages": {
+      "type": "package-tiles",
+      "blocks": {
+        "package_1": {
+          "type": "package",
+          "settings": {
+            "title": "Essential Package",
+            "price": "$450",
+            "price_label": "one-time payment",
+            "sessions": "3 treatment sessions",
+            "savings": "Save $50 vs. individual sessions",
+            "description": "Perfect for trying multiple treatments at a discounted rate.",
+            "features": "3 treatment sessions of your choice\nFlexible scheduling\nValid for 6 months\nTransferable to family",
+            "featured": false,
+            "cta_label": "Book Essential Package"
+          }
+        },
+        "package_2": {
+          "type": "package",
+          "settings": {
+            "title": "Premium Package",
+            "price": "$850",
+            "price_label": "one-time payment",
+            "sessions": "6 treatment sessions",
+            "savings": "Save $150 vs. individual sessions",
+            "description": "Our most popular package for comprehensive results.",
+            "features": "6 treatment sessions of your choice\nPriority booking\nComplimentary consultation\nValid for 1 year\n10% off retail products",
+            "featured": true,
+            "badge_text": "Most Popular",
+            "cta_label": "Book Premium Package"
+          }
+        },
+        "package_3": {
+          "type": "package",
+          "settings": {
+            "title": "Elite Membership",
+            "price": "$199",
+            "price_label": "per month",
+            "sessions": "Monthly membership benefits",
+            "savings": "Best value for regular treatments",
+            "description": "Join our membership for ongoing care and exclusive perks.",
+            "features": "1 treatment per month\n20% off all additional services\n15% off retail products\nExclusive member events\nPriority booking\nCancel anytime",
+            "featured": false,
+            "cta_label": "Join Membership"
+          }
+        }
+      },
+      "block_order": [
+        "package_1",
+        "package_2",
+        "package_3"
+      ],
+      "settings": {
+        "heading": "Packages & Memberships",
+        "subheading": "Save more with our treatment packages and membership programs designed for your wellness journey"
+      }
+    },
+    "booking_app": {
+      "type": "booking-app",
+      "settings": {
+        "heading": "Book Your Package",
+        "subheading": "Select your package and schedule your first session"
+      }
+    },
+    "package_faq": {
+      "type": "faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "How long are packages valid?",
+            "answer": "<p>Essential packages are valid for 6 months, Premium packages for 1 year, and Elite memberships are ongoing monthly subscriptions that can be cancelled anytime.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I share my package with family or friends?",
+            "answer": "<p>Yes! Package sessions can be transferred to immediate family members. Please contact us to coordinate.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What if I need to cancel my membership?",
+            "answer": "<p>Elite memberships can be cancelled at any time with 30 days notice. No cancellation fees apply.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I apply my package to any treatment?",
+            "answer": "<p>Yes! Package sessions can be used for any of our standard treatments. Some specialty treatments may require an additional fee.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
+      "settings": {
+        "heading": "Package FAQ",
+        "subheading": "Common questions about our packages and memberships"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "packages",
+    "booking_app",
+    "package_faq"
+  ]
+}

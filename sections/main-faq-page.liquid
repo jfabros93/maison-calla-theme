@@ -1,0 +1,209 @@
+{%- comment -%}
+  Main FAQ Page - Full FAQ page with grouped accordions and FAQPage JSON-LD
+{%- endcomment -%}
+
+<style>
+  .faq-page {
+    padding: var(--section-spacing) 0;
+  }
+  
+  .faq-page__header {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .faq-page__title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .faq-page__description {
+    color: var(--color-text-light);
+    font-size: var(--font-size-lg);
+  }
+  
+  .faq-page__groups {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+  }
+  
+  .faq-group {
+    background-color: var(--color-bg);
+  }
+  
+  .faq-group__heading {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 2px solid var(--color-accent);
+  }
+  
+  .faq-group__list {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
+<div class="faq-page">
+  <div class="container">
+    <div class="faq-page__header">
+      <h1 class="faq-page__title">{{ page.title }}</h1>
+      
+      {%- if page.content != blank -%}
+        <div class="faq-page__description rte">
+          {{ page.content }}
+        </div>
+      {%- endif -%}
+    </div>
+    
+    <div class="faq-page__groups">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'group' -%}
+          <div class="faq-group" {{ block.shopify_attributes }}>
+            {%- if block.settings.group_title != blank -%}
+              <h2 class="faq-group__heading">{{ block.settings.group_title }}</h2>
+            {%- endif -%}
+            
+            <div class="faq-group__list">
+              {%- assign faqs = block.settings.faqs | newline_to_br | split: '<br />' -%}
+              {%- for faq_line in faqs -%}
+                {%- assign faq_parts = faq_line | strip | split: '|' -%}
+                {%- if faq_parts.size >= 2 -%}
+                  {%- assign question = faq_parts[0] | strip -%}
+                  {%- assign answer = faq_parts[1] | strip -%}
+                  
+                  {%- if question != blank and answer != blank -%}
+                    <div class="faq-item">
+                      <button 
+                        type="button"
+                        class="faq-item__question"
+                        aria-expanded="false"
+                        aria-controls="faq-answer-{{ block.id }}-{{ forloop.index }}"
+                      >
+                        <span>{{ question }}</span>
+                        <span class="faq-item__icon">
+                          {% render 'icon', icon: 'chevron-down' %}
+                        </span>
+                      </button>
+                      
+                      <div id="faq-answer-{{ block.id }}-{{ forloop.index }}" class="faq-item__answer">
+                        <div class="faq-item__answer-content">
+                          <p>{{ answer }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- comment -%} FAQPage JSON-LD Schema {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'group' -%}
+        {%- assign faqs = block.settings.faqs | newline_to_br | split: '<br />' -%}
+        {%- for faq_line in faqs -%}
+          {%- assign faq_parts = faq_line | strip | split: '|' -%}
+          {%- if faq_parts.size >= 2 -%}
+            {%- assign question = faq_parts[0] | strip -%}
+            {%- assign answer = faq_parts[1] | strip -%}
+            
+            {%- if question != blank and answer != blank -%}
+              {
+                "@type": "Question",
+                "name": {{ question | json }},
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": {{ answer | json }}
+                }
+              }{%- unless forloop.last -%},{%- endunless -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- unless forloop.last -%}
+          {%- assign has_more = false -%}
+          {%- for remaining_block in section.blocks -%}
+            {%- if remaining_block.type == 'group' and forloop.index > forloop.parentloop.index -%}
+              {%- assign has_more = true -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if has_more -%},{%- endif -%}
+        {%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+
+<script>
+  (function() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const button = item.querySelector('.faq-item__question');
+      
+      button.addEventListener('click', () => {
+        const isOpen = item.classList.contains('is-open');
+        
+        // Close all items in this group
+        const group = item.closest('.faq-group__list');
+        group.querySelectorAll('.faq-item').forEach(otherItem => {
+          otherItem.classList.remove('is-open');
+          const otherButton = otherItem.querySelector('.faq-item__question');
+          otherButton.setAttribute('aria-expanded', 'false');
+        });
+        
+        // Open clicked item if it was closed
+        if (!isOpen) {
+          item.classList.add('is-open');
+          button.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Page",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "group",
+      "name": "FAQ Group",
+      "settings": [
+        {
+          "type": "text",
+          "id": "group_title",
+          "label": "Group Title",
+          "default": "General Questions"
+        },
+        {
+          "type": "textarea",
+          "id": "faqs",
+          "label": "FAQs (Question | Answer, one per line)",
+          "default": "How do I book an appointment? | You can book online through our booking system or call us directly.\nWhat should I expect during my first visit? | Your first visit includes a consultation to discuss your goals.",
+          "info": "Format: Question | Answer (separated by pipe, one per line)"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

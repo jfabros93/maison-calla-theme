@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-location",
+      "settings": {
+        "address": "123 Wellness Avenue\nSuite 200\nSan Francisco, CA 94102",
+        "phone": "(555) 123-4567",
+        "hours": "Monday - Friday: 9:00am - 7:00pm\nSaturday: 10:00am - 5:00pm\nSunday: Closed",
+        "map_embed": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0977127686773!2d-122.41941508468205!3d37.78579907975693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDQ3JzA4LjkiTiAxMjLCsDI1JzA0LjkiVw!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
