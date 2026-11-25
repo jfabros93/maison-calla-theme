@@ -195,7 +195,7 @@
           assign duration = product.metafields.custom.duration | default: '60 min'
           assign downtime = product.metafields.custom.downtime | default: 'None'
           
-          render 'booking-treatment-tile', 
+          render 'booking-treatment-tile-demo', 
             product: product,
             category: category,
             duration: duration,

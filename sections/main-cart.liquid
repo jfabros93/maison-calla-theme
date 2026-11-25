@@ -121,7 +121,7 @@
         <div class="cart-empty" style="display: none;">
           <h2>Your cart is empty</h2>
           <p>Add treatments or products to get started</p>
-          <a href="/collections/all" class="button">{{ section.settings.continue_shopping_text | default: "Continue shopping" }}</a>
+          <a href="{{ routes.all_products_collection_url }}" class="button">{{ section.settings.continue_shopping_text | default: "Continue shopping" }}</a>
         </div>
       </div>
       
