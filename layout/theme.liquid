@@ -131,6 +131,8 @@
     {% if settings.mobile_book_bar_enabled %}
       {% render 'mobile-book-bar' %}
     {% endif %}
+    
+    {% render 'cart-drawer' %}
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'general.accessibility.refresh_page' | t }}</li>

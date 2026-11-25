@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "main-cart": {
+      "type": "main-cart",
+      "settings": {
+        "heading": "Your bag",
+        "continue_shopping_text": "Continue shopping",
+        "aftercare_product": "",
+        "gift_card_product": "",
+        "membership_product": "",
+        "show_trust_badges": true,
+        "policy_title": "Cancellation policy",
+        "policy_text": "Cancel or reschedule up to 24 hours before your appointment for a full refund of your deposit. Product returns accepted within 30 days."
+      }
+    }
+  },
+  "order": [
+    "main-cart"
+  ]
+}
