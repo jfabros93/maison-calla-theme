@@ -3,60 +3,169 @@
     "main": {
       "type": "main-product-treatment",
       "blocks": {
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
-        "duration": {
-          "type": "duration",
-          "settings": {}
-        },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
-        "what_to_expect": {
-          "type": "what_to_expect",
-          "settings": {}
-        },
-        "aftercare": {
-          "type": "aftercare",
-          "settings": {}
-        },
-        "booking_cta": {
-          "type": "booking_cta",
-          "settings": {}
-        },
         "app_block_1": {
           "type": "@app"
         }
       },
       "block_order": [
-        "title",
-        "price",
-        "duration",
-        "description",
-        "what_to_expect",
-        "aftercare",
-        "booking_cta",
         "app_block_1"
       ],
       "settings": {}
     },
-    "related_treatments": {
-      "type": "related-products",
+    "accordions": {
+      "type": "treatment-accordions",
+      "blocks": {
+        "accordion_1": {
+          "type": "accordion",
+          "settings": {
+            "title": "What to expect",
+            "content": "<p>This treatment provides deep cleansing and intense hydration. You'll experience a refreshing sensation as we cleanse, exfoliate, and infuse your skin with nourishing serums. The process is gentle and relaxing, with no discomfort.</p>"
+          }
+        },
+        "accordion_2": {
+          "type": "accordion",
+          "settings": {
+            "title": "Who it's for",
+            "content": "<p>Ideal for all skin types, especially those looking to improve texture, tone, and hydration. Perfect for anyone seeking a radiant, healthy glow without downtime.</p>"
+          }
+        },
+        "accordion_3": {
+          "type": "accordion",
+          "settings": {
+            "title": "Before & after care",
+            "content": "<p>Before: Arrive with clean skin, free of makeup. Avoid harsh exfoliants 24 hours before your appointment.</p><p>After: Stay well-hydrated, use sunscreen daily, and avoid intense heat or vigorous exercise for 24-48 hours. Continue your regular skincare routine with gentle products.</p>"
+          }
+        },
+        "accordion_4": {
+          "type": "accordion",
+          "settings": {
+            "title": "Contraindications",
+            "content": "<p>This treatment is not recommended if you are pregnant, nursing, or have active skin infections, open wounds, or severe rosacea. Please inform your provider of any allergies, medical conditions, or medications.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_1",
+        "accordion_2",
+        "accordion_3",
+        "accordion_4"
+      ],
+      "settings": {}
+    },
+    "before_after_strip": {
+      "type": "before-after-strip",
+      "blocks": {
+        "image_pair_1": {
+          "type": "image_pair",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "image_pair_1"
+      ],
       "settings": {
-        "heading": "You May Also Like",
-        "products_to_show": 3
+        "heading": "Before & After"
+      }
+    },
+    "pairs_well_with": {
+      "type": "pairs-well-with",
+      "settings": {
+        "heading": "Pairs well with",
+        "show_treatments": true,
+        "treatments_title": "Add-on treatments",
+        "show_products": true,
+        "products_title": "Aftercare products"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "How often should I get this treatment?",
+            "answer": "<p>For optimal results, we recommend monthly treatments. Your provider will create a personalized plan based on your skin goals.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Will I see results immediately?",
+            "answer": "<p>Many clients notice an immediate glow and improved texture. Results continue to improve over the following days as your skin continues to benefit from the treatment.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I wear makeup after?",
+            "answer": "<p>We recommend waiting at least 4-6 hours before applying makeup to allow your skin to fully absorb the benefits of the treatment.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Is there any downtime?",
+            "answer": "<p>No downtime is required. You may experience mild redness that typically subsides within an hour. You can return to your normal activities immediately.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
+      "settings": {
+        "heading": "Frequently asked questions",
+        "subheading": "Everything you need to know about this treatment"
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "text": "My skin feels incredible after this treatment. The results lasted for weeks and I've already booked my next appointment.",
+            "author_name": "Emily R.",
+            "author_meta": "Verified client"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "text": "The provider took the time to explain everything and customized the treatment for my sensitive skin. Highly recommend!",
+            "author_name": "David L.",
+            "author_meta": "Verified client"
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "text": "Best treatment I've had. The glow is real and my skin texture has improved so much. Worth every penny.",
+            "author_name": "Rachel K.",
+            "author_meta": "Verified client"
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "heading": "Client reviews",
+        "rating": "4.9",
+        "rating_count": "120+"
       }
     }
   },
   "order": [
     "main",
-    "related_treatments"
+    "accordions",
+    "before_after_strip",
+    "pairs_well_with",
+    "faq",
+    "reviews"
   ]
 }

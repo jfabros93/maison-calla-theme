@@ -1,203 +1,234 @@
 {%- comment -%}
-  Site footer with concept notice, social links, and navigation
+  Site footer with dark rounded design, newsletter, and navigation
 {%- endcomment -%}
 
 <style>
   .footer {
-    background-color: var(--color-soft-black);
-    color: var(--color-ivory);
-    padding-top: var(--section-spacing);
-    padding-bottom: var(--spacing-xl);
-    margin-top: var(--section-spacing);
+    margin: var(--spacing-8) var(--container-padding) var(--spacing-4);
+    background-color: var(--color-text);
+    color: var(--color-surface);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8) var(--spacing-6);
+  }
+  
+  @media (min-width: 768px) {
+    .footer {
+      padding: var(--spacing-10) var(--spacing-8);
+    }
   }
   
   .footer__inner {
     display: grid;
-    gap: var(--spacing-xl);
-    margin-bottom: var(--spacing-xl);
+    gap: var(--spacing-8);
+    margin-bottom: var(--spacing-8);
   }
   
   @media (min-width: 768px) {
     .footer__inner {
-      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
     }
   }
   
-  .footer__about h2 {
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--spacing-md);
-    color: var(--color-ivory);
+  .footer__newsletter h2 {
+    font-size: var(--font-size-h2);
+    margin-bottom: var(--spacing-3);
+    color: var(--color-surface);
   }
   
-  .footer__about p {
-    color: rgba(250, 249, 247, 0.8);
-    line-height: 1.6;
+  .footer__newsletter p {
+    color: rgba(249, 249, 249, 0.8);
+    margin-bottom: var(--spacing-4);
+    font-size: var(--font-size-body-sm);
+  }
+  
+  .footer__newsletter-form {
+    display: flex;
+    gap: var(--spacing-2);
+    flex-direction: column;
+  }
+  
+  @media (min-width: 768px) {
+    .footer__newsletter-form {
+      flex-direction: row;
+      max-width: 400px;
+    }
+  }
+  
+  .footer__newsletter-input {
+    flex: 1;
+    padding: var(--spacing-2) var(--spacing-3);
+    border: 1.5px solid rgba(249, 249, 249, 0.2);
+    background-color: rgba(249, 249, 249, 0.05);
+    color: var(--color-surface);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: var(--font-size-body-sm);
+    min-height: 44px;
+  }
+  
+  .footer__newsletter-input::placeholder {
+    color: rgba(249, 249, 249, 0.5);
+  }
+  
+  .footer__newsletter-input:focus {
+    outline: 2px solid var(--color-sage);
+    outline-offset: 2px;
+    border-color: var(--color-sage);
+  }
+  
+  .footer__newsletter-submit {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border: none;
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: var(--font-size-body-sm);
+    font-weight: 500;
+    cursor: pointer;
+    min-height: 44px;
+    transition: all var(--transition-speed) var(--transition-easing);
+    white-space: nowrap;
+  }
+  
+  .footer__newsletter-submit:hover {
+    background-color: var(--color-sage);
+    color: var(--color-surface);
   }
   
   .footer__menu h3 {
-    font-size: var(--font-size-base);
-    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    margin-bottom: var(--spacing-3);
+    color: var(--color-surface);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-ivory);
+    letter-spacing: var(--letter-spacing-wide);
+    font-size: var(--font-size-eyebrow);
   }
   
   .footer__menu ul {
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-  
-  .footer__menu li {
-    margin-bottom: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
   }
   
   .footer__menu a {
-    color: rgba(250, 249, 247, 0.8);
+    color: rgba(249, 249, 249, 0.8);
     text-decoration: none;
+    font-size: var(--font-size-body-sm);
     transition: color var(--transition-speed) var(--transition-easing);
+    display: inline-block;
   }
   
   .footer__menu a:hover {
-    color: var(--color-accent);
-  }
-  
-  .footer__social h3 {
-    font-size: var(--font-size-base);
-    margin-bottom: var(--spacing-md);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-ivory);
-  }
-  
-  .footer__social-links {
-    display: flex;
-    gap: var(--spacing-md);
-  }
-  
-  .footer__social-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: var(--tap-target-min);
-    min-height: var(--tap-target-min);
-    color: rgba(250, 249, 247, 0.8);
-    transition: color var(--transition-speed) var(--transition-easing);
-  }
-  
-  .footer__social-link:hover {
-    color: var(--color-accent);
+    color: var(--color-sage);
   }
   
   .footer__bottom {
-    border-top: 1px solid rgba(250, 249, 247, 0.2);
-    padding-top: var(--spacing-lg);
+    padding-top: var(--spacing-6);
+    border-top: 1px solid rgba(249, 249, 249, 0.1);
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
-    align-items: center;
-    text-align: center;
+    gap: var(--spacing-3);
+    align-items: flex-start;
+    font-size: var(--font-size-body-sm);
   }
   
   @media (min-width: 768px) {
     .footer__bottom {
       flex-direction: row;
       justify-content: space-between;
-      text-align: left;
+      align-items: center;
     }
   }
   
-  .footer__copyright {
-    font-size: var(--font-size-sm);
-    color: rgba(250, 249, 247, 0.6);
-  }
-  
   .footer__concept-notice {
-    font-size: var(--font-size-sm);
-    color: rgba(250, 249, 247, 0.6);
-    font-style: italic;
+    color: rgba(249, 249, 249, 0.6);
   }
   
   .footer__concept-notice a {
-    color: var(--color-accent);
+    color: var(--color-sage);
     text-decoration: underline;
+    transition: color var(--transition-speed) var(--transition-easing);
+  }
+  
+  .footer__concept-notice a:hover {
+    color: var(--color-sage-soft);
+  }
+  
+  .footer__copyright {
+    color: rgba(249, 249, 249, 0.6);
   }
 </style>
 
 <footer class="footer" role="contentinfo">
-  <div class="container">
-    <div class="footer__inner">
-      <div class="footer__about">
-        <h2>{{ section.settings.heading | default: shop.name }}</h2>
-        {%- if section.settings.description != blank -%}
-          <p>{{ section.settings.description }}</p>
-        {%- endif -%}
-      </div>
+  <div class="footer__inner">
+    <div class="footer__newsletter">
+      <h2>{{ section.settings.newsletter_heading | default: 'Stay in the glow' }}</h2>
+      <p>{{ section.settings.newsletter_description | default: 'Get expert skincare tips, treatment updates, and exclusive offers delivered to your inbox.' }}</p>
       
-      {%- if section.settings.menu.links.size > 0 -%}
-        <div class="footer__menu">
-          <h3>{{ section.settings.menu_heading | default: 'Menu' }}</h3>
-          <ul>
-            {%- for link in section.settings.menu.links -%}
-              <li>
-                <a href="{{ link.url }}">{{ link.title }}</a>
-              </li>
-            {%- endfor -%}
-          </ul>
-        </div>
+      {%- if section.settings.newsletter_form_id != blank -%}
+        {% form 'customer', id: section.settings.newsletter_form_id, class: 'footer__newsletter-form' %}
+          <input 
+            type="email" 
+            name="contact[email]" 
+            class="footer__newsletter-input" 
+            placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email' }}"
+            aria-label="Email address"
+            required
+          >
+          <button type="submit" class="footer__newsletter-submit">
+            {{ section.settings.newsletter_submit_label | default: 'Subscribe' }}
+          </button>
+        {% endform %}
+      {%- else -%}
+        <form class="footer__newsletter-form" action="#" method="post">
+          <input 
+            type="email" 
+            name="email" 
+            class="footer__newsletter-input" 
+            placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email' }}"
+            aria-label="Email address"
+            required
+          >
+          <button type="submit" class="footer__newsletter-submit">
+            {{ section.settings.newsletter_submit_label | default: 'Subscribe' }}
+          </button>
+        </form>
       {%- endif -%}
-      
-      <div class="footer__social">
-        <h3>{{ 'sections.footer.social' | t }}</h3>
-        <div class="footer__social-links">
-          {%- if settings.social_instagram_link != blank -%}
-            <a 
-              href="{{ settings.social_instagram_link }}" 
-              class="footer__social-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-            >
-              {% render 'icon', icon: 'instagram' %}
-            </a>
-          {%- endif -%}
-          
-          {%- if settings.social_facebook_link != blank -%}
-            <a 
-              href="{{ settings.social_facebook_link }}" 
-              class="footer__social-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-            >
-              {% render 'icon', icon: 'facebook' %}
-            </a>
-          {%- endif -%}
-          
-          {%- if settings.social_tiktok_link != blank -%}
-            <a 
-              href="{{ settings.social_tiktok_link }}" 
-              class="footer__social-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="TikTok"
-            >
-              {% render 'icon', icon: 'tiktok' %}
-            </a>
-          {%- endif -%}
-        </div>
-      </div>
     </div>
     
-    <div class="footer__bottom">
-      <p class="footer__copyright">
-        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
-      </p>
-      
-      <p class="footer__concept-notice">
-        {{ 'concept.notice' | t }}
-      </p>
-    </div>
+    {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'menu' -%}
+          <div class="footer__menu" {{ block.shopify_attributes }}>
+            <h3>{{ block.settings.heading }}</h3>
+            {%- if block.settings.menu.links.size > 0 -%}
+              <ul>
+                {%- for link in block.settings.menu.links -%}
+                  <li>
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+  
+  <div class="footer__bottom">
+    <p class="footer__concept-notice">
+      Maison Calla is a concept brand. Demo by <a href="https://cartandcanvas.com" target="_blank" rel="noopener noreferrer">Cart & Canvas</a>.
+    </p>
+    
+    <p class="footer__copyright">
+      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}
+    </p>
   </div>
 </footer>
 
@@ -206,29 +237,82 @@
   "name": "Footer",
   "settings": [
     {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
       "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Maison Calla"
+      "id": "newsletter_heading",
+      "label": "Newsletter Heading",
+      "default": "Stay in the glow"
     },
     {
       "type": "textarea",
-      "id": "description",
-      "label": "Description",
-      "default": "Clinical excellence meets luxurious care. Book your treatment today."
+      "id": "newsletter_description",
+      "label": "Newsletter Description",
+      "default": "Get expert skincare tips, treatment updates, and exclusive offers delivered to your inbox."
     },
     {
       "type": "text",
-      "id": "menu_heading",
-      "label": "Menu Heading",
-      "default": "Quick Links"
+      "id": "newsletter_placeholder",
+      "label": "Newsletter Placeholder",
+      "default": "Enter your email"
     },
     {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Footer Menu",
-      "default": "footer"
+      "type": "text",
+      "id": "newsletter_submit_label",
+      "label": "Submit Button Label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_form_id",
+      "label": "Newsletter Form ID (Optional)",
+      "info": "Leave blank for demo form"
     }
-  ]
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu Column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Quick Links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "footer"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "default": {
+    "blocks": [
+      {
+        "type": "menu",
+        "settings": {
+          "heading": "Treatments"
+        }
+      },
+      {
+        "type": "menu",
+        "settings": {
+          "heading": "About"
+        }
+      },
+      {
+        "type": "menu",
+        "settings": {
+          "heading": "Support"
+        }
+      }
+    ]
+  }
 }
 {% endschema %}

@@ -1,0 +1,76 @@
+{%- comment -%}
+  Journal/Article card
+  
+  Parameters:
+  - article: Article object
+  - demo: Boolean for demo mode
+  - index: Integer for demo card number
+{%- endcomment -%}
+
+{%- liquid
+  if demo
+    assign card_title = 'The science of skin cycling'
+    assign card_excerpt = 'Learn how to optimize your skincare routine with this evidence-based approach to product rotation.'
+    assign card_category = 'Skincare Tips'
+    assign card_date = 'Nov 20, 2026'
+    assign card_url = '#'
+    assign card_image = blank
+    
+    if index == 2
+      assign card_title = 'What to expect from your first facial'
+      assign card_excerpt = 'A complete guide to preparing for and maximizing the results of your first professional treatment.'
+      assign card_category = 'Treatment Guide'
+      assign card_date = 'Nov 15, 2026'
+    elsif index == 3
+      assign card_title = 'Ingredient spotlight: Vitamin C'
+      assign card_excerpt = 'Why this powerful antioxidant deserves a place in your morning routine and how to use it effectively.'
+      assign card_category = 'Ingredients'
+      assign card_date = 'Nov 10, 2026'
+    endif
+  else
+    assign card_title = article.title
+    assign card_excerpt = article.excerpt_or_content | strip_html | truncate: 120
+    assign card_category = article.tags | first | default: 'Article'
+    assign card_date = article.published_at | date: '%b %d, %Y'
+    assign card_url = article.url
+    assign card_image = article.image
+  endif
+-%}
+
+<article class="journal-card card">
+  {%- if card_image != blank -%}
+    <div class="card__image-wrapper">
+      <a href="{{ card_url }}">
+        <img 
+          src="{{ card_image | image_url: width: 600 }}"
+          srcset="{{ card_image | image_url: width: 400 }} 400w,
+                  {{ card_image | image_url: width: 600 }} 600w"
+          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          alt="{{ card_image.alt | default: card_title | escape }}"
+          class="journal-card__image card__image"
+          width="{{ card_image.width | default: 600 }}"
+          height="{{ card_image.height | default: 375 }}"
+          loading="lazy"
+        >
+      </a>
+    </div>
+  {%- endif -%}
+  
+  <div class="journal-card__content card__content">
+    {%- if card_category != blank -%}
+      <div class="journal-card__category">{{ card_category }}</div>
+    {%- endif -%}
+    
+    <h3 class="journal-card__title">
+      <a href="{{ card_url }}">{{ card_title }}</a>
+    </h3>
+    
+    {%- if card_excerpt != blank -%}
+      <p class="journal-card__excerpt">{{ card_excerpt }}</p>
+    {%- endif -%}
+    
+    {%- if card_date != blank -%}
+      <div class="journal-card__meta">{{ card_date }}</div>
+    {%- endif -%}
+  </div>
+</article>

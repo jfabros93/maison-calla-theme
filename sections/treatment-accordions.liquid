@@ -1,0 +1,221 @@
+{%- comment -%}
+  Accordion section for treatment details
+{%- endcomment -%}
+
+<style>
+  .treatment-accordions {
+    padding-top: var(--spacing-10);
+    padding-bottom: var(--section-spacing);
+  }
+  
+  .treatment-accordions__grid {
+    display: grid;
+    gap: var(--spacing-8);
+    grid-template-columns: 1fr;
+  }
+  
+  @media (min-width: 1024px) {
+    .treatment-accordions__grid {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+  
+  .treatment-accordions__visit-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: var(--spacing-6);
+  }
+  
+  .treatment-accordions__visit-title {
+    font-size: var(--font-size-h3);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .treatment-accordions__visit-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+  
+  .treatment-accordions__visit-step {
+    display: flex;
+    gap: var(--spacing-3);
+  }
+  
+  .treatment-accordions__visit-number {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--color-sage-soft);
+    color: var(--color-sage-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: var(--font-size-body-sm);
+  }
+  
+  .treatment-accordions__visit-content h4 {
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    margin-bottom: var(--spacing-1);
+  }
+  
+  .treatment-accordions__visit-content p {
+    font-size: var(--font-size-body-sm);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+</style>
+
+<section class="treatment-accordions">
+  <div class="container">
+    <div class="treatment-accordions__grid">
+      <div>
+        <div class="accordion">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'accordion' -%}
+              <div class="accordion__item" {{ block.shopify_attributes }}>
+                <button 
+                  type="button"
+                  class="accordion__trigger"
+                  aria-expanded="false"
+                  aria-controls="accordion-{{ block.id }}"
+                >
+                  <span>{{ block.settings.title }}</span>
+                  <svg class="accordion__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <div 
+                  class="accordion__content" 
+                  id="accordion-{{ block.id }}"
+                  hidden
+                >
+                  {{ block.settings.content }}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      
+      <div>
+        <div class="treatment-accordions__visit-card">
+          <h3 class="treatment-accordions__visit-title">Your visit</h3>
+          <div class="treatment-accordions__visit-steps">
+            <div class="treatment-accordions__visit-step">
+              <div class="treatment-accordions__visit-number">1</div>
+              <div class="treatment-accordions__visit-content">
+                <h4>Consultation</h4>
+                <p>Review your goals and health history with your provider.</p>
+              </div>
+            </div>
+            <div class="treatment-accordions__visit-step">
+              <div class="treatment-accordions__visit-number">2</div>
+              <div class="treatment-accordions__visit-content">
+                <h4>Preparation</h4>
+                <p>Your treatment area is cleansed and prepped for optimal results.</p>
+              </div>
+            </div>
+            <div class="treatment-accordions__visit-step">
+              <div class="treatment-accordions__visit-number">3</div>
+              <div class="treatment-accordions__visit-content">
+                <h4>Treatment</h4>
+                <p>Your provider performs the procedure with precision and care.</p>
+              </div>
+            </div>
+            <div class="treatment-accordions__visit-step">
+              <div class="treatment-accordions__visit-number">4</div>
+              <div class="treatment-accordions__visit-content">
+                <h4>Aftercare</h4>
+                <p>Receive personalized post-treatment instructions and schedule follow-up.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const accordionTriggers = document.querySelectorAll('.accordion__trigger');
+    
+    accordionTriggers.forEach(function(trigger) {
+      trigger.addEventListener('click', function() {
+        const content = document.getElementById(this.getAttribute('aria-controls'));
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        
+        this.setAttribute('aria-expanded', !isExpanded);
+        content.hidden = isExpanded;
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Treatment Accordions",
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "What to expect"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>This treatment provides deep cleansing and hydration, leaving your skin refreshed and glowing.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Treatment Accordions",
+      "blocks": [
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "What to expect",
+            "content": "<p>This treatment provides deep cleansing and intense hydration. You'll experience a refreshing sensation as we cleanse, exfoliate, and infuse your skin with nourishing serums.</p>"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "Who it's for",
+            "content": "<p>Ideal for all skin types, especially those looking to improve texture, tone, and hydration. Perfect for anyone seeking a radiant, healthy glow.</p>"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "Before & after care",
+            "content": "<p>Arrive with clean skin, free of makeup. Avoid harsh exfoliants 24 hours before. After treatment, stay hydrated, use sunscreen daily, and avoid intense heat for 24-48 hours.</p>"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "Contraindications",
+            "content": "<p>Not recommended if you are pregnant, nursing, or have active skin infections. Please inform your provider of any allergies or medical conditions.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

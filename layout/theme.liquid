@@ -30,62 +30,79 @@
 
     <style>
       :root {
-        /* Maison Calla Design System - Phase 2 */
-        
-        /* Background & Surface Colors */
-        --color-page-bg: #F9F9F9;
-        --color-surface: #FFFFFF;
-        --color-subtle-surface: #F1F1F1;
+        /* Background Colors */
+        --color-page-bg: {{ settings.color_page_bg }};
+        --color-surface: {{ settings.color_surface }};
+        --color-subtle-surface: {{ settings.color_subtle_surface }};
         
         /* Tint Colors */
-        --color-beige: #E9E1D6;
-        --color-tan: #D8C2A4;
-        --color-blush: #EEDBD3;
-        --color-sage-soft: #DFE4D5;
-        --color-stone: #E3DFD8;
+        --color-beige: {{ settings.color_beige }};
+        --color-tan: {{ settings.color_tan }};
+        --color-blush: {{ settings.color_blush }};
+        --color-sage-soft: {{ settings.color_sage_soft }};
+        --color-stone: {{ settings.color_stone }};
         
         /* Accent Colors */
-        --color-sage: #A3B18A;
-        --color-sage-deep: #5E6B4A;
+        --color-sage: {{ settings.color_sage }};
+        --color-sage-deep: {{ settings.color_sage_deep }};
         
-        /* Text & Line Colors */
-        --color-text: #151515;
-        --color-text-muted: #6E6962;
-        --color-line: #DAD4CB;
-        
-        /* Legacy Support (for backward compatibility) */
-        --color-bg: var(--color-page-bg);
-        --color-accent: var(--color-sage);
-        --color-soft-black: var(--color-text);
-        --color-ivory: var(--color-surface);
-        
-        /* Border Radius Scale */
-        --radius-sm: 12px;
-        --radius-md: 20px;
-        --radius-lg: 28px;
-        --radius-xl: 36px;
-        --radius-pill: 999px;
-        
-        /* Spacing Scale (8px base) */
-        --spacing-xs: 8px;
-        --spacing-sm: 16px;
-        --spacing-md: 24px;
-        --spacing-lg: 32px;
-        --spacing-xl: 40px;
-        --spacing-2xl: 48px;
-        --spacing-3xl: 64px;
-        --spacing-4xl: 80px;
-        --spacing-5xl: 96px;
-        --spacing-6xl: 120px;
+        /* Text Colors */
+        --color-text: {{ settings.color_text }};
+        --color-text-muted: {{ settings.color_text_muted }};
+        --color-line: {{ settings.color_line }};
         
         /* Typography */
-        --font-heading: 'Manrope', {{ settings.font_heading.fallback_families }};
-        --font-body: 'Inter', {{ settings.font_body.fallback_families }};
+        --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+        --font-body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+        --font-heading-weight: {{ settings.font_heading.weight }};
+        --font-body-weight: {{ settings.font_body.weight }};
+        --font-heading-style: {{ settings.font_heading.style }};
+        --font-body-style: {{ settings.font_body.style }};
+        
+        /* Font Sizes - Desktop */
+        --font-size-hero-lg: 5rem;
+        --font-size-hero-sm: 3.75rem;
+        --font-size-h1: 2.75rem;
+        --font-size-h2: 1.625rem;
+        --font-size-h3: 1.1875rem;
+        --font-size-body-lg: 1.125rem;
+        --font-size-body: 1rem;
+        --font-size-body-sm: 0.875rem;
+        --font-size-eyebrow: 0.75rem;
+        
+        /* Letter Spacing */
+        --letter-spacing-tight: -0.03em;
+        --letter-spacing-normal: 0;
+        --letter-spacing-wide: 0.12em;
+        
+        /* Spacing Scale */
+        --spacing-unit: {{ settings.spacing_base }}px;
+        --spacing-1: calc(var(--spacing-unit) * 1);
+        --spacing-2: calc(var(--spacing-unit) * 2);
+        --spacing-3: calc(var(--spacing-unit) * 3);
+        --spacing-4: calc(var(--spacing-unit) * 4);
+        --spacing-5: calc(var(--spacing-unit) * 5);
+        --spacing-6: calc(var(--spacing-unit) * 6);
+        --spacing-8: calc(var(--spacing-unit) * 8);
+        --spacing-10: calc(var(--spacing-unit) * 10);
+        --spacing-12: calc(var(--spacing-unit) * 12);
+        --spacing-15: calc(var(--spacing-unit) * 15);
+        --section-spacing: {{ settings.section_spacing }}px;
+        
+        /* Border Radius */
+        --radius-sm: {{ settings.radius_sm }}px;
+        --radius-md: {{ settings.radius_md }}px;
+        --radius-lg: {{ settings.radius_lg }}px;
+        --radius-xl: {{ settings.radius_xl }}px;
+        --radius-pill: 999px;
+        
+        /* Shadows */
+        --shadow-card: 0 8px 24px rgba(21, 21, 21, 0.10);
+        --shadow-glass: 0 4px 16px rgba(21, 21, 21, 0.08);
         
         /* Layout */
-        --container-max-width: 1200px;
-        --container-padding: var(--spacing-md);
-        --section-spacing: var(--spacing-4xl);
+        --container-max-width: {{ settings.container_max_width }}px;
+        --container-padding: var(--spacing-3);
         
         /* Interactive */
         --tap-target-min: 44px;
@@ -95,6 +112,16 @@
         /* Transitions */
         --transition-speed: 0.2s;
         --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      @media (max-width: 767px) {
+        :root {
+          --font-size-hero-lg: 2.625rem;
+          --font-size-hero-sm: 1.875rem;
+          --font-size-h1: 1.875rem;
+          --font-size-h2: 1.5rem;
+          --font-size-h3: 1.125rem;
+        }
       }
       
       @media (prefers-reduced-motion: reduce) {
@@ -128,10 +155,7 @@
 
     {% sections 'footer-group' %}
 
-    {% if settings.mobile_book_bar_enabled %}
-      {% render 'mobile-book-bar' %}
-    {% endif %}
-    
+    {% render 'mobile-nav-bar' %}
     {% render 'cart-drawer' %}
 
     <ul hidden>

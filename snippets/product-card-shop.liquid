@@ -1,0 +1,117 @@
+{%- comment -%}
+  Product card for shop carousel with tinted background, glassy Buy now pill, dark price pill
+  
+  Parameters:
+  - product: Product object
+  - demo: Boolean for demo mode
+  - index: Integer for demo card number
+{%- endcomment -%}
+
+{%- liquid
+  if demo
+    assign card_title = 'Vitamin C Serum'
+    assign card_subtitle = 'Brightening concentrate'
+    assign card_price = 65
+    assign card_size = '30ml'
+    assign card_category = 'Serums'
+    assign card_category_handle = 'serums'
+    assign card_url = '#'
+    assign card_image = blank
+    
+    if index == 2
+      assign card_title = 'Hyaluronic Moisturizer'
+      assign card_subtitle = 'Deep hydration cream'
+      assign card_price = 48
+      assign card_size = '50ml'
+      assign card_category = 'Moisturizers'
+      assign card_category_handle = 'moisturizers'
+    elsif index == 3
+      assign card_title = 'Gentle Cleanser'
+      assign card_subtitle = 'pH-balanced formula'
+      assign card_price = 32
+      assign card_size = '150ml'
+      assign card_category = 'Cleansers'
+      assign card_category_handle = 'cleansers'
+    elsif index == 4
+      assign card_title = 'Daily SPF 50'
+      assign card_subtitle = 'Mineral sunscreen'
+      assign card_price = 42
+      assign card_size = '50ml'
+      assign card_category = 'SPF'
+      assign card_category_handle = 'spf'
+    elsif index == 5
+      assign card_title = 'Retinol Night Serum'
+      assign card_subtitle = 'Anti-aging treatment'
+      assign card_price = 78
+      assign card_size = '30ml'
+      assign card_category = 'Serums'
+      assign card_category_handle = 'serums'
+    elsif index == 6
+      assign card_title = 'Exfoliating Toner'
+      assign card_subtitle = 'AHA/BHA blend'
+      assign card_price = 38
+      assign card_size = '100ml'
+      assign card_category = 'Cleansers'
+      assign card_category_handle = 'cleansers'
+    endif
+  else
+    assign card_title = product.title
+    assign card_subtitle = product.metafields.product.subtitle | default: product.type
+    assign card_price = product.price | money_without_currency | remove: ',' | times: 1
+    assign card_size = product.metafields.product.size | default: product.selected_or_first_available_variant.title
+    assign card_url = product.url
+    assign card_image = product.featured_image
+    assign card_category = product.metafields.product.category | default: product.type
+    assign card_category_handle = card_category | handleize
+  endif
+  
+  assign tint_colors = 'beige,tan,blush,sage' | split: ','
+  assign tint_index = index | default: 1 | modulo: 4
+  assign tint_color = tint_colors[tint_index]
+-%}
+
+<div class="product-card product-card--shop card card--tinted-{{ tint_color }} shop-carousel__item" data-category="{{ card_category_handle }}">
+  <div class="card__image-wrapper">
+    {%- if card_image != blank -%}
+      <img 
+        src="{{ card_image | image_url: width: 600 }}"
+        srcset="{{ card_image | image_url: width: 400 }} 400w,
+                {{ card_image | image_url: width: 600 }} 600w"
+        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 85vw"
+        alt="{{ card_image.alt | default: card_title | escape }}"
+        class="card__image"
+        width="{{ card_image.width | default: 600 }}"
+        height="{{ card_image.height | default: 600 }}"
+        loading="lazy"
+      >
+    {%- else -%}
+      <div class="card__image" style="background-color: var(--color-{{ tint_color }});"></div>
+    {%- endif -%}
+    
+    <div class="product-card__overlay">
+      <span class="buy-now-pill">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4px;">
+          <path d="M3 3h10l1.5 9H4.5L3 3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="6" cy="14" r="1" fill="currentColor"/>
+          <circle cx="12" cy="14" r="1" fill="currentColor"/>
+        </svg>
+        Buy now
+      </span>
+      <span class="price-pill">${{ card_price }}</span>
+    </div>
+  </div>
+  
+  <div class="product-card__body card__content">
+    <h3 class="product-card__name">
+      <a href="{{ card_url }}">{{ card_title }}</a>
+    </h3>
+    
+    {%- if card_subtitle != blank -%}
+      <p class="product-card__subtitle">{{ card_subtitle }}</p>
+    {%- endif -%}
+    
+    {%- if card_size != blank -%}
+      <p class="product-card__subtitle">{{ card_size }}</p>
+    {%- endif -%}
+  </div>
+</div>
