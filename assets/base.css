@@ -953,7 +953,6 @@ img.loaded {
 /* Print styles */
 @media print {
   .skip-to-content-link,
-  .mobile-book-bar,
   .mobile-nav-bar,
   header,
   footer {

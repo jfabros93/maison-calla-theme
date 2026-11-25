@@ -66,6 +66,8 @@
                 src="{{ block.settings.before_image | image_url: width: 600 }}"
                 alt="Before"
                 class="before-after-strip__image"
+                width="{{ block.settings.before_image.width | default: 600 }}"
+                height="{{ block.settings.before_image.height | default: 600 }}"
                 loading="lazy"
               >
             {%- endif -%}
@@ -78,6 +80,8 @@
                 src="{{ block.settings.after_image | image_url: width: 600 }}"
                 alt="After"
                 class="before-after-strip__image"
+                width="{{ block.settings.after_image.width | default: 600 }}"
+                height="{{ block.settings.after_image.height | default: 600 }}"
                 loading="lazy"
               >
             {%- endif -%}

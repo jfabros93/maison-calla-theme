@@ -235,6 +235,8 @@
             sizes="(min-width: 1024px) 50vw, 100vw"
             alt="{{ section.settings.image.alt | escape }}"
             class="split-hero__image"
+            width="{{ section.settings.image.width | default: 800 }}"
+            height="{{ section.settings.image.height | default: 600 }}"
             loading="eager"
           >
         {%- endif -%}

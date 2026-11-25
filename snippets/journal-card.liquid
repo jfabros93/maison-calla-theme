@@ -48,6 +48,8 @@
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           alt="{{ card_image.alt | default: card_title | escape }}"
           class="journal-card__image card__image"
+          width="{{ card_image.width | default: 600 }}"
+          height="{{ card_image.height | default: 375 }}"
           loading="lazy"
         >
       </a>

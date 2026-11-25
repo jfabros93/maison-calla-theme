@@ -128,6 +128,8 @@
             sizes="(min-width: 800px) 800px, 100vw"
             alt="Before"
             class="before-after-section__image before-after-section__before"
+            width="{{ section.settings.before_image.width | default: 1200 }}"
+            height="{{ section.settings.before_image.height | default: 900 }}"
             loading="lazy"
           >
         {%- endif -%}
@@ -140,6 +142,8 @@
             sizes="(min-width: 800px) 800px, 100vw"
             alt="After"
             class="before-after-section__image before-after-section__after"
+            width="{{ section.settings.after_image.width | default: 1200 }}"
+            height="{{ section.settings.after_image.height | default: 900 }}"
             loading="lazy"
             data-after-image
           >
