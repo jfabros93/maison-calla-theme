@@ -1,182 +1,139 @@
 {%- comment -%}
-  Reviews/Testimonials Section
-  Supports @app blocks for review apps like Stamped, Judge.me, Loox, etc.
+  Reviews section with rating and review cards
 {%- endcomment -%}
 
 <style>
-  .reviews {
-    background-color: var(--color-bg);
+  .reviews-section {
+    padding-top: var(--section-spacing);
+    padding-bottom: var(--section-spacing);
   }
   
-  .reviews__header {
+  .reviews-section__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    margin-bottom: var(--spacing-2xl);
-  }
-  
-  .reviews__heading {
-    font-size: var(--font-size-2xl);
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .reviews__subheading {
-    color: var(--color-text-light);
-    font-size: var(--font-size-lg);
-  }
-  
-  .reviews__app-blocks {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
-  .reviews__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-8);
+    gap: var(--spacing-3);
   }
   
   @media (min-width: 768px) {
-    .reviews__grid {
-      grid-template-columns: repeat(2, 1fr);
+    .reviews-section__header {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
     }
   }
   
-  @media (min-width: 1024px) {
-    .reviews__grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-  
-  .review-card {
-    background-color: var(--color-bg);
-    border: 1px solid var(--color-stone);
-    padding: var(--spacing-xl);
-  }
-  
-  .review-card__rating {
-    color: var(--color-accent);
-    margin-bottom: var(--spacing-md);
-    font-size: var(--font-size-lg);
-  }
-  
-  .review-card__quote {
-    color: var(--color-text-light);
-    line-height: 1.7;
-    margin-bottom: var(--spacing-lg);
-    font-style: italic;
-  }
-  
-  .review-card__quote::before {
-    content: '"';
-    font-size: var(--font-size-2xl);
-    color: var(--color-accent);
-    line-height: 0;
-  }
-  
-  .review-card__author {
+  .reviews-section__rating-block {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: var(--spacing-3);
   }
   
-  .review-card__author-image {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .review-card__author-info {
-    flex-grow: 1;
-  }
-  
-  .review-card__author-name {
+  .reviews-section__rating-value {
+    font-size: var(--font-size-hero-sm);
     font-weight: 600;
-    margin-bottom: 2px;
+    color: var(--color-text);
   }
   
-  .review-card__author-treatment {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-light);
+  .reviews-section__rating-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+  }
+  
+  .reviews-section__stars {
+    display: flex;
+    gap: var(--spacing-1);
+    color: #FFB800;
+  }
+  
+  .reviews-section__rating-label {
+    font-size: var(--font-size-body-sm);
+    color: var(--color-text-muted);
+  }
+  
+  .reviews-section__title {
+    font-size: var(--font-size-h1);
+  }
+  
+  @media (max-width: 767px) {
+    .reviews-section__header {
+      order: 1;
+    }
+    
+    .reviews-section__title {
+      order: -1;
+    }
   }
 </style>
 
-<section class="reviews section">
+<section class="reviews-section">
   <div class="container">
-    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
-      <div class="reviews__header">
-        {%- if section.settings.heading != blank -%}
-          <h2 class="reviews__heading">{{ section.settings.heading }}</h2>
-        {%- endif -%}
-        
-        {%- if section.settings.subheading != blank -%}
-          <p class="reviews__subheading">{{ section.settings.subheading }}</p>
-        {%- endif -%}
+    <div class="reviews-section__header">
+      <div class="reviews-section__rating-block">
+        <div class="reviews-section__rating-value">{{ section.settings.rating | default: '4.9' }}</div>
+        <div class="reviews-section__rating-info">
+          <div class="reviews-section__stars" aria-label="Rating: {{ section.settings.rating | default: '4.9' }} out of 5 stars">
+            {%- for i in (1..5) -%}
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 1l2.472 6.182L19 8.09l-5 4.345L15.472 19 10 15.182 4.528 19 6 12.435 1 8.09l6.528-.908L10 1z"/>
+              </svg>
+            {%- endfor -%}
+          </div>
+          <div class="reviews-section__rating-label">{{ section.settings.rating_count | default: '450+' }} reviews</div>
+        </div>
       </div>
-    {%- endif -%}
-    
-    {%- assign has_app_blocks = false -%}
-    {%- for block in section.blocks -%}
-      {%- if block.type == '@app' -%}
-        {%- assign has_app_blocks = true -%}
-        {%- break -%}
+      
+      {%- if section.settings.heading != blank -%}
+        <h2 class="reviews-section__title">{{ section.settings.heading }}</h2>
       {%- endif -%}
-    {%- endfor -%}
+    </div>
     
-    {%- if has_app_blocks -%}
-      <div class="reviews__app-blocks">
-        {%- for block in section.blocks -%}
-          {%- if block.type == '@app' -%}
-            <div {{ block.shopify_attributes }}>
-              {% render block %}
+    <div class="grid grid--3-col">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'review' -%}
+          <div class="review-card card" {{ block.shopify_attributes }}>
+            <div class="review-card__rating">
+              {%- for i in (1..5) -%}
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 1l2.472 6.182L19 8.09l-5 4.345L15.472 19 10 15.182 4.528 19 6 12.435 1 8.09l6.528-.908L10 1z"/>
+                </svg>
+              {%- endfor -%}
             </div>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-    {%- else -%}
-      {%- comment -%} Manual testimonial blocks {%- endcomment -%}
-      <div class="reviews__grid">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'testimonial' -%}
-            <article class="review-card" {{ block.shopify_attributes }}>
-              {%- if block.settings.rating > 0 -%}
-                <div class="review-card__rating">
-                  {%- for i in (1..block.settings.rating) -%}★{%- endfor -%}
-                </div>
+            
+            {%- if block.settings.text != blank -%}
+              <p class="review-card__text">{{ block.settings.text }}</p>
+            {%- endif -%}
+            
+            <div class="review-card__author">
+              {%- if block.settings.avatar != blank -%}
+                <img 
+                  src="{{ block.settings.avatar | image_url: width: 80 }}"
+                  alt="{{ block.settings.author_name | escape }}"
+                  class="review-card__avatar"
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="review-card__avatar" style="background-color: var(--color-sage-soft);"></div>
               {%- endif -%}
               
-              {%- if block.settings.quote != blank -%}
-                <blockquote class="review-card__quote">
-                  {{ block.settings.quote }}
-                </blockquote>
-              {%- endif -%}
-              
-              <div class="review-card__author">
-                {%- if block.settings.author_image != blank -%}
-                  <img
-                    src="{{ block.settings.author_image | image_url: width: 100 }}"
-                    alt="{{ block.settings.author_name | escape }}"
-                    class="review-card__author-image"
-                    loading="lazy"
-                    width="50"
-                    height="50"
-                  >
+              <div class="review-card__author-info">
+                {%- if block.settings.author_name != blank -%}
+                  <div class="review-card__author-name">{{ block.settings.author_name }}</div>
                 {%- endif -%}
-                
-                <div class="review-card__author-info">
-                  {%- if block.settings.author_name != blank -%}
-                    <div class="review-card__author-name">{{ block.settings.author_name }}</div>
-                  {%- endif -%}
-                  
-                  {%- if block.settings.treatment != blank -%}
-                    <div class="review-card__author-treatment">{{ block.settings.treatment }}</div>
-                  {%- endif -%}
-                </div>
+                {%- if block.settings.author_meta != blank -%}
+                  <div class="review-card__author-meta">{{ block.settings.author_meta }}</div>
+                {%- endif -%}
               </div>
-            </article>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
   </div>
 </section>
 
@@ -188,54 +145,48 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "What Our Clients Say"
+      "default": "What our clients say"
     },
     {
-      "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Real experiences from real clients"
+      "type": "text",
+      "id": "rating",
+      "label": "Overall Rating",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "rating_count",
+      "label": "Rating Count",
+      "default": "450+"
     }
   ],
   "blocks": [
     {
-      "type": "@app"
-    },
-    {
-      "type": "testimonial",
-      "name": "Testimonial",
+      "type": "review",
+      "name": "Review",
       "settings": [
         {
-          "type": "range",
-          "id": "rating",
-          "label": "Rating",
-          "min": 1,
-          "max": 5,
-          "step": 1,
-          "default": 5
-        },
-        {
           "type": "textarea",
-          "id": "quote",
+          "id": "text",
           "label": "Review Text",
-          "default": "The results exceeded my expectations. The staff is professional and the facility is beautiful."
-        },
-        {
-          "type": "image_picker",
-          "id": "author_image",
-          "label": "Author Photo (Optional)"
+          "default": "The best facial I've ever had. My skin has never looked better and the staff made me feel so comfortable throughout."
         },
         {
           "type": "text",
           "id": "author_name",
           "label": "Author Name",
-          "default": "Jennifer M."
+          "default": "Sarah M."
         },
         {
           "type": "text",
-          "id": "treatment",
-          "label": "Treatment",
-          "default": "Hydrafacial Treatment"
+          "id": "author_meta",
+          "label": "Author Meta",
+          "default": "Verified client"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar Image (Optional)"
         }
       ]
     }
@@ -245,30 +196,27 @@
       "name": "Reviews",
       "blocks": [
         {
-          "type": "testimonial",
+          "type": "review",
           "settings": {
-            "rating": 5,
-            "quote": "Life-changing results! The team at Maison Calla truly cares about their clients and it shows in everything they do.",
-            "author_name": "Sarah K.",
-            "treatment": "Laser Skin Resurfacing"
+            "text": "The best facial I've ever had. My skin has never looked better and the staff made me feel so comfortable throughout.",
+            "author_name": "Sarah M.",
+            "author_meta": "Hydrafacial · San Francisco"
           }
         },
         {
-          "type": "testimonial",
+          "type": "review",
           "settings": {
-            "rating": 5,
-            "quote": "Professional, clean, and the results speak for themselves. I finally found a place I trust with my skin.",
-            "author_name": "Michael R.",
-            "treatment": "Injectable Treatments"
+            "text": "Professional, clean, and results that actually last. I've been coming here for 2 years and won't go anywhere else.",
+            "author_name": "Jennifer L.",
+            "author_meta": "Botox · Oakland"
           }
         },
         {
-          "type": "testimonial",
+          "type": "review",
           "settings": {
-            "rating": 5,
-            "quote": "The consultation was thorough and educational. I felt confident in my treatment plan from day one.",
-            "author_name": "Lisa T.",
-            "treatment": "Chemical Peel"
+            "text": "Finally found a place that takes the time to understand my skin goals. The consultation was thorough and the results exceeded expectations.",
+            "author_name": "Michael K.",
+            "author_meta": "Laser treatment · Berkeley"
           }
         }
       ]

@@ -1,135 +1,329 @@
 {
   "sections": {
-    "hero": {
-      "type": "hero",
-      "settings": {
-        "heading": "Clinical Excellence, Luxurious Care",
-        "subheading": "Experience transformative treatments in our serene med spa",
-        "book_label": "Book Treatment",
-        "shop_label": "Shop Retail"
-      }
-    },
-    "treatment_cards": {
-      "type": "treatment-cards",
-      "settings": {
-        "heading": "Our Treatments",
-        "subheading": "Discover our range of clinically-proven treatments",
-        "products_to_show": 6,
-        "view_all_label": "View All Treatments"
-      }
-    },
-    "credentials": {
-      "type": "credentials",
+    "split_hero": {
+      "type": "split-hero",
       "blocks": {
-        "credential_1": {
-          "type": "credential",
+        "chip_1": {
+          "type": "attribute_chip",
           "settings": {
-            "icon": true,
-            "title": "Board Certified",
+            "text": "No downtime",
+            "style": "beige"
+          }
+        },
+        "chip_2": {
+          "type": "attribute_chip",
+          "settings": {
+            "text": "Instant glow",
+            "style": "tan"
+          }
+        },
+        "chip_3": {
+          "type": "attribute_chip",
+          "settings": {
+            "text": "Medical grade",
+            "style": "blush"
+          }
+        }
+      },
+      "block_order": [
+        "chip_1",
+        "chip_2",
+        "chip_3"
+      ],
+      "settings": {
+        "eyebrow": "Medical spa · San Francisco",
+        "heading": "Skin that looks like you, just well rested.",
+        "subheading": "Evidence-based treatments delivered by licensed medical providers in a space that feels like a sanctuary.",
+        "primary_button_label": "Book a consultation",
+        "secondary_button_label": "Explore treatments",
+        "stat_1_value": "4.9",
+        "stat_1_label": "Rating",
+        "stat_2_value": "12",
+        "stat_2_label": "Licensed providers",
+        "stat_3_value": "3",
+        "stat_3_label": "Bay Area studios",
+        "availability_label": "Next available",
+        "availability_time": "Today, 3:30 PM",
+        "availability_button": "Reserve"
+      }
+    },
+    "filterable_treatments": {
+      "type": "filterable-treatments",
+      "blocks": {
+        "filter_1": {
+          "type": "filter",
+          "settings": {
+            "category": "Facials"
+          }
+        },
+        "filter_2": {
+          "type": "filter",
+          "settings": {
+            "category": "Injectables"
+          }
+        },
+        "filter_3": {
+          "type": "filter",
+          "settings": {
+            "category": "Laser"
+          }
+        },
+        "filter_4": {
+          "type": "filter",
+          "settings": {
+            "category": "Body"
+          }
+        }
+      },
+      "block_order": [
+        "filter_1",
+        "filter_2",
+        "filter_3",
+        "filter_4"
+      ],
+      "settings": {
+        "eyebrow": "Treatments",
+        "heading": "Results-driven care, matched to your skin.",
+        "products_to_show": 6,
+        "enable_filters": true,
+        "view_all_label": "View all treatments"
+      }
+    },
+    "trust_row": {
+      "type": "trust-row",
+      "blocks": {
+        "trust_1": {
+          "type": "item",
+          "settings": {
+            "show_icon": true,
+            "title": "Licensed Providers",
             "description": "Licensed medical professionals"
           }
         },
-        "credential_2": {
-          "type": "credential",
+        "trust_2": {
+          "type": "item",
           "settings": {
-            "icon": true,
-            "title": "15+ Years",
-            "description": "Combined experience"
-          }
-        },
-        "credential_3": {
-          "type": "credential",
-          "settings": {
-            "icon": true,
+            "show_icon": true,
             "title": "Medical Grade",
-            "description": "FDA-approved treatments"
+            "description": "Medical-grade treatments & products"
           }
         },
-        "credential_4": {
-          "type": "credential",
+        "trust_3": {
+          "type": "item",
           "settings": {
-            "icon": true,
+            "show_icon": true,
+            "title": "15+ Years",
+            "description": "Combined expertise in aesthetics"
+          }
+        },
+        "trust_4": {
+          "type": "item",
+          "settings": {
+            "show_icon": true,
             "title": "Safe & Effective",
-            "description": "Proven results"
+            "description": "Clinically proven results"
           }
         }
       },
       "block_order": [
-        "credential_1",
-        "credential_2",
-        "credential_3",
-        "credential_4"
+        "trust_1",
+        "trust_2",
+        "trust_3",
+        "trust_4"
       ],
-      "settings": {
-        "heading": "Trusted Expertise"
-      }
+      "settings": {}
     },
-    "product_row": {
-      "type": "product-row",
-      "settings": {
-        "heading": "Shop Professional Skincare",
-        "subheading": "Take your results home with medical-grade products",
-        "products_to_show": 4,
-        "view_all_label": "Shop All Products"
-      }
-    },
-    "booking_app": {
-      "type": "booking-app",
-      "settings": {
-        "heading": "Book Your Treatment",
-        "subheading": "Select your preferred date and time"
-      }
-    },
-    "faq": {
-      "type": "faq",
+    "membership_cards": {
+      "type": "membership-cards",
       "blocks": {
-        "faq_1": {
-          "type": "faq",
+        "membership_1": {
+          "type": "membership",
           "settings": {
-            "question": "How do I book an appointment?",
-            "answer": "<p>You can book online through our booking system above, or call us directly at the number listed on our contact page.</p>"
+            "title": "Essential",
+            "price": "$99",
+            "price_period": "per month",
+            "description": "Perfect for maintaining healthy, glowing skin with consistent care.",
+            "features": "1 signature facial per month\n10% off all retail products\nPriority booking\nBirthday treatment",
+            "button_label": "Learn more",
+            "featured": false
           }
         },
-        "faq_2": {
-          "type": "faq",
+        "membership_2": {
+          "type": "membership",
           "settings": {
-            "question": "What should I expect during my first visit?",
-            "answer": "<p>Your first visit includes a comprehensive consultation where we discuss your goals, assess your skin or treatment area, and create a personalized treatment plan tailored to your needs.</p>"
+            "title": "Glow Club",
+            "price": "$199",
+            "price_period": "per month",
+            "description": "Our most popular membership for comprehensive skincare and exclusive perks.",
+            "features": "2 treatments per month\n15% off all products\nFree add-on with each visit\nPriority booking\nMember-only events",
+            "button_label": "Join now",
+            "featured": true
           }
         },
-        "faq_3": {
-          "type": "faq",
+        "membership_3": {
+          "type": "membership",
           "settings": {
-            "question": "Do you require a consultation before treatment?",
-            "answer": "<p>Some treatments require an initial consultation to ensure they're right for you. This will be noted on the individual treatment pages.</p>"
-          }
-        },
-        "faq_4": {
-          "type": "faq",
-          "settings": {
-            "question": "What is your cancellation policy?",
-            "answer": "<p>We require 24 hours notice for cancellations. Late cancellations or no-shows may be subject to a fee.</p>"
+            "title": "Elite",
+            "price": "$349",
+            "price_period": "per month",
+            "description": "Complete luxury skincare with unlimited access and VIP benefits.",
+            "features": "Unlimited monthly facials\n20% off all products & treatments\nComplimentary enhancements\nVIP concierge booking\nExclusive member events",
+            "button_label": "Learn more",
+            "featured": false
           }
         }
       },
       "block_order": [
-        "faq_1",
-        "faq_2",
-        "faq_3",
-        "faq_4"
+        "membership_1",
+        "membership_2",
+        "membership_3"
       ],
       "settings": {
-        "heading": "Frequently Asked Questions",
-        "subheading": "Everything you need to know about our treatments"
+        "eyebrow": "Memberships",
+        "heading": "Invest in your skin"
+      }
+    },
+    "before_after": {
+      "type": "before-after-slider",
+      "settings": {
+        "eyebrow": "Results",
+        "heading": "Real results from real clients",
+        "treatment": "Hydrafacial + Microneedling",
+        "result": "Smoother texture and refined pores after 3 sessions"
+      }
+    },
+    "shop_carousel": {
+      "type": "shop-carousel",
+      "blocks": {
+        "filter_1": {
+          "type": "filter",
+          "settings": {
+            "category": "Cleansers"
+          }
+        },
+        "filter_2": {
+          "type": "filter",
+          "settings": {
+            "category": "Serums"
+          }
+        },
+        "filter_3": {
+          "type": "filter",
+          "settings": {
+            "category": "Moisturizers"
+          }
+        },
+        "filter_4": {
+          "type": "filter",
+          "settings": {
+            "category": "SPF"
+          }
+        }
+      },
+      "block_order": [
+        "filter_1",
+        "filter_2",
+        "filter_3",
+        "filter_4"
+      ],
+      "settings": {
+        "eyebrow": "Shop",
+        "heading": "Best-sellers",
+        "products_to_show": 6,
+        "enable_filters": true,
+        "view_all_label": "Shop all products"
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "text": "The best facial I've ever had. My skin has never looked better and the staff made me feel so comfortable throughout.",
+            "author_name": "Sarah M.",
+            "author_meta": "Hydrafacial · San Francisco"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "text": "Professional, clean, and results that actually last. I've been coming here for 2 years and won't go anywhere else.",
+            "author_name": "Jennifer L.",
+            "author_meta": "Botox · Oakland"
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "text": "Finally found a place that takes the time to understand my skin goals. The consultation was thorough and the results exceeded expectations.",
+            "author_name": "Michael K.",
+            "author_meta": "Laser treatment · Berkeley"
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "heading": "What our clients say",
+        "rating": "4.9",
+        "rating_count": "450+"
+      }
+    },
+    "journal": {
+      "type": "journal",
+      "settings": {
+        "eyebrow": "Journal",
+        "heading": "Latest insights",
+        "subheading": "Expert advice and skincare tips from our team",
+        "articles_to_show": 3,
+        "view_all_label": "Read more articles"
+      }
+    },
+    "locations": {
+      "type": "locations-teaser",
+      "blocks": {
+        "location_1": {
+          "type": "location",
+          "settings": {
+            "name": "San Francisco",
+            "address": "123 Market Street\nSan Francisco, CA 94103",
+            "link_label": "Get directions"
+          }
+        },
+        "location_2": {
+          "type": "location",
+          "settings": {
+            "name": "Oakland",
+            "address": "456 Broadway\nOakland, CA 94612",
+            "link_label": "Get directions"
+          }
+        }
+      },
+      "block_order": [
+        "location_1",
+        "location_2"
+      ],
+      "settings": {
+        "eyebrow": "Locations",
+        "heading": "Visit us",
+        "text": "Three studios across the Bay Area, each designed for your comfort and relaxation.",
+        "button_label": "View all locations"
       }
     }
   },
   "order": [
-    "hero",
-    "treatment_cards",
-    "credentials",
-    "product_row",
-    "booking_app",
-    "faq"
+    "split_hero",
+    "filterable_treatments",
+    "trust_row",
+    "membership_cards",
+    "before_after",
+    "shop_carousel",
+    "reviews",
+    "journal",
+    "locations"
   ]
 }

@@ -12,57 +12,97 @@
     "settings": [
       {
         "type": "header",
-        "content": "Base Colors"
+        "content": "Background Colors"
       },
       {
         "type": "color",
-        "id": "color_ivory",
-        "label": "Ivory",
-        "default": "#FAF9F7"
+        "id": "color_page_bg",
+        "label": "Page Background",
+        "default": "#F9F9F9"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Surface",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_subtle_surface",
+        "label": "Subtle Surface",
+        "default": "#F1F1F1"
+      },
+      {
+        "type": "header",
+        "content": "Tint Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_beige",
+        "label": "Beige",
+        "default": "#E9E1D6"
+      },
+      {
+        "type": "color",
+        "id": "color_tan",
+        "label": "Tan",
+        "default": "#D8C2A4"
+      },
+      {
+        "type": "color",
+        "id": "color_blush",
+        "label": "Blush",
+        "default": "#EEDBD3"
+      },
+      {
+        "type": "color",
+        "id": "color_sage_soft",
+        "label": "Sage Soft",
+        "default": "#DFE4D5"
       },
       {
         "type": "color",
         "id": "color_stone",
         "label": "Stone",
-        "default": "#E8E6E3"
-      },
-      {
-        "type": "color",
-        "id": "color_soft_black",
-        "label": "Soft Black",
-        "default": "#2A2A2A"
+        "default": "#E3DFD8"
       },
       {
         "type": "header",
-        "content": "Accent Color"
-      },
-      {
-        "type": "select",
-        "id": "accent_color_scheme",
-        "label": "Accent Color",
-        "options": [
-          {
-            "value": "rose",
-            "label": "Rose"
-          },
-          {
-            "value": "gold",
-            "label": "Gold"
-          }
-        ],
-        "default": "rose"
+        "content": "Accent Colors"
       },
       {
         "type": "color",
-        "id": "color_rose",
-        "label": "Rose Accent",
-        "default": "#D4A5A5"
+        "id": "color_sage",
+        "label": "Sage",
+        "default": "#A3B18A"
       },
       {
         "type": "color",
-        "id": "color_gold",
-        "label": "Gold Accent",
-        "default": "#C9A961"
+        "id": "color_sage_deep",
+        "label": "Deep Sage",
+        "default": "#5E6B4A"
+      },
+      {
+        "type": "header",
+        "content": "Text Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#151515"
+      },
+      {
+        "type": "color",
+        "id": "color_text_muted",
+        "label": "Text Muted",
+        "default": "#6E6962"
+      },
+      {
+        "type": "color",
+        "id": "color_line",
+        "label": "Line",
+        "default": "#DAD4CB"
       }
     ]
   },
@@ -77,18 +117,8 @@
         "type": "font_picker",
         "id": "font_heading",
         "label": "Heading Font",
-        "default": "playfair_display_n4",
-        "info": "Serif font for headings"
-      },
-      {
-        "type": "range",
-        "id": "font_heading_scale",
-        "label": "Heading Scale",
-        "min": 100,
-        "max": 150,
-        "step": 5,
-        "unit": "%",
-        "default": 120
+        "default": "manrope_n6",
+        "info": "Manrope 600 for headings"
       },
       {
         "type": "header",
@@ -98,18 +128,8 @@
         "type": "font_picker",
         "id": "font_body",
         "label": "Body Font",
-        "default": "assistant_n4",
-        "info": "Clean sans-serif for body text"
-      },
-      {
-        "type": "range",
-        "id": "font_body_scale",
-        "label": "Body Scale",
-        "min": 100,
-        "max": 130,
-        "step": 5,
-        "unit": "%",
-        "default": 100
+        "default": "inter_n4",
+        "info": "Inter for body and UI"
       }
     ]
   },
@@ -123,13 +143,13 @@
       {
         "type": "range",
         "id": "spacing_base",
-        "label": "Base Spacing",
-        "min": 16,
-        "max": 48,
-        "step": 4,
+        "label": "Base Spacing Unit",
+        "min": 4,
+        "max": 16,
+        "step": 2,
         "unit": "px",
-        "default": 24,
-        "info": "Generous spacing for clinical feel"
+        "default": 8,
+        "info": "Base unit for spacing scale (8px default)"
       },
       {
         "type": "range",
@@ -140,6 +160,50 @@
         "step": 8,
         "unit": "px",
         "default": 80
+      },
+      {
+        "type": "header",
+        "content": "Border Radius"
+      },
+      {
+        "type": "range",
+        "id": "radius_sm",
+        "label": "Small Radius",
+        "min": 8,
+        "max": 16,
+        "step": 2,
+        "unit": "px",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "radius_md",
+        "label": "Medium Radius",
+        "min": 16,
+        "max": 24,
+        "step": 2,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "radius_lg",
+        "label": "Large Radius",
+        "min": 24,
+        "max": 32,
+        "step": 2,
+        "unit": "px",
+        "default": 28
+      },
+      {
+        "type": "range",
+        "id": "radius_xl",
+        "label": "Extra Large Radius",
+        "min": 32,
+        "max": 48,
+        "step": 2,
+        "unit": "px",
+        "default": 36
       },
       {
         "type": "header",

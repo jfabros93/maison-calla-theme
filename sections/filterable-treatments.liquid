@@ -1,0 +1,208 @@
+{%- comment -%}
+  Filterable treatments section with category filter pills
+{%- endcomment -%}
+
+<style>
+  .filterable-treatments {
+    padding-top: var(--section-spacing);
+    padding-bottom: var(--section-spacing);
+  }
+</style>
+
+<section class="filterable-treatments">
+  <div class="container">
+    <div class="section-header">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="eyebrow section-header__eyebrow">{{ section.settings.eyebrow }}</div>
+      {%- endif -%}
+      
+      {%- if section.settings.heading != blank -%}
+        <h2 class="section-header__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+    
+    {%- if section.settings.enable_filters -%}
+      <div class="filter-pills" role="group" aria-label="Treatment filters">
+        <button 
+          type="button" 
+          class="filter-pill active" 
+          data-filter="all"
+          aria-pressed="true"
+        >
+          All
+        </button>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'filter' -%}
+            <button 
+              type="button" 
+              class="filter-pill" 
+              data-filter="{{ block.settings.category | handleize }}"
+              aria-pressed="false"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.category }}
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    
+    <div class="grid grid--3-col" data-treatments-grid>
+      {%- liquid
+        assign collection = collections[section.settings.collection]
+        assign products_to_show = section.settings.products_to_show | default: 6
+        
+        if collection != blank and collection.products.size > 0
+          for product in collection.products limit: products_to_show
+            render 'treatment-card', product: product
+          endfor
+        else
+          for i in (1..products_to_show)
+            render 'treatment-card', product: blank, demo: true, index: i
+          endfor
+        endif
+      -%}
+    </div>
+    
+    {%- if section.settings.view_all_label != blank and section.settings.view_all_link != blank -%}
+      <div style="text-align: center; margin-top: var(--spacing-8);">
+        <a href="{{ section.settings.view_all_link }}" class="button button--secondary">
+          {{ section.settings.view_all_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+  (function() {
+    const filters = document.querySelectorAll('.filter-pill');
+    const grid = document.querySelector('[data-treatments-grid]');
+    
+    if (!filters.length || !grid) return;
+    
+    filters.forEach(function(filter) {
+      filter.addEventListener('click', function() {
+        const category = this.getAttribute('data-filter');
+        
+        filters.forEach(f => {
+          f.classList.remove('active');
+          f.setAttribute('aria-pressed', 'false');
+        });
+        
+        this.classList.add('active');
+        this.setAttribute('aria-pressed', 'true');
+        
+        const cards = grid.querySelectorAll('.treatment-card');
+        
+        cards.forEach(function(card) {
+          const cardCategory = card.getAttribute('data-category');
+          
+          if (category === 'all' || cardCategory === category) {
+            card.style.display = '';
+            card.removeAttribute('aria-hidden');
+          } else {
+            card.style.display = 'none';
+            card.setAttribute('aria-hidden', 'true');
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Filterable Treatments",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Treatments"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Results-driven care, matched to your skin."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to Show",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filters",
+      "label": "Enable Filters",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "View All Button Label",
+      "default": "View all treatments"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter",
+      "name": "Filter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Category Name",
+          "default": "Facials"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Filterable Treatments",
+      "blocks": [
+        {
+          "type": "filter",
+          "settings": {
+            "category": "Facials"
+          }
+        },
+        {
+          "type": "filter",
+          "settings": {
+            "category": "Injectables"
+          }
+        },
+        {
+          "type": "filter",
+          "settings": {
+            "category": "Laser"
+          }
+        },
+        {
+          "type": "filter",
+          "settings": {
+            "category": "Body"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -30,18 +30,26 @@
 
     <style>
       :root {
-        /* Colors */
-        --color-ivory: {{ settings.color_ivory }};
-        --color-stone: {{ settings.color_stone }};
-        --color-soft-black: {{ settings.color_soft_black }};
-        --color-rose: {{ settings.color_rose }};
-        --color-gold: {{ settings.color_gold }};
-        --color-accent: {% if settings.accent_color_scheme == 'gold' %}var(--color-gold){% else %}var(--color-rose){% endif %};
+        /* Background Colors */
+        --color-page-bg: {{ settings.color_page_bg }};
+        --color-surface: {{ settings.color_surface }};
+        --color-subtle-surface: {{ settings.color_subtle_surface }};
         
-        --color-bg: var(--color-ivory);
-        --color-bg-secondary: var(--color-stone);
-        --color-text: var(--color-soft-black);
-        --color-text-light: rgba(42, 42, 42, 0.7);
+        /* Tint Colors */
+        --color-beige: {{ settings.color_beige }};
+        --color-tan: {{ settings.color_tan }};
+        --color-blush: {{ settings.color_blush }};
+        --color-sage-soft: {{ settings.color_sage_soft }};
+        --color-stone: {{ settings.color_stone }};
+        
+        /* Accent Colors */
+        --color-sage: {{ settings.color_sage }};
+        --color-sage-deep: {{ settings.color_sage_deep }};
+        
+        /* Text Colors */
+        --color-text: {{ settings.color_text }};
+        --color-text-muted: {{ settings.color_text_muted }};
+        --color-line: {{ settings.color_line }};
         
         /* Typography */
         --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
@@ -51,34 +59,69 @@
         --font-heading-style: {{ settings.font_heading.style }};
         --font-body-style: {{ settings.font_body.style }};
         
-        --font-size-base: {{ settings.font_body_scale | times: 0.16 }}rem;
-        --font-size-sm: {{ settings.font_body_scale | times: 0.14 }}rem;
-        --font-size-lg: {{ settings.font_body_scale | times: 0.18 }}rem;
-        --font-size-xl: {{ settings.font_heading_scale | times: 0.24 }}rem;
-        --font-size-2xl: {{ settings.font_heading_scale | times: 0.32 }}rem;
-        --font-size-3xl: {{ settings.font_heading_scale | times: 0.48 }}rem;
+        /* Font Sizes - Desktop */
+        --font-size-hero-lg: 5rem;
+        --font-size-hero-sm: 3.75rem;
+        --font-size-h1: 2.75rem;
+        --font-size-h2: 1.625rem;
+        --font-size-h3: 1.1875rem;
+        --font-size-body-lg: 1.125rem;
+        --font-size-body: 1rem;
+        --font-size-body-sm: 0.875rem;
+        --font-size-eyebrow: 0.75rem;
         
-        /* Spacing */
-        --spacing-base: {{ settings.spacing_base }}px;
-        --spacing-sm: calc(var(--spacing-base) * 0.5);
-        --spacing-md: calc(var(--spacing-base) * 1);
-        --spacing-lg: calc(var(--spacing-base) * 1.5);
-        --spacing-xl: calc(var(--spacing-base) * 2);
-        --spacing-2xl: calc(var(--spacing-base) * 3);
+        /* Letter Spacing */
+        --letter-spacing-tight: -0.03em;
+        --letter-spacing-normal: 0;
+        --letter-spacing-wide: 0.12em;
+        
+        /* Spacing Scale */
+        --spacing-unit: {{ settings.spacing_base }}px;
+        --spacing-1: calc(var(--spacing-unit) * 1);
+        --spacing-2: calc(var(--spacing-unit) * 2);
+        --spacing-3: calc(var(--spacing-unit) * 3);
+        --spacing-4: calc(var(--spacing-unit) * 4);
+        --spacing-5: calc(var(--spacing-unit) * 5);
+        --spacing-6: calc(var(--spacing-unit) * 6);
+        --spacing-8: calc(var(--spacing-unit) * 8);
+        --spacing-10: calc(var(--spacing-unit) * 10);
+        --spacing-12: calc(var(--spacing-unit) * 12);
+        --spacing-15: calc(var(--spacing-unit) * 15);
         --section-spacing: {{ settings.section_spacing }}px;
+        
+        /* Border Radius */
+        --radius-sm: {{ settings.radius_sm }}px;
+        --radius-md: {{ settings.radius_md }}px;
+        --radius-lg: {{ settings.radius_lg }}px;
+        --radius-xl: {{ settings.radius_xl }}px;
+        --radius-pill: 999px;
+        
+        /* Shadows */
+        --shadow-card: 0 8px 24px rgba(21, 21, 21, 0.10);
+        --shadow-glass: 0 4px 16px rgba(21, 21, 21, 0.08);
         
         /* Layout */
         --container-max-width: {{ settings.container_max_width }}px;
-        --container-padding: var(--spacing-md);
+        --container-padding: var(--spacing-3);
         
         /* Interactive */
         --tap-target-min: 44px;
-        --focus-outline: 2px solid var(--color-accent);
+        --focus-outline: 2px solid var(--color-sage);
         --focus-offset: 2px;
         
         /* Transitions */
         --transition-speed: 0.2s;
         --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      @media (max-width: 767px) {
+        :root {
+          --font-size-hero-lg: 2.625rem;
+          --font-size-hero-sm: 1.875rem;
+          --font-size-h1: 1.875rem;
+          --font-size-h2: 1.5rem;
+          --font-size-h3: 1.125rem;
+        }
       }
       
       @media (prefers-reduced-motion: reduce) {
@@ -112,9 +155,7 @@
 
     {% sections 'footer-group' %}
 
-    {% if settings.mobile_book_bar_enabled %}
-      {% render 'mobile-book-bar' %}
-    {% endif %}
+    {% render 'mobile-nav-bar' %}
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'general.accessibility.refresh_page' | t }}</li>
