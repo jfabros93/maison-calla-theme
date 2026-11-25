@@ -1,135 +1,182 @@
 {
   "sections": {
-    "hero": {
-      "type": "hero",
+    "split_hero": {
+      "type": "split-hero",
+      "blocks": {
+        "chip_1": {
+          "type": "attribute_chip",
+          "settings": {
+            "text": "No downtime",
+            "style": "beige"
+          }
+        },
+        "chip_2": {
+          "type": "attribute_chip",
+          "settings": {
+            "text": "Instant glow",
+            "style": "tan"
+          }
+        },
+        "chip_3": {
+          "type": "attribute_chip",
+          "settings": {
+            "text": "Medical grade",
+            "style": "blush"
+          }
+        }
+      },
+      "block_order": [
+        "chip_1",
+        "chip_2",
+        "chip_3"
+      ],
       "settings": {
-        "heading": "Clinical Excellence, Luxurious Care",
-        "subheading": "Experience transformative treatments in our serene med spa",
-        "book_label": "Book Treatment",
-        "shop_label": "Shop Retail"
+        "eyebrow": "Medical spa · San Francisco",
+        "heading": "Skin that looks like you, just well rested.",
+        "subheading": "Evidence-based treatments delivered by licensed medical providers in a space that feels like a sanctuary.",
+        "primary_button_label": "Book a consultation",
+        "secondary_button_label": "Explore treatments",
+        "stat_1_value": "4.9",
+        "stat_1_label": "Rating",
+        "stat_2_value": "12",
+        "stat_2_label": "Licensed providers",
+        "stat_3_value": "3",
+        "stat_3_label": "Bay Area studios",
+        "availability_label": "Next available",
+        "availability_time": "Today, 3:30 PM",
+        "availability_button": "Reserve"
       }
     },
-    "treatment_cards": {
-      "type": "treatment-cards",
+    "filterable_treatments": {
+      "type": "filterable-treatments",
+      "blocks": {
+        "filter_1": {
+          "type": "filter",
+          "settings": {
+            "category": "Facials"
+          }
+        },
+        "filter_2": {
+          "type": "filter",
+          "settings": {
+            "category": "Injectables"
+          }
+        },
+        "filter_3": {
+          "type": "filter",
+          "settings": {
+            "category": "Laser"
+          }
+        },
+        "filter_4": {
+          "type": "filter",
+          "settings": {
+            "category": "Body"
+          }
+        }
+      },
+      "block_order": [
+        "filter_1",
+        "filter_2",
+        "filter_3",
+        "filter_4"
+      ],
       "settings": {
-        "heading": "Our Treatments",
-        "subheading": "Discover our range of clinically-proven treatments",
+        "eyebrow": "Treatments",
+        "heading": "Results-driven care, matched to your skin.",
         "products_to_show": 6,
-        "view_all_label": "View All Treatments"
+        "enable_filters": true,
+        "view_all_label": "View all treatments"
       }
     },
-    "credentials": {
-      "type": "credentials",
+    "trust_row": {
+      "type": "trust-row",
       "blocks": {
-        "credential_1": {
-          "type": "credential",
+        "trust_1": {
+          "type": "item",
           "settings": {
-            "icon": true,
-            "title": "Board Certified",
-            "description": "Licensed medical professionals"
+            "show_icon": true,
+            "title": "Licensed Providers",
+            "description": "Board-certified medical professionals"
           }
         },
-        "credential_2": {
-          "type": "credential",
+        "trust_2": {
+          "type": "item",
           "settings": {
-            "icon": true,
-            "title": "15+ Years",
-            "description": "Combined experience"
-          }
-        },
-        "credential_3": {
-          "type": "credential",
-          "settings": {
-            "icon": true,
+            "show_icon": true,
             "title": "Medical Grade",
-            "description": "FDA-approved treatments"
+            "description": "FDA-approved treatments & products"
           }
         },
-        "credential_4": {
-          "type": "credential",
+        "trust_3": {
+          "type": "item",
           "settings": {
-            "icon": true,
+            "show_icon": true,
+            "title": "15+ Years",
+            "description": "Combined expertise in aesthetics"
+          }
+        },
+        "trust_4": {
+          "type": "item",
+          "settings": {
+            "show_icon": true,
             "title": "Safe & Effective",
-            "description": "Proven results"
+            "description": "Clinically proven results"
           }
         }
       },
       "block_order": [
-        "credential_1",
-        "credential_2",
-        "credential_3",
-        "credential_4"
+        "trust_1",
+        "trust_2",
+        "trust_3",
+        "trust_4"
       ],
-      "settings": {
-        "heading": "Trusted Expertise"
-      }
+      "settings": {}
     },
-    "product_row": {
-      "type": "product-row",
-      "settings": {
-        "heading": "Shop Professional Skincare",
-        "subheading": "Take your results home with medical-grade products",
-        "products_to_show": 4,
-        "view_all_label": "Shop All Products"
-      }
-    },
-    "booking_app": {
-      "type": "booking-app",
-      "settings": {
-        "heading": "Book Your Treatment",
-        "subheading": "Select your preferred date and time"
-      }
-    },
-    "faq": {
-      "type": "faq",
+    "reviews": {
+      "type": "reviews",
       "blocks": {
-        "faq_1": {
-          "type": "faq",
+        "review_1": {
+          "type": "review",
           "settings": {
-            "question": "How do I book an appointment?",
-            "answer": "<p>You can book online through our booking system above, or call us directly at the number listed on our contact page.</p>"
+            "text": "The best facial I've ever had. My skin has never looked better and the staff made me feel so comfortable throughout.",
+            "author_name": "Sarah M.",
+            "author_meta": "Hydrafacial · San Francisco"
           }
         },
-        "faq_2": {
-          "type": "faq",
+        "review_2": {
+          "type": "review",
           "settings": {
-            "question": "What should I expect during my first visit?",
-            "answer": "<p>Your first visit includes a comprehensive consultation where we discuss your goals, assess your skin or treatment area, and create a personalized treatment plan tailored to your needs.</p>"
+            "text": "Professional, clean, and results that actually last. I've been coming here for 2 years and won't go anywhere else.",
+            "author_name": "Jennifer L.",
+            "author_meta": "Botox · Oakland"
           }
         },
-        "faq_3": {
-          "type": "faq",
+        "review_3": {
+          "type": "review",
           "settings": {
-            "question": "Do you require a consultation before treatment?",
-            "answer": "<p>Some treatments require an initial consultation to ensure they're right for you. This will be noted on the individual treatment pages.</p>"
-          }
-        },
-        "faq_4": {
-          "type": "faq",
-          "settings": {
-            "question": "What is your cancellation policy?",
-            "answer": "<p>We require 24 hours notice for cancellations. Late cancellations or no-shows may be subject to a fee.</p>"
+            "text": "Finally found a place that takes the time to understand my skin goals. The consultation was thorough and the results exceeded expectations.",
+            "author_name": "Michael K.",
+            "author_meta": "Laser treatment · Berkeley"
           }
         }
       },
       "block_order": [
-        "faq_1",
-        "faq_2",
-        "faq_3",
-        "faq_4"
+        "review_1",
+        "review_2",
+        "review_3"
       ],
       "settings": {
-        "heading": "Frequently Asked Questions",
-        "subheading": "Everything you need to know about our treatments"
+        "heading": "What our clients say",
+        "rating": "4.9",
+        "rating_count": "450+"
       }
     }
   },
   "order": [
-    "hero",
-    "treatment_cards",
-    "credentials",
-    "product_row",
-    "booking_app",
-    "faq"
+    "split_hero",
+    "filterable_treatments",
+    "trust_row",
+    "reviews"
   ]
 }

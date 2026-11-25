@@ -1,62 +1,68 @@
 {
   "sections": {
     "main": {
-      "type": "main-product-treatment",
+      "type": "main-product-treatment-new",
       "blocks": {
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
-        "duration": {
-          "type": "duration",
-          "settings": {}
-        },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
-        "what_to_expect": {
-          "type": "what_to_expect",
-          "settings": {}
-        },
-        "aftercare": {
-          "type": "aftercare",
-          "settings": {}
-        },
-        "booking_cta": {
-          "type": "booking_cta",
-          "settings": {}
-        },
         "app_block_1": {
           "type": "@app"
         }
       },
       "block_order": [
-        "title",
-        "price",
-        "duration",
-        "description",
-        "what_to_expect",
-        "aftercare",
-        "booking_cta",
         "app_block_1"
+      ],
+      "settings": {}
+    },
+    "accordions": {
+      "type": "treatment-accordions",
+      "blocks": {
+        "accordion_1": {
+          "type": "accordion",
+          "settings": {
+            "title": "What to expect",
+            "content": "<p>This treatment provides deep cleansing and intense hydration. You'll experience a refreshing sensation as we cleanse, exfoliate, and infuse your skin with nourishing serums. The process is gentle and relaxing, with no discomfort.</p>"
+          }
+        },
+        "accordion_2": {
+          "type": "accordion",
+          "settings": {
+            "title": "Who it's for",
+            "content": "<p>Ideal for all skin types, especially those looking to improve texture, tone, and hydration. Perfect for anyone seeking a radiant, healthy glow without downtime.</p>"
+          }
+        },
+        "accordion_3": {
+          "type": "accordion",
+          "settings": {
+            "title": "Before & after care",
+            "content": "<p>Before: Arrive with clean skin, free of makeup. Avoid harsh exfoliants 24 hours before your appointment.</p><p>After: Stay well-hydrated, use sunscreen daily, and avoid intense heat or vigorous exercise for 24-48 hours. Continue your regular skincare routine with gentle products.</p>"
+          }
+        },
+        "accordion_4": {
+          "type": "accordion",
+          "settings": {
+            "title": "Contraindications",
+            "content": "<p>This treatment is not recommended if you are pregnant, nursing, or have active skin infections, open wounds, or severe rosacea. Please inform your provider of any allergies, medical conditions, or medications.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_1",
+        "accordion_2",
+        "accordion_3",
+        "accordion_4"
       ],
       "settings": {}
     },
     "related_treatments": {
       "type": "related-products",
       "settings": {
-        "heading": "You May Also Like",
+        "heading": "Pairs well with",
         "products_to_show": 3
       }
     }
   },
   "order": [
     "main",
+    "accordions",
     "related_treatments"
   ]
 }

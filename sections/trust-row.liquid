@@ -1,0 +1,147 @@
+{%- comment -%}
+  Trust row with stats/credentials
+{%- endcomment -%}
+
+<style>
+  .trust-row {
+    padding-top: var(--spacing-10);
+    padding-bottom: var(--spacing-10);
+    background-color: var(--color-surface);
+  }
+  
+  .trust-row__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-6);
+  }
+  
+  @media (min-width: 768px) {
+    .trust-row__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spacing-8);
+    }
+  }
+  
+  .trust-row__item {
+    text-align: center;
+  }
+  
+  .trust-row__icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto var(--spacing-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--color-sage-soft);
+    color: var(--color-sage-deep);
+  }
+  
+  .trust-row__title {
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .trust-row__description {
+    font-size: var(--font-size-body-sm);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+</style>
+
+<section class="trust-row">
+  <div class="container">
+    <div class="trust-row__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'item' -%}
+          <div class="trust-row__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.show_icon -%}
+              <div class="trust-row__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            {%- endif -%}
+            
+            {%- if block.settings.title != blank -%}
+              <h3 class="trust-row__title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+            
+            {%- if block.settings.description != blank -%}
+              <p class="trust-row__description">{{ block.settings.description }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust Row",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust Item",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show Icon",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Board Certified"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Licensed medical professionals"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Row",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "title": "Licensed Providers",
+            "description": "Board-certified medical professionals"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Medical Grade",
+            "description": "FDA-approved treatments & products"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "15+ Years",
+            "description": "Combined expertise in aesthetics"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Safe & Effective",
+            "description": "Clinically proven results"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

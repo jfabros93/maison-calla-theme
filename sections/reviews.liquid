@@ -1,0 +1,224 @@
+{%- comment -%}
+  Reviews section with rating and review cards
+{%- endcomment -%}
+
+<style>
+  .reviews-section {
+    padding-top: var(--section-spacing);
+    padding-bottom: var(--section-spacing);
+  }
+  
+  .reviews-section__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: var(--spacing-8);
+    gap: var(--spacing-3);
+  }
+  
+  @media (min-width: 768px) {
+    .reviews-section__header {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+  
+  .reviews-section__rating-block {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
+  
+  .reviews-section__rating-value {
+    font-size: var(--font-size-hero-sm);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  
+  .reviews-section__rating-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+  }
+  
+  .reviews-section__stars {
+    display: flex;
+    gap: var(--spacing-1);
+    color: #FFB800;
+  }
+  
+  .reviews-section__rating-label {
+    font-size: var(--font-size-body-sm);
+    color: var(--color-text-muted);
+  }
+  
+  .reviews-section__title {
+    font-size: var(--font-size-h1);
+  }
+  
+  @media (max-width: 767px) {
+    .reviews-section__header {
+      order: 1;
+    }
+    
+    .reviews-section__title {
+      order: -1;
+    }
+  }
+</style>
+
+<section class="reviews-section">
+  <div class="container">
+    <div class="reviews-section__header">
+      <div class="reviews-section__rating-block">
+        <div class="reviews-section__rating-value">{{ section.settings.rating | default: '4.9' }}</div>
+        <div class="reviews-section__rating-info">
+          <div class="reviews-section__stars" aria-label="Rating: {{ section.settings.rating | default: '4.9' }} out of 5 stars">
+            {%- for i in (1..5) -%}
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 1l2.472 6.182L19 8.09l-5 4.345L15.472 19 10 15.182 4.528 19 6 12.435 1 8.09l6.528-.908L10 1z"/>
+              </svg>
+            {%- endfor -%}
+          </div>
+          <div class="reviews-section__rating-label">{{ section.settings.rating_count | default: '450+' }} reviews</div>
+        </div>
+      </div>
+      
+      {%- if section.settings.heading != blank -%}
+        <h2 class="reviews-section__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+    
+    <div class="grid grid--3-col">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'review' -%}
+          <div class="review-card card" {{ block.shopify_attributes }}>
+            <div class="review-card__rating">
+              {%- for i in (1..5) -%}
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 1l2.472 6.182L19 8.09l-5 4.345L15.472 19 10 15.182 4.528 19 6 12.435 1 8.09l6.528-.908L10 1z"/>
+                </svg>
+              {%- endfor -%}
+            </div>
+            
+            {%- if block.settings.text != blank -%}
+              <p class="review-card__text">{{ block.settings.text }}</p>
+            {%- endif -%}
+            
+            <div class="review-card__author">
+              {%- if block.settings.avatar != blank -%}
+                <img 
+                  src="{{ block.settings.avatar | image_url: width: 80 }}"
+                  alt="{{ block.settings.author_name | escape }}"
+                  class="review-card__avatar"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="review-card__avatar" style="background-color: var(--color-sage-soft);"></div>
+              {%- endif -%}
+              
+              <div class="review-card__author-info">
+                {%- if block.settings.author_name != blank -%}
+                  <div class="review-card__author-name">{{ block.settings.author_name }}</div>
+                {%- endif -%}
+                {%- if block.settings.author_meta != blank -%}
+                  <div class="review-card__author-meta">{{ block.settings.author_meta }}</div>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What our clients say"
+    },
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Overall Rating",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "rating_count",
+      "label": "Rating Count",
+      "default": "450+"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review Text",
+          "default": "The best facial I've ever had. My skin has never looked better and the staff made me feel so comfortable throughout."
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name",
+          "default": "Sarah M."
+        },
+        {
+          "type": "text",
+          "id": "author_meta",
+          "label": "Author Meta",
+          "default": "Verified client"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar Image (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "text": "The best facial I've ever had. My skin has never looked better and the staff made me feel so comfortable throughout.",
+            "author_name": "Sarah M.",
+            "author_meta": "Hydrafacial · San Francisco"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "text": "Professional, clean, and results that actually last. I've been coming here for 2 years and won't go anywhere else.",
+            "author_name": "Jennifer L.",
+            "author_meta": "Botox · Oakland"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "text": "Finally found a place that takes the time to understand my skin goals. The consultation was thorough and the results exceeded expectations.",
+            "author_name": "Michael K.",
+            "author_meta": "Laser treatment · Berkeley"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
