@@ -1,0 +1,447 @@
+{%- comment -%}
+  Split hero section with white info card and tinted image card
+{%- endcomment -%}
+
+<style>
+  .split-hero {
+    padding-top: var(--spacing-8);
+    padding-bottom: var(--spacing-10);
+  }
+  
+  .split-hero__grid {
+    display: grid;
+    gap: var(--spacing-4);
+    grid-template-columns: 1fr;
+  }
+  
+  @media (min-width: 1024px) {
+    .split-hero__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-6);
+    }
+  }
+  
+  .split-hero__info-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: var(--spacing-6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  @media (min-width: 1024px) {
+    .split-hero__info-card {
+      padding: var(--spacing-8);
+    }
+  }
+  
+  .split-hero__eyebrow-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    padding: var(--spacing-1) var(--spacing-2);
+    background-color: var(--color-subtle-surface);
+    border-radius: var(--radius-pill);
+    font-size: var(--font-size-body-sm);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-4);
+    width: fit-content;
+  }
+  
+  .split-hero__heading {
+    font-size: var(--font-size-hero-sm);
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: 1.1;
+    margin-bottom: var(--spacing-4);
+  }
+  
+  @media (min-width: 1024px) {
+    .split-hero__heading {
+      font-size: var(--font-size-hero-lg);
+    }
+  }
+  
+  .split-hero__subheading {
+    font-size: var(--font-size-body-lg);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .split-hero__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .split-hero__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-4);
+    padding-top: var(--spacing-6);
+    border-top: 1px solid var(--color-line);
+  }
+  
+  .split-hero__stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+  }
+  
+  .split-hero__stat-value {
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  
+  .split-hero__stat-label {
+    font-size: var(--font-size-body-sm);
+    color: var(--color-text-muted);
+  }
+  
+  .split-hero__image-card {
+    background-color: var(--color-beige);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+    min-height: 500px;
+  }
+  
+  @media (min-width: 1024px) {
+    .split-hero__image-card {
+      min-height: 600px;
+    }
+  }
+  
+  .split-hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+  }
+  
+  .split-hero__image-overlay {
+    position: absolute;
+    bottom: var(--spacing-4);
+    left: var(--spacing-4);
+    right: var(--spacing-4);
+    z-index: 1;
+  }
+  
+  .split-hero__image-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-3);
+  }
+  
+  .split-hero__availability-bar {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-3);
+    box-shadow: var(--shadow-glass);
+  }
+  
+  .split-hero__availability-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+  }
+  
+  .split-hero__availability-label {
+    font-size: var(--font-size-body-sm);
+    color: var(--color-text-muted);
+  }
+  
+  .split-hero__availability-time {
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  
+  .split-hero__availability-btn {
+    flex-shrink: 0;
+  }
+</style>
+
+<section class="split-hero">
+  <div class="container">
+    <div class="split-hero__grid">
+      <div class="split-hero__info-card">
+        {%- if section.settings.eyebrow != blank -%}
+          <div class="split-hero__eyebrow-chip">
+            {{ section.settings.eyebrow }}
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.heading != blank -%}
+          <h1 class="split-hero__heading">{{ section.settings.heading }}</h1>
+        {%- endif -%}
+        
+        {%- if section.settings.subheading != blank -%}
+          <p class="split-hero__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+        
+        <div class="split-hero__buttons">
+          {%- if section.settings.primary_button_label != blank -%}
+            <a href="{{ section.settings.primary_button_link }}" class="button button--primary" data-book-cta data-cta-type="consult">
+              {{ section.settings.primary_button_label }}
+            </a>
+          {%- endif -%}
+          
+          {%- if section.settings.secondary_button_label != blank -%}
+            <a href="{{ section.settings.secondary_button_link }}" class="button button--secondary">
+              {{ section.settings.secondary_button_label }}
+            </a>
+          {%- endif -%}
+        </div>
+        
+        <div class="split-hero__stats">
+          <div class="split-hero__stat">
+            <div class="split-hero__stat-value">{{ section.settings.stat_1_value | default: '4.9' }}</div>
+            <div class="split-hero__stat-label">{{ section.settings.stat_1_label | default: 'Rating' }}</div>
+          </div>
+          <div class="split-hero__stat">
+            <div class="split-hero__stat-value">{{ section.settings.stat_2_value | default: '12' }}</div>
+            <div class="split-hero__stat-label">{{ section.settings.stat_2_label | default: 'Licensed providers' }}</div>
+          </div>
+          <div class="split-hero__stat">
+            <div class="split-hero__stat-value">{{ section.settings.stat_3_value | default: '3' }}</div>
+            <div class="split-hero__stat-label">{{ section.settings.stat_3_label | default: 'Bay Area studios' }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="split-hero__image-card">
+        {%- if section.settings.image != blank -%}
+          <img 
+            src="{{ section.settings.image | image_url: width: 800 }}"
+            srcset="{{ section.settings.image | image_url: width: 400 }} 400w,
+                    {{ section.settings.image | image_url: width: 600 }} 600w,
+                    {{ section.settings.image | image_url: width: 800 }} 800w"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            alt="{{ section.settings.image.alt | escape }}"
+            class="split-hero__image"
+            loading="eager"
+          >
+        {%- endif -%}
+        
+        <div class="split-hero__image-overlay">
+          {%- if section.blocks.size > 0 -%}
+            <div class="split-hero__image-chips">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'attribute_chip' -%}
+                  <span class="chip chip--{{ block.settings.style }}" {{ block.shopify_attributes }}>
+                    {{ block.settings.text }}
+                  </span>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+          
+          <div class="split-hero__availability-bar">
+            <div class="split-hero__availability-text">
+              <div class="split-hero__availability-label">{{ section.settings.availability_label | default: 'Next available' }}</div>
+              <div class="split-hero__availability-time">{{ section.settings.availability_time | default: 'Today, 3:30 PM' }}</div>
+            </div>
+            <a href="{{ section.settings.availability_link }}" class="button button--compact button--primary split-hero__availability-btn" data-book-cta>
+              {{ section.settings.availability_button | default: 'Reserve' }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Split Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Info Card"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Medical spa · San Francisco"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Skin that looks like you, just well rested."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Evidence-based treatments delivered by licensed medical providers in a space that feels like a sanctuary."
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Primary Button Label",
+      "default": "Book a consultation"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Secondary Button Label",
+      "default": "Explore treatments"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Stats"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_value",
+      "label": "Stat 1 Value",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Stat 1 Label",
+      "default": "Rating"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_value",
+      "label": "Stat 2 Value",
+      "default": "12"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 Label",
+      "default": "Licensed providers"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_value",
+      "label": "Stat 3 Value",
+      "default": "3"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Stat 3 Label",
+      "default": "Bay Area studios"
+    },
+    {
+      "type": "header",
+      "content": "Image Card"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "availability_label",
+      "label": "Availability Label",
+      "default": "Next available"
+    },
+    {
+      "type": "text",
+      "id": "availability_time",
+      "label": "Availability Time",
+      "default": "Today, 3:30 PM"
+    },
+    {
+      "type": "text",
+      "id": "availability_button",
+      "label": "Availability Button",
+      "default": "Reserve"
+    },
+    {
+      "type": "url",
+      "id": "availability_link",
+      "label": "Availability Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "attribute_chip",
+      "name": "Attribute Chip",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "No downtime"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            { "value": "beige", "label": "Beige" },
+            { "value": "tan", "label": "Tan" },
+            { "value": "blush", "label": "Blush" },
+            { "value": "sage", "label": "Sage" },
+            { "value": "stone", "label": "Stone" }
+          ],
+          "default": "beige"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Split Hero",
+      "blocks": [
+        {
+          "type": "attribute_chip",
+          "settings": {
+            "text": "No downtime",
+            "style": "beige"
+          }
+        },
+        {
+          "type": "attribute_chip",
+          "settings": {
+            "text": "Instant glow",
+            "style": "tan"
+          }
+        },
+        {
+          "type": "attribute_chip",
+          "settings": {
+            "text": "Medical grade",
+            "style": "blush"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
