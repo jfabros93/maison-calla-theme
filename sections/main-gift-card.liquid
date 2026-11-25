@@ -1,0 +1,253 @@
+{%- comment -%}
+  Main Gift Card - Gift card product page
+{%- endcomment -%}
+
+<style>
+  .gift-card {
+    padding: var(--section-spacing) 0;
+  }
+  
+  .gift-card__grid {
+    display: grid;
+    gap: var(--spacing-2xl);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  @media (min-width: 768px) {
+    .gift-card__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .gift-card__preview {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-soft-black));
+    padding: var(--spacing-2xl);
+    aspect-ratio: 16 / 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--color-ivory);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .gift-card__preview::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  }
+  
+  .gift-card__preview-logo {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-md);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .gift-card__preview-label {
+    font-size: var(--font-size-lg);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .gift-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  
+  .gift-card__title {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .gift-card__description {
+    color: var(--color-text-light);
+    line-height: 1.7;
+  }
+  
+  .gift-card__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .gift-card__amount-label {
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .gift-card__amounts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+  
+  .gift-card__amount-option {
+    position: relative;
+  }
+  
+  .gift-card__amount-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .gift-card__amount-label-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--tap-target-min);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 2px solid var(--color-stone);
+    background-color: var(--color-bg);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-speed) var(--transition-easing);
+    font-weight: 600;
+  }
+  
+  .gift-card__amount-input:checked + .gift-card__amount-label-btn {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+    color: var(--color-ivory);
+  }
+  
+  .gift-card__quantity {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .gift-card__quantity-label {
+    font-weight: 600;
+  }
+  
+  .gift-card__quantity-input {
+    width: 80px;
+    min-height: var(--tap-target-min);
+    padding: var(--spacing-sm);
+    border: 2px solid var(--color-stone);
+    text-align: center;
+    font-size: var(--font-size-base);
+  }
+  
+  .gift-card__features {
+    padding: var(--spacing-lg);
+    background-color: var(--color-bg-secondary);
+  }
+  
+  .gift-card__features-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .gift-card__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    color: var(--color-text-light);
+  }
+  
+  .gift-card__feature svg {
+    color: var(--color-accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+</style>
+
+<div class="gift-card">
+  <div class="container">
+    <div class="gift-card__grid">
+      <div class="gift-card__preview">
+        <div class="gift-card__preview-logo">{{ shop.name }}</div>
+        <div class="gift-card__preview-label">Gift Card</div>
+      </div>
+      
+      <div class="gift-card__info">
+        <h1 class="gift-card__title">{{ product.title }}</h1>
+        
+        <div class="gift-card__description">
+          <p>Give the gift of wellness and self-care. Our gift cards can be used for any treatment or retail product.</p>
+        </div>
+        
+        <form class="gift-card__form" method="post" action="{{ routes.cart_add_url }}">
+          <div>
+            <div class="gift-card__amount-label">Select Amount</div>
+            <div class="gift-card__amounts">
+              {%- for variant in product.variants -%}
+                <div class="gift-card__amount-option">
+                  <input
+                    type="radio"
+                    id="variant-{{ variant.id }}"
+                    name="id"
+                    value="{{ variant.id }}"
+                    class="gift-card__amount-input"
+                    {% if forloop.first %}checked{% endif %}
+                    {% unless variant.available %}disabled{% endunless %}
+                  >
+                  <label for="variant-{{ variant.id }}" class="gift-card__amount-label-btn">
+                    {{ variant.price | money }}
+                  </label>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+          
+          <div class="gift-card__quantity">
+            <label class="gift-card__quantity-label" for="quantity">Quantity</label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              value="1"
+              min="1"
+              class="gift-card__quantity-input"
+            >
+          </div>
+          
+          <button type="submit" class="button button--primary button--full-width">
+            Add to Cart
+          </button>
+        </form>
+        
+        <div class="gift-card__features">
+          <ul class="gift-card__features-list">
+            <li class="gift-card__feature">
+              {% render 'icon', icon: 'check' %}
+              <span>Valid for all treatments and products</span>
+            </li>
+            <li class="gift-card__feature">
+              {% render 'icon', icon: 'check' %}
+              <span>No expiration date</span>
+            </li>
+            <li class="gift-card__feature">
+              {% render 'icon', icon: 'check' %}
+              <span>Delivered by email instantly</span>
+            </li>
+            <li class="gift-card__feature">
+              {% render 'icon', icon: 'check' %}
+              <span>Can be used at any location</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Gift Card",
+  "settings": []
+}
+{% endschema %}

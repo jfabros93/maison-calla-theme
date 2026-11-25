@@ -1,0 +1,181 @@
+{%- comment -%}
+  Gift Card Promo - Promotional section for gift cards
+{%- endcomment -%}
+
+<style>
+  .gift-card-promo {
+    background-color: var(--color-bg-secondary);
+  }
+  
+  .gift-card-promo__grid {
+    display: grid;
+    gap: var(--spacing-2xl);
+    align-items: center;
+  }
+  
+  @media (min-width: 768px) {
+    .gift-card-promo__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .gift-card-promo__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  
+  .gift-card-promo__heading {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .gift-card-promo__description {
+    color: var(--color-text-light);
+    line-height: 1.7;
+  }
+  
+  .gift-card-promo__features {
+    list-style: none;
+  }
+  
+  .gift-card-promo__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-light);
+  }
+  
+  .gift-card-promo__feature svg {
+    color: var(--color-accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  
+  .gift-card-promo__preview {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-soft-black));
+    padding: var(--spacing-2xl);
+    aspect-ratio: 16 / 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--color-ivory);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .gift-card-promo__preview::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  }
+  
+  .gift-card-promo__preview-logo {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-md);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .gift-card-promo__preview-label {
+    font-size: var(--font-size-lg);
+    position: relative;
+    z-index: 1;
+  }
+</style>
+
+<section class="gift-card-promo section">
+  <div class="container">
+    <div class="gift-card-promo__grid">
+      <div class="gift-card-promo__content">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="gift-card-promo__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        
+        {%- if section.settings.description != blank -%}
+          <div class="gift-card-promo__description">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.features != blank -%}
+          <ul class="gift-card-promo__features">
+            {%- assign features_list = section.settings.features | newline_to_br | split: '<br />' -%}
+            {%- for feature in features_list -%}
+              {%- assign feature_text = feature | strip -%}
+              {%- if feature_text != blank -%}
+                <li class="gift-card-promo__feature">
+                  {% render 'icon', icon: 'check' %}
+                  <span>{{ feature_text }}</span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        
+        {%- if section.settings.link != blank -%}
+          <div>
+            <a href="{{ section.settings.link }}" class="button button--primary">
+              {{ section.settings.link_label | default: 'Shop Gift Cards' }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+      
+      <div class="gift-card-promo__preview">
+        <div class="gift-card-promo__preview-logo">{{ shop.name }}</div>
+        <div class="gift-card-promo__preview-label">Gift Card</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gift Card Promo",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Give the Gift of Wellness"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Perfect for birthdays, holidays, or just because. Our gift cards never expire and can be used for any treatment or product."
+    },
+    {
+      "type": "textarea",
+      "id": "features",
+      "label": "Features (one per line)",
+      "default": "Valid for all treatments and products\nNo expiration date\nDelivered instantly by email\nCan be used at any location"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Gift Card Product Link"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Button Label",
+      "default": "Shop Gift Cards"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift Card Promo"
+    }
+  ]
+}
+{% endschema %}

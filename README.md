@@ -314,23 +314,122 @@ maison-calla-theme/
 
 This theme passes `shopify theme check` with no errors (see PR for output).
 
+## Additional Features (PR #2)
+
+### Packages & Memberships
+- **Package Tiles Section** (`sections/package-tiles.liquid`) - Display treatment packages and membership programs with pricing tiers, included sessions, savings, features, and Book/Consult CTAs
+- **Package Page Template** (`templates/page.packages.json`) - Dedicated page with package tiles, booking app slots, and FAQ
+- @app block support for Downpay (deposits) and subscription apps
+
+### Multi-Location Support
+- **Locations List Section** (`sections/locations-list.liquid`) - Grid of locations with addresses, hours, phone, and location-specific booking
+- **Location Page** (`sections/main-location.liquid`, `templates/page.location.json`) - Individual location pages showing address, hours, map embed, treatments offered, and location-specific booking with @app slots
+- Google Maps embed support with responsive iframe
+
+### Team & Providers
+- **Team Grid Section** (`sections/team-grid.liquid`) - Display team members with photos, credentials, specialties, and "Book with this provider" CTAs
+- **Team Member Page** (`sections/main-team-member.liquid`, `templates/page.team-member.json`) - Individual provider profiles with bio, credentials, specialties, education, and provider-specific booking
+
+### Before/After Gallery
+- **Before/After Slider Section** (`sections/before-after-slider.liquid`) - Accessible image comparison slider
+  - Keyboard navigable (arrow keys)
+  - Range input based for screen readers
+  - Properly labeled for assistive tech
+  - Respects `prefers-reduced-motion`
+  - Consent/disclaimer text setting
+
+### Reviews & Testimonials
+- **Reviews Section** (`sections/reviews.liquid`) - Display testimonials with @app block support for review apps (Stamped.io, Judge.me, Loox, etc.) or manual testimonial blocks with ratings, quotes, and author info
+
+### Full FAQ Page
+- **FAQ Page** (`sections/main-faq-page.liquid`, `templates/page.faq.json`) - Comprehensive FAQ with:
+  - Grouped accordion sections
+  - FAQPage JSON-LD structured data for SEO
+  - Keyboard accessible
+  - Five default groups: Booking & Appointments, Treatments & Services, Pricing & Packages, Safety & Credentials, Locations & Hours
+
+### Shop & Retail
+- **Retail Collection Template** (`templates/collection.retail.json`) - Standard product browsing with normal ecommerce UI
+- **Retail Product Section** (`sections/main-product-retail.liquid`, `templates/product.retail.json`) - Full ecommerce product pages with:
+  - Variant selection
+  - Quantity input
+  - Inventory display
+  - Add to cart button
+  - Image thumbnails
+  - Compare at price
+  - **Distinct from treatment pages** - includes all standard cart/shipping UI
+- **Gift Card Template** (`sections/main-gift-card.liquid`, `templates/product.gift-card.json`) - Beautiful gift card product page with amount selection, preview card design, and feature list
+- **Gift Card Promo Section** (`sections/gift-card-promo.liquid`) - Promotional section for gift cards with features and CTA
+
+### Contact & Service Area
+- **Contact Page** (`sections/main-contact.liquid`, `templates/page.contact.json`) - Contact form with:
+  - Contact information (phone, email, hours, address)
+  - Contact form (name, email, phone, message)
+  - Service area list (displays all cities/regions served)
+
+## Templates Map
+
+**Updated Template Count:** 11 JSON templates
+
+| Template | Purpose |
+|----------|---------|
+| `index.json` | Home page |
+| `collection.json` | Treatments list |
+| `collection.retail.json` | Retail products list |
+| `product.treatment.json` | Treatment pages (no cart) |
+| `product.retail.json` | Retail product pages (with cart) |
+| `product.gift-card.json` | Gift card product |
+| `page.json` | Standard pages |
+| `page.booking.json` | Booking page |
+| `page.packages.json` | Packages & memberships |
+| `page.location.json` | Individual location |
+| `page.team-member.json` | Team member profile |
+| `page.faq.json` | Full FAQ page |
+| `page.contact.json` | Contact & service area |
+
+## Sections Map
+
+**Updated Section Count:** 26 sections (+ 2 section groups)
+
+| Section | Type | Description |
+|---------|------|-------------|
+| `header.liquid` | Global | Sticky header with nav and book CTA |
+| `footer.liquid` | Global | Multi-column footer with concept notice |
+| `hero.liquid` | Home | Full-width hero with Book/Shop CTAs |
+| `treatment-cards.liquid` | Treatments | Grid of treatments with booking |
+| `package-tiles.liquid` | Packages | Package/membership tiles |
+| `credentials.liquid` | Trust | Certifications and trust signals |
+| `faq.liquid` | Home | Accordion FAQ section |
+| `booking-app.liquid` | Booking | @app slots + custom embeds |
+| `product-row.liquid` | Retail | Retail product showcase |
+| `locations-list.liquid` | Locations | Grid of all locations |
+| `team-grid.liquid` | Team | Team members grid |
+| `before-after-slider.liquid` | Gallery | Accessible before/after comparisons |
+| `reviews.liquid` | Social Proof | Testimonials and review apps |
+| `gift-card-promo.liquid` | Promo | Gift card promotional section |
+| `main-collection-banner.liquid` | Collection | Collection header |
+| `main-collection-product-grid.liquid` | Collection | Product grid with pagination |
+| `main-product-treatment.liquid` | Product | Treatment page (no cart UI) |
+| `main-product-retail.liquid` | Product | Retail product (with cart UI) |
+| `main-gift-card.liquid` | Product | Gift card product page |
+| `main-location.liquid` | Page | Individual location page |
+| `main-team-member.liquid` | Page | Team member profile page |
+| `main-faq-page.liquid` | Page | Full FAQ page with JSON-LD |
+| `main-contact.liquid` | Page | Contact form and service areas |
+| `main-page.liquid` | Page | Standard page content |
+| `related-products.liquid` | Product | Recommended products |
+
 ## Known Gaps / Future Work
 
-This PR establishes the foundation. Future PRs will add:
-
-- Packages and memberships template/sections
-- Multi-location support (location selector, per-location booking)
-- Team member pages with bios and booking links
-- Before/after image slider/gallery
-- Reviews/testimonials section
-- Full FAQ page template
-- Retail shop template enhancements
-- Gift cards page
-- Service menu page template
-- Multi-location selector
+Future enhancements:
 - Enhanced product filtering and search
-- Cart drawer (for retail products)
+- Cart drawer UI for retail products
 - Account pages styling
+- Blog/articles template
+- Advanced analytics dashboard
+- Multi-language support (Shopify Markets)
+- Product review aggregation
+- Loyalty program integration
 
 ## Credits
 

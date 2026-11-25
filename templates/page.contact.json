@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-contact",
+      "settings": {
+        "phone": "(555) 123-4567",
+        "email": "hello@maisoncalla.com",
+        "hours": "Monday - Friday: 9:00am - 7:00pm\nSaturday: 10:00am - 5:00pm\nSunday: Closed",
+        "address": "123 Wellness Avenue\nSuite 200\nSan Francisco, CA 94102",
+        "service_areas": "San Francisco\nMarin County\nOakland\nBerkeley\nSan Mateo\nPalo Alto\nSaratoga\nLos Gatos\nMountain View\nSunnyvale\nSanta Clara\nCupertino"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
