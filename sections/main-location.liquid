@@ -30,7 +30,7 @@
   }
   
   .location-page__description {
-    color: var(--color-text-light);
+    color: var(--color-text-muted);
     line-height: 1.7;
   }
   
@@ -52,12 +52,12 @@
   }
   
   .location-page__address {
-    color: var(--color-text-light);
+    color: var(--color-text-muted);
     line-height: 1.6;
   }
   
   .location-page__hours {
-    color: var(--color-text-light);
+    color: var(--color-text-muted);
     line-height: 1.8;
   }
   
@@ -115,7 +115,7 @@
   
   .location-page__booking-subtitle {
     text-align: center;
-    color: var(--color-text-light);
+    color: var(--color-text-muted);
     margin-bottom: var(--spacing-lg);
   }
 </style>
@@ -167,7 +167,7 @@
         {%- if section.settings.map_embed != blank -%}
           {{ section.settings.map_embed }}
         {%- else -%}
-          <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--color-text-light);">
+          <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--color-text-muted);">
             Map embed placeholder
           </div>
         {%- endif -%}
