@@ -1,372 +1,751 @@
 {%- comment -%}
-  Main Product Treatment Section
-  Displays treatment details without shipping/cart UI
-  Includes @app block slots for booking integrations
+  Treatment product page - Main section with gallery and booking panel
 {%- endcomment -%}
 
 <style>
-  .treatment-page {
-    padding: var(--section-spacing) 0;
+  .treatment-pdp {
+    padding-top: var(--spacing-8);
+    padding-bottom: var(--section-spacing);
   }
   
-  .treatment-page__grid {
+  .treatment-pdp__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-6);
+    font-size: var(--font-size-body-sm);
+    color: var(--color-text-muted);
+  }
+  
+  .treatment-pdp__breadcrumb a {
+    color: var(--color-text-muted);
+    transition: color var(--transition-speed) var(--transition-easing);
+  }
+  
+  .treatment-pdp__breadcrumb a:hover {
+    color: var(--color-sage);
+  }
+  
+  .treatment-pdp__grid {
     display: grid;
-    gap: var(--spacing-2xl);
+    gap: var(--spacing-6);
+    grid-template-columns: 1fr;
   }
   
-  @media (min-width: 768px) {
-    .treatment-page__grid {
+  @media (min-width: 1024px) {
+    .treatment-pdp__grid {
       grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-8);
     }
   }
   
-  .treatment-page__media {
-    position: sticky;
-    top: calc(var(--spacing-xl) + 70px);
-    align-self: start;
+  .treatment-pdp__gallery {
+    background-color: var(--color-beige);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
   }
   
-  .treatment-page__image {
-    width: 100%;
+  .treatment-pdp__gallery-main {
+    position: relative;
     aspect-ratio: 4 / 3;
+  }
+  
+  .treatment-pdp__gallery-image {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
   
-  .treatment-page__content {
+  .treatment-pdp__thumbnails {
     display: flex;
-    flex-direction: column;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-2);
+    padding: var(--spacing-3);
+    overflow-x: auto;
   }
   
-  .treatment-block {
-    padding-bottom: var(--spacing-lg);
-    border-bottom: 1px solid var(--color-stone);
+  .treatment-pdp__thumbnail {
+    flex: 0 0 80px;
+    height: 80px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color var(--transition-speed) var(--transition-easing);
   }
   
-  .treatment-block:last-child {
-    border-bottom: none;
+  .treatment-pdp__thumbnail.active {
+    border-color: var(--color-sage);
   }
   
-  .treatment-block__title {
-    font-size: var(--font-size-3xl);
-    margin-bottom: var(--spacing-md);
+  .treatment-pdp__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   
-  .treatment-block__price {
-    font-size: var(--font-size-xl);
-    color: var(--color-text-light);
-    margin-bottom: var(--spacing-sm);
+  .treatment-pdp__booking-panel {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: var(--spacing-6);
   }
   
-  .treatment-block__price-label {
-    font-size: var(--font-size-sm);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  
-  .treatment-block__duration {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    font-size: var(--font-size-base);
-    color: var(--color-text-light);
-  }
-  
-  .treatment-block__duration-label {
-    font-size: var(--font-size-sm);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  
-  .treatment-block__heading {
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .treatment-block__description {
-    line-height: 1.7;
-    color: var(--color-text-light);
-  }
-  
-  .treatment-block__description ul,
-  .treatment-block__description ol {
-    margin-left: var(--spacing-lg);
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .treatment-block__description li {
-    margin-bottom: var(--spacing-sm);
-  }
-  
-  .treatment-block__cta {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-  }
-  
-  @media (min-width: 768px) {
-    .treatment-block__cta {
-      flex-direction: row;
+  @media (min-width: 1024px) {
+    .treatment-pdp__booking-panel {
+      position: sticky;
+      top: calc(var(--spacing-8) + 80px);
     }
   }
   
-  .treatment-block__app {
-    margin-top: var(--spacing-md);
+  .treatment-pdp__header {
+    margin-bottom: var(--spacing-5);
+  }
+  
+  .treatment-pdp__title {
+    font-size: var(--font-size-h1);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .treatment-pdp__rating {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-4);
+    color: #FFB800;
+  }
+  
+  .treatment-pdp__rating-text {
+    font-size: var(--font-size-body-sm);
+    color: var(--color-text-muted);
+  }
+  
+  .treatment-pdp__description {
+    font-size: var(--font-size-body);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .treatment-pdp__meta-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-5);
+  }
+  
+  .treatment-pdp__pain-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    padding: var(--spacing-2) var(--spacing-3);
+    background-color: var(--color-sage-soft);
+    color: var(--color-sage-deep);
+    border-radius: var(--radius-pill);
+    font-size: var(--font-size-body-sm);
+    font-weight: 500;
+  }
+  
+  .treatment-pdp__section {
+    margin-bottom: var(--spacing-5);
+    padding-bottom: var(--spacing-5);
+    border-bottom: 1px solid var(--color-line);
+  }
+  
+  .treatment-pdp__section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  
+  .treatment-pdp__section-title {
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    margin-bottom: var(--spacing-3);
+  }
+  
+  .treatment-pdp__option-tiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2);
+  }
+  
+  .treatment-pdp__option-tile {
+    position: relative;
+    padding: var(--spacing-3);
+    border: 1.5px solid var(--color-line);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-speed) var(--transition-easing);
+    background-color: var(--color-surface);
+  }
+  
+  .treatment-pdp__option-tile:hover {
+    border-color: var(--color-sage);
+  }
+  
+  .treatment-pdp__option-tile.selected {
+    border-color: var(--color-text);
+    background-color: var(--color-subtle-surface);
+  }
+  
+  .treatment-pdp__option-tile input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .treatment-pdp__option-title {
+    font-weight: 600;
+    font-size: var(--font-size-body-sm);
+    margin-bottom: var(--spacing-1);
+  }
+  
+  .treatment-pdp__option-subtitle {
+    font-size: var(--font-size-body-sm);
+    color: var(--color-text-muted);
+  }
+  
+  .treatment-pdp__save-chip {
+    position: absolute;
+    top: var(--spacing-2);
+    right: var(--spacing-2);
+  }
+  
+  .treatment-pdp__provider-tiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2);
+  }
+  
+  .treatment-pdp__provider-tile {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3);
+    border: 1.5px solid var(--color-line);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-speed) var(--transition-easing);
+    background-color: var(--color-surface);
+  }
+  
+  .treatment-pdp__provider-tile:hover {
+    border-color: var(--color-sage);
+  }
+  
+  .treatment-pdp__provider-tile.selected {
+    border-color: var(--color-text);
+    background-color: var(--color-subtle-surface);
+  }
+  
+  .treatment-pdp__provider-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: var(--color-sage-soft);
+  }
+  
+  .treatment-pdp__provider-info {
+    flex: 1;
+  }
+  
+  .treatment-pdp__provider-name {
+    font-weight: 600;
+    font-size: var(--font-size-body-sm);
+    margin-bottom: 2px;
+  }
+  
+  .treatment-pdp__provider-role {
+    font-size: var(--font-size-body-sm);
+    color: var(--color-text-muted);
+  }
+  
+  .treatment-pdp__datetime-well {
+    background-color: var(--color-subtle-surface);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-4);
+  }
+  
+  .treatment-pdp__datetime-label {
+    font-size: var(--font-size-body-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-3);
+  }
+  
+  .treatment-pdp__week-strip {
+    display: flex;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-4);
+    overflow-x: auto;
+  }
+  
+  .treatment-pdp__day-pill {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-1);
+    padding: var(--spacing-2) var(--spacing-3);
+    border: 1.5px solid var(--color-line);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-surface);
+    cursor: pointer;
+    transition: all var(--transition-speed) var(--transition-easing);
+    min-width: 60px;
+  }
+  
+  .treatment-pdp__day-pill:hover {
+    border-color: var(--color-sage);
+  }
+  
+  .treatment-pdp__day-pill.selected {
+    background-color: var(--color-text);
+    color: var(--color-surface);
+    border-color: var(--color-text);
+  }
+  
+  .treatment-pdp__day-name {
+    font-size: var(--font-size-eyebrow);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .treatment-pdp__day-date {
+    font-size: var(--font-size-body);
+    font-weight: 600;
+  }
+  
+  .treatment-pdp__time-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+  
+  .treatment-pdp__time-pill {
+    padding: var(--spacing-2) var(--spacing-3);
+    border: 1.5px solid var(--color-line);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-surface);
+    font-size: var(--font-size-body-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed) var(--transition-easing);
+  }
+  
+  .treatment-pdp__time-pill:hover:not(:disabled) {
+    border-color: var(--color-sage);
+  }
+  
+  .treatment-pdp__time-pill.selected {
+    background-color: var(--color-text);
+    color: var(--color-surface);
+    border-color: var(--color-text);
+  }
+  
+  .treatment-pdp__time-pill:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  
+  .treatment-pdp__payment-toggle {
+    display: flex;
+    padding: var(--spacing-1);
+    background-color: var(--color-subtle-surface);
+    border-radius: var(--radius-pill);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .treatment-pdp__payment-option {
+    flex: 1;
+    padding: var(--spacing-2) var(--spacing-3);
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: var(--font-size-body-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed) var(--transition-easing);
+  }
+  
+  .treatment-pdp__payment-option.active {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    box-shadow: 0 2px 8px rgba(21, 21, 21, 0.08);
+  }
+  
+  .treatment-pdp__summary {
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .treatment-pdp__summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-2) 0;
+    font-size: var(--font-size-body-sm);
+  }
+  
+  .treatment-pdp__summary-label {
+    color: var(--color-text-muted);
+  }
+  
+  .treatment-pdp__summary-value {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  
+  .treatment-pdp__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+  
+  .treatment-pdp__mobile-sticky-bar {
+    display: none;
+  }
+  
+  @media (max-width: 1023px) {
+    .treatment-pdp__mobile-sticky-bar {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(218, 212, 203, 0.4);
+      box-shadow: 0 -4px 16px rgba(21, 21, 21, 0.08);
+      padding: var(--spacing-3);
+      gap: var(--spacing-3);
+      align-items: center;
+      padding-bottom: calc(var(--spacing-3) + env(safe-area-inset-bottom));
+    }
+    
+    .treatment-pdp__mobile-sticky-bar-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-1);
+      font-size: var(--font-size-body-sm);
+    }
+    
+    .treatment-pdp__mobile-sticky-bar-price {
+      font-weight: 600;
+      font-size: var(--font-size-body);
+    }
+    
+    .treatment-pdp__mobile-sticky-bar-meta {
+      color: var(--color-text-muted);
+    }
   }
 </style>
 
-<div class="treatment-page">
+<div class="treatment-pdp">
   <div class="container">
-    <div class="treatment-page__grid">
-      <div class="treatment-page__media">
-        {%- if product.featured_media -%}
-          <img
-            srcset="
-              {{ product.featured_media | image_url: width: 400 }} 400w,
-              {{ product.featured_media | image_url: width: 600 }} 600w,
-              {{ product.featured_media | image_url: width: 800 }} 800w,
-              {{ product.featured_media | image_url: width: 1000 }} 1000w
-            "
-            src="{{ product.featured_media | image_url: width: 800 }}"
-            sizes="(min-width: 768px) 50vw, 100vw"
-            alt="{{ product.featured_media.alt | escape }}"
-            class="treatment-page__image"
-            loading="eager"
-            fetchpriority="high"
-            width="800"
-            height="600"
-          >
-        {%- else -%}
-          {{ 'product-1' | placeholder_svg_tag: 'treatment-page__image' }}
+    <nav class="treatment-pdp__breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span>/</span>
+      <a href="{{ collections['treatments'].url | default: '/collections/treatments' }}">Treatments</a>
+      <span>/</span>
+      <span>{{ product.title }}</span>
+    </nav>
+    
+    <div class="treatment-pdp__grid">
+      <div class="treatment-pdp__gallery">
+        <div class="treatment-pdp__gallery-main">
+          {%- if product.featured_image -%}
+            <img 
+              src="{{ product.featured_image | image_url: width: 800 }}"
+              srcset="{{ product.featured_image | image_url: width: 600 }} 600w,
+                      {{ product.featured_image | image_url: width: 800 }} 800w,
+                      {{ product.featured_image | image_url: width: 1200 }} 1200w"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              alt="{{ product.featured_image.alt | default: product.title | escape }}"
+              class="treatment-pdp__gallery-image"
+              loading="eager"
+              id="main-treatment-image"
+            >
+          {%- else -%}
+            <div class="treatment-pdp__gallery-image" style="background-color: var(--color-beige);"></div>
+          {%- endif -%}
+        </div>
+        
+        {%- if product.images.size > 1 -%}
+          <div class="treatment-pdp__thumbnails">
+            {%- for image in product.images limit: 5 -%}
+              <button 
+                type="button"
+                class="treatment-pdp__thumbnail{% if forloop.first %} active{% endif %}"
+                data-thumbnail
+                data-image-url="{{ image | image_url: width: 800 }}"
+                aria-label="View image {{ forloop.index }}"
+              >
+                <img src="{{ image | image_url: width: 100 }}" alt="{{ image.alt | default: product.title | escape }}">
+              </button>
+            {%- endfor -%}
+          </div>
         {%- endif -%}
       </div>
       
-      <div class="treatment-page__content">
-        {%- for block in section.blocks -%}
-          {%- case block.type -%}
-            {%- when 'title' -%}
-              <div class="treatment-block" {{ block.shopify_attributes }}>
-                <h1 class="treatment-block__title">{{ product.title }}</h1>
-              </div>
-            
-            {%- when 'price' -%}
-              <div class="treatment-block" {{ block.shopify_attributes }}>
-                <div class="treatment-block__price">
-                  <span class="treatment-block__price-label">
-                    {%- if product.price_varies -%}
-                      {{ 'products.treatment.starting_at' | t }}
-                    {%- else -%}
-                      {{ 'products.product.price' | t }}
-                    {%- endif -%}
-                  </span>
-                  <div>
-                    {%- if product.price_varies -%}
-                      {{ product.price_min | money }}
-                    {%- else -%}
-                      {{ product.price | money }}
-                    {%- endif -%}
-                    {%- if block.settings.show_per_session -%}
-                      <span style="font-size: var(--font-size-sm);">
-                        {{ 'products.treatment.per_session' | t }}
-                      </span>
-                    {%- endif -%}
-                  </div>
-                </div>
-              </div>
-            
-            {%- when 'duration' -%}
-              {%- liquid
-                assign duration = product.metafields.custom.treatment_duration | default: block.settings.default_duration
-              -%}
-              {%- if duration != blank -%}
-                <div class="treatment-block" {{ block.shopify_attributes }}>
-                  <div class="treatment-block__duration">
-                    {% render 'icon', icon: 'clock' %}
-                    <div>
-                      <span class="treatment-block__duration-label">
-                        {{ 'products.treatment.duration' | t }}
-                      </span>
-                      <div>{{ duration }}</div>
-                    </div>
-                  </div>
-                </div>
-              {%- endif -%}
-            
-            {%- when 'description' -%}
-              {%- if product.description != blank -%}
-                <div class="treatment-block" {{ block.shopify_attributes }}>
-                  <div class="treatment-block__description rte">
-                    {{ product.description }}
-                  </div>
-                </div>
-              {%- endif -%}
-            
-            {%- when 'what_to_expect' -%}
-              {%- liquid
-                assign what_to_expect = product.metafields.custom.what_to_expect
-              -%}
-              {%- if what_to_expect != blank -%}
-                <div class="treatment-block" {{ block.shopify_attributes }}>
-                  <h2 class="treatment-block__heading">
-                    {{ block.settings.heading | default: 'What to Expect' }}
-                  </h2>
-                  <div class="treatment-block__description rte">
-                    {{ what_to_expect }}
-                  </div>
-                </div>
-              {%- endif -%}
-            
-            {%- when 'aftercare' -%}
-              {%- liquid
-                assign aftercare = product.metafields.custom.aftercare
-              -%}
-              {%- if aftercare != blank -%}
-                <div class="treatment-block" {{ block.shopify_attributes }}>
-                  <h2 class="treatment-block__heading">
-                    {{ block.settings.heading | default: 'Aftercare' }}
-                  </h2>
-                  <div class="treatment-block__description rte">
-                    {{ aftercare }}
-                  </div>
-                </div>
-              {%- endif -%}
-            
-            {%- when 'booking_cta' -%}
-              {%- liquid
-                assign needs_consult = product.metafields.custom.consultation_required | default: false
-                assign book_link = block.settings.book_link
-                if book_link == blank and settings.booking_page != blank
-                  assign book_link = pages[settings.booking_page].url
-                endif
-                assign consult_link = block.settings.consult_link
-                if consult_link == blank and settings.consult_page != blank
-                  assign consult_link = pages[settings.consult_page].url
-                endif
-              -%}
-              <div class="treatment-block" {{ block.shopify_attributes }}>
-                <div class="treatment-block__cta">
-                  {%- if needs_consult -%}
-                    <a 
-                      href="{{ consult_link | default: '#consult' }}" 
-                      class="button button--primary button--full-width"
-                      data-book-cta
-                      data-cta-type="consult"
-                      data-treatment-name="{{ product.title | escape }}"
-                      data-treatment-price="{{ product.price | money }}"
-                    >
-                      {{ settings.consult_button_label | default: 'Schedule Consultation' }}
-                    </a>
-                  {%- else -%}
-                    <a 
-                      href="{{ book_link | default: '#book' }}" 
-                      class="button button--primary button--full-width"
-                      data-book-cta
-                      data-cta-type="book"
-                      data-treatment-name="{{ product.title | escape }}"
-                      data-treatment-price="{{ product.price | money }}"
-                    >
-                      {{ settings.booking_button_label | default: 'Book Treatment' }}
-                    </a>
+      <div class="treatment-pdp__booking-panel">
+        <div class="treatment-pdp__header">
+          {%- if product.metafields.treatment.eyebrow != blank -%}
+            <div class="eyebrow">{{ product.metafields.treatment.eyebrow }}</div>
+          {%- endif -%}
+          
+          <h1 class="treatment-pdp__title">{{ product.title }}</h1>
+          
+          <div class="treatment-pdp__rating">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 1l2.472 6.182L19 8.09l-5 4.345L15.472 19 10 15.182 4.528 19 6 12.435 1 8.09l6.528-.908L10 1z"/>
+            </svg>
+            <span class="treatment-pdp__rating-text">4.9 (120+ reviews)</span>
+          </div>
+          
+          <div class="treatment-pdp__description">
+            {{ product.description | default: 'Experience this transformative treatment designed to address your unique skincare needs.' }}
+          </div>
+          
+          <div class="treatment-pdp__meta-chips">
+            {%- assign duration = product.metafields.treatment.duration | default: '60 min' -%}
+            <span class="chip">{{ duration }}</span>
+            {%- assign downtime = product.metafields.treatment.downtime | default: 'No downtime' -%}
+            <span class="chip">{{ downtime }}</span>
+            {%- assign results = product.metafields.treatment.results | default: 'Immediate glow' -%}
+            <span class="chip">{{ results }}</span>
+            {%- assign pain_level = product.metafields.treatment.pain_level | default: 'Minimal discomfort' -%}
+            <span class="treatment-pdp__pain-badge">{{ pain_level }}</span>
+          </div>
+        </div>
+        
+        {%- comment -%} Variant Options {%- endcomment -%}
+        {%- if product.has_only_default_variant == false -%}
+          <div class="treatment-pdp__section">
+            <h3 class="treatment-pdp__section-title">Options</h3>
+            <div class="treatment-pdp__option-tiles">
+              {%- for variant in product.variants -%}
+                <label class="treatment-pdp__option-tile{% if variant == product.selected_or_first_available_variant %} selected{% endif %}">
+                  <input 
+                    type="radio" 
+                    name="variant_id" 
+                    value="{{ variant.id }}"
+                    {% if variant == product.selected_or_first_available_variant %}checked{% endif %}
+                  >
+                  <div class="treatment-pdp__option-title">{{ variant.title }}</div>
+                  <div class="treatment-pdp__option-subtitle">${{ variant.price | money_without_currency | remove: ',' }}</div>
+                  {%- if variant.compare_at_price > variant.price -%}
+                    <span class="chip chip--save treatment-pdp__save-chip">Save 15%</span>
                   {%- endif -%}
-                </div>
+                </label>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+        
+        {%- comment -%} Provider Picker {%- endcomment -%}
+        <div class="treatment-pdp__section">
+          <h3 class="treatment-pdp__section-title">Provider</h3>
+          <div class="treatment-pdp__provider-tiles">
+            <label class="treatment-pdp__provider-tile selected">
+              <div class="treatment-pdp__provider-avatar"></div>
+              <div class="treatment-pdp__provider-info">
+                <div class="treatment-pdp__provider-name">Dr. Sarah Chen</div>
+                <div class="treatment-pdp__provider-role">Dermatologist</div>
               </div>
+            </label>
+            <label class="treatment-pdp__provider-tile">
+              <div class="treatment-pdp__provider-avatar"></div>
+              <div class="treatment-pdp__provider-info">
+                <div class="treatment-pdp__provider-name">Lisa Martinez</div>
+                <div class="treatment-pdp__provider-role">Nurse Practitioner</div>
+              </div>
+            </label>
+          </div>
+        </div>
+        
+        {%- comment -%} Date & Time Picker {%- endcomment -%}
+        <div class="treatment-pdp__section">
+          <h3 class="treatment-pdp__section-title">Date & Time</h3>
+          <div class="treatment-pdp__datetime-well">
+            <div class="treatment-pdp__datetime-label">Live availability · powered by your booking app</div>
             
-            {%- when '@app' -%}
-              <div class="treatment-block treatment-block__app" {{ block.shopify_attributes }}>
+            <div class="treatment-pdp__week-strip">
+              <button type="button" class="treatment-pdp__day-pill" data-date="2026-12-01">
+                <span class="treatment-pdp__day-name">Tue</span>
+                <span class="treatment-pdp__day-date">1</span>
+              </button>
+              <button type="button" class="treatment-pdp__day-pill" data-date="2026-12-02">
+                <span class="treatment-pdp__day-name">Wed</span>
+                <span class="treatment-pdp__day-date">2</span>
+              </button>
+              <button type="button" class="treatment-pdp__day-pill" data-date="2026-12-03">
+                <span class="treatment-pdp__day-name">Thu</span>
+                <span class="treatment-pdp__day-date">3</span>
+              </button>
+              <button type="button" class="treatment-pdp__day-pill selected" data-date="2026-12-04">
+                <span class="treatment-pdp__day-name">Fri</span>
+                <span class="treatment-pdp__day-date">4</span>
+              </button>
+              <button type="button" class="treatment-pdp__day-pill" data-date="2026-12-05">
+                <span class="treatment-pdp__day-name">Sat</span>
+                <span class="treatment-pdp__day-date">5</span>
+              </button>
+            </div>
+            
+            <div class="treatment-pdp__time-pills">
+              <button type="button" class="treatment-pdp__time-pill" disabled>9:00 AM</button>
+              <button type="button" class="treatment-pdp__time-pill">10:30 AM</button>
+              <button type="button" class="treatment-pdp__time-pill selected">1:00 PM</button>
+              <button type="button" class="treatment-pdp__time-pill">2:30 PM</button>
+              <button type="button" class="treatment-pdp__time-pill">4:00 PM</button>
+              <button type="button" class="treatment-pdp__time-pill" disabled>5:30 PM</button>
+            </div>
+          </div>
+          
+          {%- comment -%} App Block Support {%- endcomment -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == '@app' -%}
+              <div {{ block.shopify_attributes }}>
                 {% render block %}
               </div>
-          {%- endcase -%}
-        {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        
+        {%- comment -%} Payment Toggle {%- endcomment -%}
+        <div class="treatment-pdp__payment-toggle">
+          <button type="button" class="treatment-pdp__payment-option active" data-payment="deposit">
+            Pay $50 deposit today
+          </button>
+          <button type="button" class="treatment-pdp__payment-option" data-payment="full">
+            Pay in full
+          </button>
+        </div>
+        
+        {%- comment -%} Summary {%- endcomment -%}
+        <div class="treatment-pdp__summary">
+          <div class="treatment-pdp__summary-row">
+            <span class="treatment-pdp__summary-label">Due at visit</span>
+            <span class="treatment-pdp__summary-value" data-summary-visit>$100</span>
+          </div>
+          <div class="treatment-pdp__summary-row">
+            <span class="treatment-pdp__summary-label">Due today</span>
+            <span class="treatment-pdp__summary-value" data-summary-today>$50</span>
+          </div>
+        </div>
+        
+        {%- comment -%} Actions {%- endcomment -%}
+        <div class="treatment-pdp__actions">
+          <button type="button" class="button button--primary button--full-width" data-book-cta data-cta-type="book">
+            Book this treatment
+          </button>
+          <button type="button" class="button button--secondary button--full-width" data-book-cta data-cta-type="consult">
+            Book a free consultation
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
+{%- comment -%} Mobile Sticky Bar {%- endcomment -%}
+<div class="treatment-pdp__mobile-sticky-bar">
+  <div class="treatment-pdp__mobile-sticky-bar-info">
+    <div class="treatment-pdp__mobile-sticky-bar-price">$50 today</div>
+    <div class="treatment-pdp__mobile-sticky-bar-meta">Fri, Dec 4 · 1:00 PM</div>
+  </div>
+  <button type="button" class="button button--primary" data-book-cta data-cta-type="book">
+    Book
+  </button>
+</div>
+
+<script>
+  (function() {
+    // Gallery thumbnails
+    const thumbnails = document.querySelectorAll('[data-thumbnail]');
+    const mainImage = document.getElementById('main-treatment-image');
+    
+    thumbnails.forEach(function(thumb) {
+      thumb.addEventListener('click', function() {
+        thumbnails.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        const imageUrl = this.getAttribute('data-image-url');
+        if (mainImage && imageUrl) {
+          mainImage.src = imageUrl;
+        }
+      });
+    });
+    
+    // Option tiles
+    const optionTiles = document.querySelectorAll('.treatment-pdp__option-tile');
+    optionTiles.forEach(function(tile) {
+      tile.addEventListener('click', function() {
+        optionTiles.forEach(t => t.classList.remove('selected'));
+        this.classList.add('selected');
+        this.querySelector('input').checked = true;
+      });
+    });
+    
+    // Provider tiles
+    const providerTiles = document.querySelectorAll('.treatment-pdp__provider-tile');
+    providerTiles.forEach(function(tile) {
+      tile.addEventListener('click', function() {
+        providerTiles.forEach(t => t.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+    
+    // Date pills
+    const dayPills = document.querySelectorAll('.treatment-pdp__day-pill');
+    dayPills.forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        dayPills.forEach(p => p.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+    
+    // Time pills
+    const timePills = document.querySelectorAll('.treatment-pdp__time-pill:not(:disabled)');
+    timePills.forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        timePills.forEach(p => p.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+    
+    // Payment toggle
+    const paymentOptions = document.querySelectorAll('.treatment-pdp__payment-option');
+    const summaryVisit = document.querySelector('[data-summary-visit]');
+    const summaryToday = document.querySelector('[data-summary-today]');
+    
+    paymentOptions.forEach(function(option) {
+      option.addEventListener('click', function() {
+        paymentOptions.forEach(o => o.classList.remove('active'));
+        this.classList.add('active');
+        
+        const paymentType = this.getAttribute('data-payment');
+        if (paymentType === 'deposit') {
+          summaryVisit.textContent = '$100';
+          summaryToday.textContent = '$50';
+        } else {
+          summaryVisit.textContent = '$0';
+          summaryToday.textContent = '$150';
+        }
+      });
+    });
+  })();
+</script>
+
 {% schema %}
 {
-  "name": "Treatment Page",
-  "settings": [],
+  "name": "Treatment Product",
   "blocks": [
-    {
-      "type": "title",
-      "name": "Title",
-      "limit": 1
-    },
-    {
-      "type": "price",
-      "name": "Price",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "checkbox",
-          "id": "show_per_session",
-          "label": "Show 'per session' label",
-          "default": true
-        }
-      ]
-    },
-    {
-      "type": "duration",
-      "name": "Duration",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "default_duration",
-          "label": "Default Duration",
-          "default": "60 minutes",
-          "info": "Used if product metafield is not set"
-        }
-      ]
-    },
-    {
-      "type": "description",
-      "name": "Description",
-      "limit": 1
-    },
-    {
-      "type": "what_to_expect",
-      "name": "What to Expect",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Heading",
-          "default": "What to Expect"
-        }
-      ]
-    },
-    {
-      "type": "aftercare",
-      "name": "Aftercare",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Heading",
-          "default": "Aftercare"
-        }
-      ]
-    },
-    {
-      "type": "booking_cta",
-      "name": "Booking CTA",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "url",
-          "id": "book_link",
-          "label": "Book Link"
-        },
-        {
-          "type": "url",
-          "id": "consult_link",
-          "label": "Consultation Link"
-        }
-      ]
-    },
     {
       "type": "@app"
     }

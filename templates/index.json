@@ -97,7 +97,7 @@
           "settings": {
             "show_icon": true,
             "title": "Licensed Providers",
-            "description": "Board-certified medical professionals"
+            "description": "Licensed medical professionals"
           }
         },
         "trust_2": {
@@ -105,7 +105,7 @@
           "settings": {
             "show_icon": true,
             "title": "Medical Grade",
-            "description": "FDA-approved treatments & products"
+            "description": "Medical-grade treatments & products"
           }
         },
         "trust_3": {
@@ -132,6 +132,107 @@
         "trust_4"
       ],
       "settings": {}
+    },
+    "membership_cards": {
+      "type": "membership-cards",
+      "blocks": {
+        "membership_1": {
+          "type": "membership",
+          "settings": {
+            "title": "Essential",
+            "price": "$99",
+            "price_period": "per month",
+            "description": "Perfect for maintaining healthy, glowing skin with consistent care.",
+            "features": "1 signature facial per month\n10% off all retail products\nPriority booking\nBirthday treatment",
+            "button_label": "Learn more",
+            "featured": false
+          }
+        },
+        "membership_2": {
+          "type": "membership",
+          "settings": {
+            "title": "Glow Club",
+            "price": "$199",
+            "price_period": "per month",
+            "description": "Our most popular membership for comprehensive skincare and exclusive perks.",
+            "features": "2 treatments per month\n15% off all products\nFree add-on with each visit\nPriority booking\nMember-only events",
+            "button_label": "Join now",
+            "featured": true
+          }
+        },
+        "membership_3": {
+          "type": "membership",
+          "settings": {
+            "title": "Elite",
+            "price": "$349",
+            "price_period": "per month",
+            "description": "Complete luxury skincare with unlimited access and VIP benefits.",
+            "features": "Unlimited monthly facials\n20% off all products & treatments\nComplimentary enhancements\nVIP concierge booking\nExclusive member events",
+            "button_label": "Learn more",
+            "featured": false
+          }
+        }
+      },
+      "block_order": [
+        "membership_1",
+        "membership_2",
+        "membership_3"
+      ],
+      "settings": {
+        "eyebrow": "Memberships",
+        "heading": "Invest in your skin"
+      }
+    },
+    "before_after": {
+      "type": "before-after-slider",
+      "settings": {
+        "eyebrow": "Results",
+        "heading": "Real results from real clients",
+        "treatment": "Hydrafacial + Microneedling",
+        "result": "Smoother texture and refined pores after 3 sessions"
+      }
+    },
+    "shop_carousel": {
+      "type": "shop-carousel",
+      "blocks": {
+        "filter_1": {
+          "type": "filter",
+          "settings": {
+            "category": "Cleansers"
+          }
+        },
+        "filter_2": {
+          "type": "filter",
+          "settings": {
+            "category": "Serums"
+          }
+        },
+        "filter_3": {
+          "type": "filter",
+          "settings": {
+            "category": "Moisturizers"
+          }
+        },
+        "filter_4": {
+          "type": "filter",
+          "settings": {
+            "category": "SPF"
+          }
+        }
+      },
+      "block_order": [
+        "filter_1",
+        "filter_2",
+        "filter_3",
+        "filter_4"
+      ],
+      "settings": {
+        "eyebrow": "Shop",
+        "heading": "Best-sellers",
+        "products_to_show": 6,
+        "enable_filters": true,
+        "view_all_label": "Shop all products"
+      }
     },
     "reviews": {
       "type": "reviews",
@@ -171,12 +272,58 @@
         "rating": "4.9",
         "rating_count": "450+"
       }
+    },
+    "journal": {
+      "type": "journal",
+      "settings": {
+        "eyebrow": "Journal",
+        "heading": "Latest insights",
+        "subheading": "Expert advice and skincare tips from our team",
+        "articles_to_show": 3,
+        "view_all_label": "Read more articles"
+      }
+    },
+    "locations": {
+      "type": "locations-teaser",
+      "blocks": {
+        "location_1": {
+          "type": "location",
+          "settings": {
+            "name": "San Francisco",
+            "address": "123 Market Street\nSan Francisco, CA 94103",
+            "link_label": "Get directions"
+          }
+        },
+        "location_2": {
+          "type": "location",
+          "settings": {
+            "name": "Oakland",
+            "address": "456 Broadway\nOakland, CA 94612",
+            "link_label": "Get directions"
+          }
+        }
+      },
+      "block_order": [
+        "location_1",
+        "location_2"
+      ],
+      "settings": {
+        "eyebrow": "Locations",
+        "heading": "Visit us",
+        "text": "Three studios across the Bay Area, each designed for your comfort and relaxation.",
+        "button_label": "View all locations"
+      }
     }
   },
   "order": [
     "split_hero",
     "filterable_treatments",
     "trust_row",
-    "reviews"
+    "membership_cards",
+    "before_after",
+    "shop_carousel",
+    "reviews",
+    "journal",
+    "locations"
   ]
 }

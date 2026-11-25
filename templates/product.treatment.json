@@ -1,7 +1,7 @@
 {
   "sections": {
     "main": {
-      "type": "main-product-treatment-new",
+      "type": "main-product-treatment",
       "blocks": {
         "app_block_1": {
           "type": "@app"
@@ -52,17 +52,120 @@
       ],
       "settings": {}
     },
-    "related_treatments": {
-      "type": "related-products",
+    "before_after_strip": {
+      "type": "before-after-strip",
+      "blocks": {
+        "image_pair_1": {
+          "type": "image_pair",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "image_pair_1"
+      ],
+      "settings": {
+        "heading": "Before & After"
+      }
+    },
+    "pairs_well_with": {
+      "type": "pairs-well-with",
       "settings": {
         "heading": "Pairs well with",
-        "products_to_show": 3
+        "show_treatments": true,
+        "treatments_title": "Add-on treatments",
+        "show_products": true,
+        "products_title": "Aftercare products"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "How often should I get this treatment?",
+            "answer": "<p>For optimal results, we recommend monthly treatments. Your provider will create a personalized plan based on your skin goals.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Will I see results immediately?",
+            "answer": "<p>Many clients notice an immediate glow and improved texture. Results continue to improve over the following days as your skin continues to benefit from the treatment.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I wear makeup after?",
+            "answer": "<p>We recommend waiting at least 4-6 hours before applying makeup to allow your skin to fully absorb the benefits of the treatment.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Is there any downtime?",
+            "answer": "<p>No downtime is required. You may experience mild redness that typically subsides within an hour. You can return to your normal activities immediately.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
+      "settings": {
+        "heading": "Frequently asked questions",
+        "subheading": "Everything you need to know about this treatment"
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "text": "My skin feels incredible after this treatment. The results lasted for weeks and I've already booked my next appointment.",
+            "author_name": "Emily R.",
+            "author_meta": "Verified client"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "text": "The provider took the time to explain everything and customized the treatment for my sensitive skin. Highly recommend!",
+            "author_name": "David L.",
+            "author_meta": "Verified client"
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "text": "Best treatment I've had. The glow is real and my skin texture has improved so much. Worth every penny.",
+            "author_name": "Rachel K.",
+            "author_meta": "Verified client"
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "heading": "Client reviews",
+        "rating": "4.9",
+        "rating_count": "120+"
       }
     }
   },
   "order": [
     "main",
     "accordions",
-    "related_treatments"
+    "before_after_strip",
+    "pairs_well_with",
+    "faq",
+    "reviews"
   ]
 }

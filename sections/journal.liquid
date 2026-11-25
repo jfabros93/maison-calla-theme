@@ -1,0 +1,104 @@
+{%- comment -%}
+  Journal/Blog section with article cards
+{%- endcomment -%}
+
+<style>
+  .journal-section {
+    padding-top: var(--section-spacing);
+    padding-bottom: var(--section-spacing);
+  }
+</style>
+
+<section class="journal-section">
+  <div class="container">
+    {%- if section.settings.heading != blank or section.settings.eyebrow != blank -%}
+      <div class="section-header section-header--left">
+        {%- if section.settings.eyebrow != blank -%}
+          <div class="eyebrow section-header__eyebrow">{{ section.settings.eyebrow }}</div>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="section-header__title">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <p class="section-header__subtitle">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    
+    <div class="grid grid--3-col">
+      {%- liquid
+        assign blog = blogs[section.settings.blog]
+        assign articles_to_show = section.settings.articles_to_show | default: 3
+        
+        if blog != blank and blog.articles.size > 0
+          for article in blog.articles limit: articles_to_show
+            render 'journal-card', article: article
+          endfor
+        else
+          for i in (1..articles_to_show)
+            render 'journal-card', article: blank, demo: true, index: i
+          endfor
+        endif
+      -%}
+    </div>
+    
+    {%- if section.settings.view_all_label != blank -%}
+      <div style="text-align: center; margin-top: var(--spacing-8);">
+        <a href="{{ blog.url | default: '/blogs/journal' }}" class="button button--secondary">
+          {{ section.settings.view_all_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Journal",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Journal"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Latest insights"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Expert advice and skincare tips from our team"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "articles_to_show",
+      "label": "Articles to Show",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "View All Button Label",
+      "default": "Read more articles"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Journal"
+    }
+  ]
+}
+{% endschema %}

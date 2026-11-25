@@ -54,11 +54,11 @@
         
         if collection != blank and collection.products.size > 0
           for product in collection.products limit: products_to_show
-            render 'treatment-card-new', product: product
+            render 'treatment-card', product: product
           endfor
         else
           for i in (1..products_to_show)
-            render 'treatment-card-new', product: blank, demo: true, index: i
+            render 'treatment-card', product: blank, demo: true, index: i
           endfor
         endif
       -%}
