@@ -188,76 +188,26 @@
   <div class="treatment-tiles">
     {%- liquid
       assign treatments_collection = collections[section.settings.treatments_collection]
-      
-      if treatments_collection != blank and treatments_collection.products.size > 0
-        for product in treatments_collection.products limit: 10
+    -%}
+    
+    {%- if treatments_collection != blank and treatments_collection.products.size > 0 -%}
+      {%- for product in treatments_collection.products limit: 10 -%}
+        {%- liquid
           assign category = product.metafields.custom.category | default: 'facials'
           assign duration = product.metafields.custom.duration | default: '60 min'
           assign downtime = product.metafields.custom.downtime | default: 'None'
-          
-          render 'booking-treatment-tile-demo', 
-            product: product,
-            category: category,
-            duration: duration,
-            downtime: downtime
-        endfor
-      else
-        # Demo treatments
-        render 'booking-treatment-tile-demo', 
-          id: '1',
-          name: 'Signature Facial',
-          category: 'facials',
-          description: 'Deep cleansing, exfoliation, and hydration for glowing skin.',
-          duration: '60 min',
-          downtime: 'None',
-          price: 150
-        
-        render 'booking-treatment-tile-demo',
-          id: '2', 
-          name: 'Botox',
-          category: 'injectables',
-          description: 'Smooth fine lines and wrinkles with precision injections.',
-          duration: '30 min',
-          downtime: 'Minimal',
-          price: 350
-        
-        render 'booking-treatment-tile-demo',
-          id: '3',
-          name: 'Laser Hair Removal',
-          category: 'laser',
-          description: 'Permanent hair reduction for smooth, maintenance-free skin.',
-          duration: '45 min',
-          downtime: '1-2 days',
-          price: 200
-        
-        render 'booking-treatment-tile-demo',
-          id: '4',
-          name: 'Body Contouring',
-          category: 'body',
-          description: 'Non-invasive body sculpting for targeted fat reduction.',
-          duration: '90 min',
-          downtime: 'None',
-          price: 400
-        
-        render 'booking-treatment-tile-demo',
-          id: '5',
-          name: 'Microneedling',
-          category: 'facials',
-          description: 'Stimulate collagen production for firmer, smoother skin.',
-          duration: '75 min',
-          downtime: '2-3 days',
-          price: 250
-        
-        render 'booking-treatment-tile-demo',
-          id: '6',
-          name: 'Dermal Fillers',
-          category: 'injectables',
-          description: 'Restore volume and enhance facial contours naturally.',
-          duration: '45 min',
-          downtime: 'Minimal',
-          price: 500
-      endif
-    -%}
+        -%}
+        {% render 'booking-treatment-tile-demo', product: product, category: category, duration: duration, downtime: downtime %}
+      {%- endfor -%}
+    {%- else -%}
+      {%- comment -%} Demo treatments {%- endcomment -%}
+      {% render 'booking-treatment-tile-demo', id: '1', name: 'Signature Facial', category: 'facials', description: 'Deep cleansing, exfoliation, and hydration for glowing skin.', duration: '60 min', downtime: 'None', price: 150 %}
+      {% render 'booking-treatment-tile-demo', id: '2', name: 'Botox', category: 'injectables', description: 'Smooth fine lines and wrinkles with precision injections.', duration: '30 min', downtime: 'Minimal', price: 350 %}
+      {% render 'booking-treatment-tile-demo', id: '3', name: 'Laser Hair Removal', category: 'laser', description: 'Permanent hair reduction for smooth, maintenance-free skin.', duration: '45 min', downtime: '1-2 days', price: 200 %}
+      {% render 'booking-treatment-tile-demo', id: '4', name: 'Body Contouring', category: 'body', description: 'Non-invasive body sculpting for targeted fat reduction.', duration: '90 min', downtime: 'None', price: 400 %}
+      {% render 'booking-treatment-tile-demo', id: '5', name: 'Microneedling', category: 'facials', description: 'Stimulate collagen production for firmer, smoother skin.', duration: '75 min', downtime: '2-3 days', price: 250 %}
+      {% render 'booking-treatment-tile-demo', id: '6', name: 'Dermal Fillers', category: 'injectables', description: 'Restore volume and enhance facial contours naturally.', duration: '45 min', downtime: 'Minimal', price: 500 %}
+    {%- endif -%}
     
     <!-- Free Consultation Card -->
     <div class="consult-card">
