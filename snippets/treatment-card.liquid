@@ -99,7 +99,8 @@
           loading="lazy"
         >
       {%- else -%}
-        {%- assign product_placeholder_name = 'product-' | append: index | default: '1' | modulo: 6 | plus: 1 -%}
+        {%- assign product_num = index | default: 1 | modulo: 6 | plus: 1 -%}
+        {%- assign product_placeholder_name = 'product-' | append: product_num -%}
         {{ product_placeholder_name | placeholder_svg_tag: 'placeholder-svg' }}
       {%- endif -%}
     </div>
