@@ -644,12 +644,13 @@
       <!-- Step Panels -->
       <div class="booking-steps">
         {%- liquid
-          assign treatments_collection = section.settings.treatments_collection
-          if treatments_collection == blank
-            assign treatments_collection = 'treatments'
+          if section.settings.treatments_collection != blank
+            assign treatments_collection_handle = section.settings.treatments_collection.handle
+          else
+            assign treatments_collection_handle = 'treatments'
           endif
         -%}
-        {% render 'booking-step-treatment', section: section, treatments_collection_handle: treatments_collection %}
+        {% render 'booking-step-treatment', section: section, treatments_collection_handle: treatments_collection_handle %}
         {% render 'booking-step-provider', section: section %}
         {% render 'booking-step-datetime', section: section %}
         {% render 'booking-step-details', section: section %}

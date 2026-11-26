@@ -214,6 +214,7 @@
           assign duration = product.metafields.custom.duration | default: '60 min'
           assign downtime = product.metafields.custom.downtime | default: 'None'
           assign description = product.description | strip_html | truncate: 100
+          assign price_dollars = product.price | divided_by: 100.0
         -%}
         
         <div 
@@ -221,7 +222,7 @@
           data-category="{{ category_handle }}"
           data-treatment-id="{{ product.id }}"
           data-treatment-name="{{ product.title | escape }}"
-          data-treatment-price="{{ product.price }}"
+          data-treatment-price="{{ price_dollars }}"
           data-treatment-price-formatted="{{ product.price | money }}"
           data-treatment-duration="{{ duration }}"
           role="button"
