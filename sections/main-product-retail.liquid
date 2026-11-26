@@ -278,55 +278,47 @@
 <div class="product-retail">
   <div class="container">
     <div class="product-retail__grid">
-      <div class="product-retail__media">
-        {%- if product.featured_media -%}
-          <img
-            id="product-featured-image"
-            srcset="
-              {{ product.featured_media | image_url: width: 400 }} 400w,
-              {{ product.featured_media | image_url: width: 600 }} 600w,
-              {{ product.featured_media | image_url: width: 800 }} 800w,
-              {{ product.featured_media | image_url: width: 1000 }} 1000w
-            "
-            src="{{ product.featured_media | image_url: width: 800 }}"
-            sizes="(min-width: 768px) 50vw, 100vw"
-            alt="{{ product.featured_media.alt | escape }}"
-            class="product-retail__image"
-            loading="eager"
-            fetchpriority="high"
-            width="800"
-            height="800"
-          >
-        {%- else -%}
-          {{ 'product-1' | placeholder_svg_tag: 'product-retail__image' }}
-        {%- endif -%}
-        
-        {%- if product.media.size > 1 -%}
-          <div class="product-retail__thumbnails">
-            {%- for media in product.media limit: 4 -%}
-              <img
-                src="{{ media | image_url: width: 200 }}"
-                alt="{{ media.alt | escape }}"
-                class="product-retail__thumbnail {% if forloop.first %}active{% endif %}"
-                data-media-id="{{ media.id }}"
-                data-media-url="{{ media | image_url: width: 800 }}"
-                loading="lazy"
-                width="200"
-                height="200"
-              >
-            {%- endfor -%}
-          </div>
-        {%- endif -%}
+      <!-- Gallery Card -->
+      <div class="product-media-card">
+        <div class="product-media-card__circle">
+          {%- if product.featured_media -%}
+            <img
+              id="product-featured-image"
+              src="{{ product.featured_media | image_url: width: 600 }}"
+              alt="{{ product.featured_media.alt | escape }}"
+              class="product-media-card__image"
+              loading="eager"
+              fetchpriority="high"
+            >
+          {%- else -%}
+            <div style="width: 100%; height: 100%; background-color: var(--color-beige); border-radius: 50%;"></div>
+          {%- endif -%}
+        </div>
       </div>
       
+      <!-- Product Info -->
       <div class="product-retail__info">
+        {%- liquid
+          assign category = product.metafields.custom.category | default: product.type
+          assign subtitle = product.metafields.custom.subtitle
+        -%}
+        
+        {%- if category != blank -%}
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); margin-bottom: 8px;">
+            {{ category }}
+          </div>
+        {%- endif -%}
+        
         <h1 class="product-retail__title">{{ product.title }}</h1>
         
+        {%- if subtitle != blank -%}
+          <p style="font-size: 16px; color: var(--color-text-muted); margin-bottom: var(--spacing-lg);">
+            {{ subtitle }}
+          </p>
+        {%- endif -%}
+        
         <div class="product-retail__price">
-          <span class="product-retail__price--current">
-            {{ product.selected_or_first_available_variant.price | money }}
-          </span>
-          
+          {{ product.selected_or_first_available_variant.price | money }}
           {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
             <span class="product-retail__price--compare">
               {{ product.selected_or_first_available_variant.compare_at_price | money }}
@@ -334,92 +326,104 @@
           {%- endif -%}
         </div>
         
-        {%- if product.description != blank -%}
-          <div class="product-retail__description rte">
-            {{ product.description }}
-          </div>
-        {%- endif -%}
-        
-        <form class="product-retail__form" method="post" action="{{ routes.cart_add_url }}">
-          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <form id="product-form" method="post" action="{{ routes.cart_add_url }}">
+          <input type="hidden" name="id" id="variant-id" value="{{ product.selected_or_first_available_variant.id }}">
           
+          <!-- Size Pills -->
           {%- unless product.has_only_default_variant -%}
             {%- for option in product.options_with_values -%}
-              <div class="product-retail__variant-select">
-                <label class="product-retail__variant-label" for="option-{{ option.position }}">
+              <div style="margin-bottom: var(--spacing-lg);">
+                <label style="display: block; font-weight: 600; margin-bottom: var(--spacing-sm);">
                   {{ option.name }}
                 </label>
-                <select
-                  id="option-{{ option.position }}"
-                  name="options[{{ option.name }}]"
-                  class="product-retail__select"
-                >
+                <div class="size-tiles">
                   {%- for value in option.values -%}
-                    <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
-                      {{ value }}
-                    </option>
+                    <label class="size-tile {% if option.selected_value == value %}selected{% endif %}">
+                      <input type="radio" name="option-{{ option.position }}" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %} style="display: none;">
+                      <div class="size-tile__name">{{ value }}</div>
+                    </label>
                   {%- endfor -%}
-                </select>
+                </div>
               </div>
             {%- endfor -%}
           {%- endunless -%}
           
-          <div class="product-retail__quantity">
-            <label class="product-retail__quantity-label" for="quantity">Quantity</label>
-            <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              value="1"
-              min="1"
-              class="product-retail__quantity-input"
-            >
+          <!-- Quantity Stepper -->
+          <div style="margin-bottom: var(--spacing-lg);">
+            <label style="display: block; font-weight: 600; margin-bottom: var(--spacing-sm);">Quantity</label>
+            <div class="quantity-stepper">
+              <button type="button" class="quantity-stepper__btn" onclick="updateQuantity(-1)">−</button>
+              <input type="number" name="quantity" id="quantity" value="1" min="1" class="quantity-stepper__input" readonly>
+              <button type="button" class="quantity-stepper__btn" onclick="updateQuantity(1)">+</button>
+            </div>
           </div>
           
-          {%- if product.selected_or_first_available_variant.inventory_management -%}
-            {%- assign inventory = product.selected_or_first_available_variant.inventory_quantity -%}
-            {%- if inventory > 0 and inventory <= 10 -%}
-              <div class="product-retail__inventory product-retail__inventory--low">
-                Only {{ inventory }} left in stock
-              </div>
-            {%- elsif inventory > 0 -%}
-              <div class="product-retail__inventory">
-                In stock
-              </div>
-            {%- endif -%}
-          {%- endif -%}
-          
-          <div class="product-retail__actions">
-            <button
-              type="submit"
-              class="button button--primary button--full-width"
-              {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
-            >
-              {% if product.selected_or_first_available_variant.available %}
-                {{ 'products.product.add_to_cart' | t }}
-              {% else %}
-                {{ 'products.product.sold_out' | t }}
-              {% endif %}
-            </button>
-          </div>
+          <!-- Add to Bag Button -->
+          <button
+            type="submit"
+            class="button button--primary button--full-width"
+            style="border-radius: var(--radius-pill);"
+            {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
+          >
+            {% if product.selected_or_first_available_variant.available %}
+              Add to bag · {{ product.selected_or_first_available_variant.price | money }}
+            {% else %}
+              Sold out
+            {% endif %}
+          </button>
         </form>
+        
+        <!-- Key Ingredients Accordion -->
+        <div class="ingredients-section">
+          <details>
+            <summary style="cursor: pointer; font-weight: 600; margin-bottom: var(--spacing-md);">Key Ingredients</summary>
+            <div style="color: var(--color-text-muted); line-height: 1.6;">
+              {%- if product.description != blank -%}
+                {{ product.description }}
+              {%- else -%}
+                Formulated with high-quality ingredients for optimal results.
+              {%- endif -%}
+            </div>
+          </details>
+        </div>
+        
+        <!-- How to Use Accordion -->
+        <div class="ingredients-section">
+          <details>
+            <summary style="cursor: pointer; font-weight: 600; margin-bottom: var(--spacing-md);">How to Use</summary>
+            <div style="color: var(--color-text-muted); line-height: 1.6;">
+              Apply morning and evening to clean, dry skin. Follow with moisturizer and SPF during the day.
+            </div>
+          </details>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  // Thumbnail image switching
-  const thumbnails = document.querySelectorAll('.product-retail__thumbnail');
-  const featuredImage = document.getElementById('product-featured-image');
-  
-  thumbnails.forEach(thumb => {
-    thumb.addEventListener('click', () => {
-      thumbnails.forEach(t => t.classList.remove('active'));
-      thumb.classList.add('active');
-      featuredImage.src = thumb.dataset.mediaUrl;
+  // Size tile selection
+  document.querySelectorAll('.size-tile').forEach(tile => {
+    tile.addEventListener('click', () => {
+      tile.closest('.size-tiles').querySelectorAll('.size-tile').forEach(t => t.classList.remove('selected'));
+      tile.classList.add('selected');
+      updateVariant();
     });
   });
+  
+  // Quantity stepper
+  function updateQuantity(change) {
+    const input = document.getElementById('quantity');
+    const currentValue = parseInt(input.value) || 1;
+    const newValue = Math.max(1, currentValue + change);
+    input.value = newValue;
+  }
+  
+  // Update variant based on selected options
+  function updateVariant() {
+    const selectedOptions = Array.from(document.querySelectorAll('.size-tile.selected input')).map(input => input.value);
+    // Variant switching logic would go here if needed
+  }
 </script>
 
 {% schema %}

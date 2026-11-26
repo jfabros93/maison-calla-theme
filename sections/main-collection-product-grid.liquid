@@ -8,7 +8,17 @@
       {%- if collection.products.size > 0 -%}
         <div class="grid grid--3-col">
           {%- for product in collection.products -%}
-            {% render 'treatment-card', product: product %}
+            {%- liquid
+              assign is_retail = false
+              if product.template_suffix == 'retail' or product.type != 'Treatment'
+                assign is_retail = true
+              endif
+            -%}
+            {% if is_retail %}
+              {% render 'product-card-shop', product: product %}
+            {% else %}
+              {% render 'treatment-card', product: product %}
+            {% endif %}
           {%- endfor -%}
         </div>
         
@@ -20,7 +30,7 @@
       {%- else -%}
         <div class="collection-empty" style="text-align: center; padding: var(--spacing-2xl);">
           <p style="color: var(--color-text-light); font-size: var(--font-size-lg);">
-            No treatments found in this collection.
+            No products found in this collection.
           </p>
         </div>
       {%- endif -%}
