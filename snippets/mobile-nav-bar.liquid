@@ -6,19 +6,21 @@
 <style>
   .mobile-nav-bar {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
     z-index: 40;
-    background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-top: 1px solid rgba(218, 212, 203, 0.4);
-    box-shadow: 0 -4px 16px rgba(21, 21, 21, 0.08);
-    padding: var(--spacing-2) var(--spacing-3) calc(var(--spacing-2) + env(safe-area-inset-bottom));
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 16px 20px rgba(21, 21, 21, 0.12), 0 16px 40px rgba(21, 21, 21, 0.12);
+    border-radius: var(--radius-pill);
+    height: 78px;
+    padding: 8px 14px calc(8px + env(safe-area-inset-bottom)) 14px;
     display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
+    justify-content: space-between;
+    align-items: center;
   }
   
   @media (min-width: 768px) {
@@ -31,15 +33,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-1);
+    gap: 4px;
     text-decoration: none;
     color: var(--color-text-muted);
-    font-size: var(--font-size-eyebrow);
+    font-family: Inter, var(--font-body);
+    font-size: 13px;
+    line-height: 16px;
     font-weight: 500;
-    letter-spacing: 0.02em;
     transition: color var(--transition-speed) var(--transition-easing);
-    min-width: 60px;
-    padding: var(--spacing-1);
+    min-width: 52px;
+    padding: 8px 4px;
   }
   
   .mobile-nav-bar__item:hover {
@@ -51,34 +54,41 @@
   }
   
   .mobile-nav-bar__icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
+  .mobile-nav-bar__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  
   .mobile-nav-bar__label {
-    font-size: 11px;
-    text-transform: capitalize;
+    font-size: 13px;
+    line-height: 16px;
   }
   
   .mobile-nav-bar__book {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background-color: var(--color-text);
     color: var(--color-surface);
     text-decoration: none;
-    font-size: var(--font-size-body-sm);
-    font-weight: 600;
     box-shadow: 0 4px 12px rgba(21, 21, 21, 0.2);
     transition: all var(--transition-speed) var(--transition-easing);
-    position: relative;
-    top: -8px;
+    flex-shrink: 0;
+  }
+  
+  .mobile-nav-bar__book svg {
+    width: 22px;
+    height: 22px;
   }
   
   .mobile-nav-bar__book:hover {
@@ -90,9 +100,9 @@
 <nav class="mobile-nav-bar" role="navigation" aria-label="Mobile navigation">
   <a href="{{ routes.root_url }}" class="mobile-nav-bar__item{% if template.name == 'index' %} active{% endif %}">
     <span class="mobile-nav-bar__icon">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M9 22V12h6v10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 7.5l8-6 8 6v9.5a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 012 17V7.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M7 18V10h6v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </span>
     <span class="mobile-nav-bar__label">Home</span>
@@ -100,8 +110,10 @@
   
   <a href="{{ collections['treatments'].url | default: '/collections/treatments' }}" class="mobile-nav-bar__item{% if collection.handle == 'treatments' %} active{% endif %}">
     <span class="mobile-nav-bar__icon">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2a3 3 0 100 6 3 3 0 000-6zM12 9a3 3 0 100 6 3 3 0 000-6zM12 16a3 3 0 100 6 3 3 0 000-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="3.5" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="10" cy="16.5" r="2.5" stroke="currentColor" stroke-width="1.5"/>
       </svg>
     </span>
     <span class="mobile-nav-bar__label">Treatments</span>
@@ -121,18 +133,18 @@
     data-cta-type="book"
     aria-label="Book treatment"
   >
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M15 1v4M7 1v4M2 9h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
     </svg>
   </a>
   
   <a href="{{ collections.all.url | default: '/collections/all' }}" class="mobile-nav-bar__item{% if template.name == 'collection' and collection.handle != 'treatments' %} active{% endif %}">
     <span class="mobile-nav-bar__icon">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="9" cy="21" r="1" fill="currentColor"/>
-        <circle cx="20" cy="21" r="1" fill="currentColor"/>
-        <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="7.5" cy="17.5" r="1" fill="currentColor"/>
+        <circle cx="16.5" cy="17.5" r="1" fill="currentColor"/>
+        <path d="M1 1h3.5l2.2 11h8l2-8H5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </span>
     <span class="mobile-nav-bar__label">Shop</span>
@@ -140,8 +152,8 @@
   
   <button type="button" class="mobile-nav-bar__item" data-favorites-toggle aria-label="Favorites">
     <span class="mobile-nav-bar__icon">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.37 3.84a4.5 4.5 0 00-6.37 0L10 4.84l-.88-.88a4.5 4.5 0 00-6.37 6.37l.88.88L10 17.69l6.37-6.37.88-.88a4.5 4.5 0 000-6.37z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </span>
     <span class="mobile-nav-bar__label">Saved</span>

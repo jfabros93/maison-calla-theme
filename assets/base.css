@@ -1467,9 +1467,9 @@ label {
 }
 
 /* Mobile Bottom Bar Spacing */
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   body.has-mobile-bar {
-    padding-bottom: 80px;
+    padding-bottom: calc(86px + env(safe-area-inset-bottom));
   }
 }
 
