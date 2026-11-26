@@ -266,8 +266,8 @@
           {%- endif -%}
         </div>
         
-        {%- if section.settings.image != blank -%}
-          <div class="split-hero__image-card-center">
+        <div class="split-hero__image-card-center" {% unless section.settings.image %}style="background-color: #F5EFE6; border-radius: 20px;"{% endunless %}>
+          {%- if section.settings.image != blank -%}
             <img 
               src="{{ section.settings.image | image_url: width: 800 }}"
               srcset="{{ section.settings.image | image_url: width: 400 }} 400w,
@@ -280,8 +280,8 @@
               height="{{ section.settings.image.height | default: 600 }}"
               loading="eager"
             >
-          </div>
-        {%- endif -%}
+          {%- endif -%}
+        </div>
         
         <div class="split-hero__availability-bar">
           <div class="split-hero__availability-text">
@@ -466,7 +466,7 @@
         {
           "type": "attribute_chip",
           "settings": {
-            "text": "Medical grade",
+            "text": "Licensed providers",
             "style": "blush"
           }
         }

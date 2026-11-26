@@ -4,76 +4,160 @@
 
 <style>
   .treatment-accordions {
-    padding-top: var(--spacing-10);
+    padding-top: var(--spacing-15);
     padding-bottom: var(--section-spacing);
+  }
+  
+  .treatment-accordions__header {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+  }
+  
+  .treatment-accordions__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--font-size-eyebrow);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--color-text-muted);
+    margin-bottom: 14px;
+  }
+  
+  .treatment-accordions__eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-sage);
+  }
+  
+  .treatment-accordions__heading {
+    font-size: var(--font-size-h1);
+    line-height: 50px;
+    letter-spacing: -1.32px;
+    margin: 0;
   }
   
   .treatment-accordions__grid {
     display: grid;
-    gap: var(--spacing-8);
+    gap: 40px;
     grid-template-columns: 1fr;
   }
   
   @media (min-width: 1024px) {
     .treatment-accordions__grid {
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 720px 1fr;
     }
   }
   
+  .accordion__item {
+    border-bottom: 1px solid var(--color-line);
+  }
+  
+  .accordion__trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
+    background: none;
+    border: 0;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--font-size-h3);
+    line-height: 26px;
+    letter-spacing: -0.19px;
+    color: var(--color-text);
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  .accordion__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  
+  .accordion__content {
+    padding: 0 0 20px;
+    margin-top: -8px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.08px;
+    color: var(--color-text-muted);
+  }
+  
   .treatment-accordions__visit-card {
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
-    padding: var(--spacing-6);
+    background-color: var(--color-sage-soft);
+    border: 0;
+    box-shadow: none;
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
   
   .treatment-accordions__visit-title {
-    font-size: var(--font-size-h3);
-    margin-bottom: var(--spacing-4);
+    font-size: var(--font-size-h2);
+    line-height: 32px;
+    letter-spacing: -0.52px;
+    margin: 0;
   }
   
   .treatment-accordions__visit-steps {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-4);
+    gap: 20px;
   }
   
   .treatment-accordions__visit-step {
     display: flex;
-    gap: var(--spacing-3);
+    gap: 16px;
+    align-items: flex-start;
   }
   
   .treatment-accordions__visit-number {
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background-color: var(--color-sage-soft);
-    color: var(--color-sage-deep);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
-    font-size: var(--font-size-body-sm);
+    flex-shrink: 0;
   }
   
   .treatment-accordions__visit-content h4 {
-    font-size: var(--font-size-body);
-    font-weight: 600;
-    margin-bottom: var(--spacing-1);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: -0.075px;
+    margin: 0 0 4px 0;
   }
   
   .treatment-accordions__visit-content p {
-    font-size: var(--font-size-body-sm);
+    font-size: 14px;
+    line-height: 20px;
     color: var(--color-text-muted);
-    line-height: 1.5;
-    margin-bottom: 0;
+    margin: 0;
   }
 </style>
 
 <section class="treatment-accordions">
   <div class="container">
+    <div class="treatment-accordions__header">
+      <div class="treatment-accordions__eyebrow">About this treatment</div>
+      <h2 class="treatment-accordions__heading">Everything you should know before you book.</h2>
+    </div>
+    
     <div class="treatment-accordions__grid">
       <div>
         <div class="accordion">
@@ -83,18 +167,22 @@
                 <button 
                   type="button"
                   class="accordion__trigger"
-                  aria-expanded="false"
+                  aria-expanded="{%- if forloop.first -%}true{%- else -%}false{%- endif -%}"
                   aria-controls="accordion-{{ block.id }}"
                 >
                   <span>{{ block.settings.title }}</span>
-                  <svg class="accordion__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <svg class="accordion__icon accordion__icon--{%- if forloop.first -%}minus{%- else -%}plus{%- endif -%}" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {%- if forloop.first -%}
+                      <path d="M5 10h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    {%- else -%}
+                      <path d="M10 5v10M5 10h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    {%- endif -%}
                   </svg>
                 </button>
                 <div 
                   class="accordion__content" 
                   id="accordion-{{ block.id }}"
-                  hidden
+                  {%- unless forloop.first -%}hidden{%- endunless -%}
                 >
                   {{ block.settings.content }}
                 </div>
@@ -106,34 +194,34 @@
       
       <div>
         <div class="treatment-accordions__visit-card">
-          <h3 class="treatment-accordions__visit-title">Your visit</h3>
+          <h3 class="treatment-accordions__visit-title">Your visit, step by step</h3>
           <div class="treatment-accordions__visit-steps">
             <div class="treatment-accordions__visit-step">
-              <div class="treatment-accordions__visit-number">1</div>
+              <div class="treatment-accordions__visit-number">01</div>
               <div class="treatment-accordions__visit-content">
-                <h4>Consultation</h4>
-                <p>Review your goals and health history with your provider.</p>
+                <h4>Skin analysis</h4>
+                <p>Your provider maps concerns and adjusts the protocol.</p>
               </div>
             </div>
             <div class="treatment-accordions__visit-step">
-              <div class="treatment-accordions__visit-number">2</div>
+              <div class="treatment-accordions__visit-number">02</div>
               <div class="treatment-accordions__visit-content">
-                <h4>Preparation</h4>
-                <p>Your treatment area is cleansed and prepped for optimal results.</p>
+                <h4>Cleanse + extract</h4>
+                <p>Double cleanse and painless vortex extraction.</p>
               </div>
             </div>
             <div class="treatment-accordions__visit-step">
-              <div class="treatment-accordions__visit-number">3</div>
+              <div class="treatment-accordions__visit-number">03</div>
               <div class="treatment-accordions__visit-content">
-                <h4>Treatment</h4>
-                <p>Your provider performs the procedure with precision and care.</p>
+                <h4>Infuse</h4>
+                <p>Peptides and hyaluronic acid pushed deep into skin.</p>
               </div>
             </div>
             <div class="treatment-accordions__visit-step">
-              <div class="treatment-accordions__visit-number">4</div>
+              <div class="treatment-accordions__visit-number">04</div>
               <div class="treatment-accordions__visit-content">
-                <h4>Aftercare</h4>
-                <p>Receive personalized post-treatment instructions and schedule follow-up.</p>
+                <h4>Protect</h4>
+                <p>LED, mineral SPF and an aftercare plan to take home.</p>
               </div>
             </div>
           </div>
@@ -151,9 +239,21 @@
       trigger.addEventListener('click', function() {
         const content = document.getElementById(this.getAttribute('aria-controls'));
         const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        const icon = this.querySelector('.accordion__icon');
         
         this.setAttribute('aria-expanded', !isExpanded);
         content.hidden = isExpanded;
+        
+        // Toggle between plus and minus icons
+        if (!isExpanded) {
+          icon.innerHTML = '<path d="M5 10h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>';
+          icon.classList.remove('accordion__icon--plus');
+          icon.classList.add('accordion__icon--minus');
+        } else {
+          icon.innerHTML = '<path d="M10 5v10M5 10h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>';
+          icon.classList.remove('accordion__icon--minus');
+          icon.classList.add('accordion__icon--plus');
+        }
       });
     });
   })();

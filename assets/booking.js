@@ -68,6 +68,11 @@
     // Update continue button state
     updateContinueButton();
     
+    // Populate confirm step if we're on step 5
+    if (stepNumber === 5) {
+      populateConfirmStep();
+    }
+    
     // Scroll to top of booking section
     document.querySelector('.booking-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -434,6 +439,45 @@
       
       if (dueToday) dueToday.textContent = `$${depositAmount}`;
       if (dueAtVisit) dueAtVisit.textContent = `$${remainingAmount}`;
+    }
+  }
+
+  // Populate confirmation step (Step 5)
+  function populateConfirmStep() {
+    // Treatment
+    const confirmTreatment = document.querySelector('[data-confirm-treatment]');
+    if (confirmTreatment && bookingState.treatment) {
+      confirmTreatment.textContent = bookingState.treatment.name;
+    }
+    
+    // Provider
+    const confirmProvider = document.querySelector('[data-confirm-provider]');
+    if (confirmProvider && bookingState.provider) {
+      confirmProvider.textContent = bookingState.provider.name;
+    }
+    
+    // Location
+    const confirmLocation = document.querySelector('[data-confirm-location]');
+    if (confirmLocation && bookingState.location) {
+      confirmLocation.textContent = bookingState.location.name;
+    }
+    
+    // Date & Time
+    const confirmDateTime = document.querySelector('[data-confirm-datetime]');
+    if (confirmDateTime && bookingState.date && bookingState.time) {
+      confirmDateTime.textContent = `${bookingState.date} at ${bookingState.time}`;
+    }
+    
+    // Duration
+    const confirmDuration = document.querySelector('[data-confirm-duration]');
+    if (confirmDuration && bookingState.treatment && bookingState.treatment.duration) {
+      confirmDuration.textContent = bookingState.treatment.duration;
+    }
+    
+    // Price
+    const confirmPrice = document.querySelector('[data-confirm-price]');
+    if (confirmPrice && bookingState.treatment) {
+      confirmPrice.textContent = `$${bookingState.treatment.price.toFixed(2)}`;
     }
   }
 

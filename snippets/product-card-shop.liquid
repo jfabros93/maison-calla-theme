@@ -57,7 +57,7 @@
   else
     assign card_title = product.title
     assign card_subtitle = product.metafields.product.subtitle | default: product.metafields.custom.subtitle | default: product.type
-    assign card_price = product.price | money_without_currency | remove: ',' | times: 1
+    assign card_price = product.price
     assign card_size = product.metafields.product.size | default: product.metafields.custom.size | default: product.selected_or_first_available_variant.title
     assign card_url = product.url
     assign card_image = product.featured_image
@@ -106,7 +106,13 @@
           </svg>
         </span>
       </a>
-      <span class="price-pill">${{ card_price }}</span>
+      <span class="price-pill">
+        {%- if demo -%}
+          ${{ card_price }}
+        {%- else -%}
+          {{ card_price | money }}
+        {%- endif -%}
+      </span>
     </div>
   </div>
   

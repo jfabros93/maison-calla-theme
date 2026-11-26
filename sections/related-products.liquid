@@ -26,7 +26,7 @@
     -%}
     
     <div class="grid grid--3-col" id="related-products-{{ section.id }}">
-      {%- if recommendations != null and recommendations.products.size > 0 -%}
+      {%- if recommendations.performed and recommendations.products_count > 0 -%}
         {%- for product in recommendations.products limit: limit -%}
           {% render 'treatment-card', product: product %}
         {%- endfor -%}

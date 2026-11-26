@@ -28,14 +28,42 @@
     margin-bottom: var(--spacing-3xl);
   }
   
+  .cart-upsells {
+    display: grid;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  
+  .upsell-card {
+    padding: 20px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-sage-soft);
+  }
+  
+  .upsell-card__title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .upsell-card__description {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    margin-bottom: 12px;
+  }
+  
   .cart-summary {
     position: sticky;
     top: 100px;
     background-color: var(--color-surface);
     border: 1px solid var(--color-line);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-lg);
-    box-shadow: 0 8px 24px rgba(21, 21, 21, 0.10);
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
   }
   
   .cart-summary.is-empty {
@@ -43,55 +71,162 @@
   }
   
   .cart-summary__title {
-    font-size: 19px;
+    font-size: var(--font-size-h2);
+    line-height: 32px;
+    letter-spacing: -0.52px;
     font-weight: 600;
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .cart-upsells {
-    display: grid;
-    gap: 16px;
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .upsell-card {
-    padding: 16px;
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-sm);
-    background-color: var(--color-sage-soft);
-  }
-  
-  .upsell-card__title {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  
-  .upsell-card__description {
-    font-size: 13px;
-    color: var(--color-text-muted);
-    margin-bottom: 12px;
+    margin: 0;
   }
   
   .cart-discount {
     display: flex;
     gap: 8px;
-    margin-bottom: var(--spacing-lg);
   }
   
   .discount-input {
     flex: 1;
-    padding: 12px 16px;
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-sm);
+    background-color: var(--color-subtle-surface);
+    border: 0;
+    border-radius: var(--radius-pill);
+    padding: 13px 16px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .discount-input::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 1.333l1.333 2.667 2.934.4-2.134 2 .534 2.933L8 7.667 5.333 9.333l.534-2.933-2.134-2 2.934-.4L8 1.333z' stroke='%236E6962' stroke-width='1.5'/%3E%3C/svg%3E");
+  }
+  
+  .cart-summary__rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .summary-row__label {
+    color: var(--color-text-muted);
+  }
+  
+  .summary-row__value {
+    font-weight: 400;
+  }
+  
+  .cart-summary__divider {
+    height: 1px;
+    background-color: var(--color-line);
+  }
+  
+  .cart-summary__due-today {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .cart-summary__due-today-label {
+    font-size: 19px;
+    line-height: 26px;
+  }
+  
+  .cart-summary__due-today-amount {
+    font-size: 26px;
+    line-height: 32px;
+    font-weight: 600;
+  }
+  
+  .cart-summary__due-visit {
+    padding: 12px 14px;
+    background-color: var(--color-subtle-surface);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 14px;
   }
   
-  .cart-policy {
-    padding: 16px;
+  .cart-summary__due-visit-amount {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  
+  .cart-summary__member-callout {
+    padding: 14px;
     background-color: var(--color-sage-soft);
-    border-radius: var(--radius-sm);
-    margin-bottom: var(--spacing-lg);
+    border-radius: var(--radius-md);
+  }
+  
+  .cart-summary__member-callout-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  
+  .cart-summary__member-callout-text {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-text-muted);
+  }
+  
+  .cart-summary__checkbox {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .cart-summary__checkbox input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  
+  .cart-summary__checkbox label {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  
+  .cart-summary__actions {
+    display: flex;
+    gap: 0;
+  }
+  
+  .cart-summary__trust {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .cart-summary__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+  }
+  
+  .cart-summary__payment-marks {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .cart-summary__payment-mark {
+    width: 40px;
+    height: 26px;
+    background-color: var(--color-subtle-surface);
+    border-radius: 6px;
   }
   
   .mobile-checkout-bar {
@@ -121,8 +256,11 @@
     <div class="cart-layout">
       <!-- Cart Content -->
       <div class="cart-content">
-        <!-- Populated by cart.js -->
-        <div class="cart-empty" style="display: none;">
+        <!-- Cart items populated by cart.js -->
+        <div class="cart-items"></div>
+        
+        <!-- Empty state -->
+        <div class="cart-empty" {% unless cart.item_count == 0 %}style="display: none;"{% endunless %}>
           <div style="text-align: center; padding: var(--spacing-3xl) var(--spacing-lg); max-width: 500px; margin: 0 auto;">
             <h2 style="font-size: 28px; font-weight: 600; margin-bottom: var(--spacing-md);">
               {{ section.settings.empty_heading | default: "Your cart is empty" }}
@@ -131,28 +269,26 @@
               {{ section.settings.empty_message | default: "Discover our treatments and products to begin your journey to radiant skin." }}
             </p>
             <div style="display: flex; flex-direction: column; gap: var(--spacing-md);">
-              {%- if section.settings.consult_page != blank -%}
-                <a href="{{ section.settings.consult_page.url }}" class="button button--primary">
-                  {{ section.settings.consult_button_label | default: "Book a Consultation" }}
-                </a>
-              {%- elsif settings.booking_page != blank -%}
-                <a href="{{ settings.booking_page.url }}" class="button button--primary">
-                  {{ settings.consult_button_label | default: "Book a Consultation" }}
-                </a>
-              {%- endif -%}
+              {%- liquid
+                assign consult_link = section.settings.consult_page.url
+                if consult_link == blank and settings.booking_page != blank
+                  assign consult_link = settings.booking_page.url
+                endif
+                if consult_link == blank
+                  assign consult_link = '/pages/book'
+                endif
+              -%}
+              <a href="{{ consult_link }}" class="button button--primary">
+                {{ section.settings.consult_button_label | default: "Book a Consultation" }}
+              </a>
               <a href="{{ routes.all_products_collection_url }}" class="button button--secondary">
                 {{ section.settings.continue_shopping_text | default: "Shop Products" }}
               </a>
             </div>
           </div>
         </div>
-      </div>
-      
-      <!-- Cart Summary -->
-      <div class="cart-summary" data-cart-summary>
-        <h2 class="cart-summary__title">Summary</h2>
         
-        <!-- Upsell Cards -->
+        <!-- Upsells (moved from summary) -->
         {% if section.settings.aftercare_product != blank or section.settings.gift_card_product != blank or section.settings.membership_product != blank %}
           <div class="cart-upsells">
             {% if section.settings.aftercare_product != blank %}
@@ -180,43 +316,100 @@
             {% endif %}
           </div>
         {% endif %}
+      </div>
+      
+      <!-- Cart Summary -->
+      <div class="cart-summary" data-cart-summary>
+        <h2 class="cart-summary__title">Order summary</h2>
         
-        <!-- Discount Code -->
+        <!-- Promo Code -->
         <div class="cart-discount">
-          <input type="text" class="discount-input" placeholder="Discount code" aria-label="Discount code">
-          <button type="button" class="button button--secondary button--compact">Apply</button>
+          <input type="text" class="discount-input" placeholder="Promo or gift card code" aria-label="Promo or gift card code">
+          <button type="button" class="button button--primary button--compact" style="padding: 11px 18px; border-radius: var(--radius-pill); font-size: 15px;">Apply</button>
         </div>
         
-        <!-- Summary Pricing (populated by JS) -->
-        <div class="cart-summary__pricing"></div>
+        <!-- Summary Rows (populated by JS) -->
+        <div class="cart-summary__rows"></div>
         
-        <!-- Glow Club Callout -->
-        <div class="chip chip--save" style="margin-bottom: 16px; justify-content: center;">
-          Glow Club members save $25 on this order
+        <div class="cart-summary__divider"></div>
+        
+        <!-- Due Today -->
+        <div class="cart-summary__due-today">
+          <span class="cart-summary__due-today-label">Due today</span>
+          <span class="cart-summary__due-today-amount">$0</span>
         </div>
         
-        <!-- Cancellation Policy -->
-        <div class="cart-policy">
-          <label class="checkbox">
-            <input type="checkbox" id="cancellation-policy-checkbox" required>
-            <span class="checkbox__label">
-              <strong>{{ section.settings.policy_title | default: "Cancellation policy" }}</strong><br>
-              <small>{{ section.settings.policy_text | default: "I understand and accept the cancellation policy for appointments and products." }}</small>
-            </span>
-          </label>
+        <!-- Due at Visit -->
+        <div class="cart-summary__due-visit">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span style="flex: 1;">Due at visit (Dec 4)</span>
+          <span class="cart-summary__due-visit-amount">$0</span>
         </div>
         
-        <!-- Trust Badges -->
-        {% if section.settings.show_trust_badges %}
-          <div style="font-size: 13px; color: var(--color-text-muted); line-height: 1.6; padding: 12px 0;">
-            ✓ Secure checkout<br>
-            ✓ Licensed providers<br>
-            ✓ 30-day product returns
+        <!-- Member Callout -->
+        <div class="cart-summary__member-callout">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+            <path d="M10 3.333l1.667 3.334 3.666.5-2.666 2.5.666 3.666L10 11.667l-3.333 1.666.666-3.666-2.666-2.5 3.666-.5L10 3.333z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div>
+            <div class="cart-summary__member-callout-title">Glow Club members save $X on this order</div>
+            <div class="cart-summary__member-callout-text">Join for $149/mo and the savings apply today</div>
           </div>
-        {% endif %}
+        </div>
         
-        <!-- Checkout Actions -->
-        <div class="cart-summary__actions"></div>
+        <!-- Checkbox -->
+        <div class="cart-summary__checkbox">
+          <input type="checkbox" id="cancellation-policy-checkbox" required>
+          <label for="cancellation-policy-checkbox">I agree to the 24-hour cancellation policy. Late cancellations forfeit the deposit.</label>
+        </div>
+        
+        <!-- Checkout Button (populated by JS) -->
+        <div class="cart-summary__actions">
+          <button type="button" class="button button--primary" style="width: 100%; height: 52px; justify-content: space-between; display: flex; align-items: center;" disabled>
+            <span>Checkout · $0</span>
+            <span style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.833 14.167L14.167 5.833M14.167 5.833H5.833M14.167 5.833v8.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+        </div>
+        
+        <!-- Trust -->
+        <div class="cart-summary__trust">
+          <div class="cart-summary__trust-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.333 7.333l-4 4-2.666-2.666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 14.667A6.667 6.667 0 108 1.333a6.667 6.667 0 000 13.334z" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            Secure, encrypted checkout
+          </div>
+          <div class="cart-summary__trust-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.333 4.667l-6.666 8L3.333 9.333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Free reschedule up to 24 hrs before
+          </div>
+          <div class="cart-summary__trust-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 7.333v-4A.667.667 0 0013.333 2.666H2.667A.667.667 0 002 3.333v9.334a.667.667 0 00.667.666h4.666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.667 10.667L7.333 12l1.334 1.333L12 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Free shipping on product orders over $75
+          </div>
+        </div>
+        
+        <!-- Payment Marks -->
+        <div class="cart-summary__payment-marks">
+          <div class="cart-summary__payment-mark"></div>
+          <div class="cart-summary__payment-mark"></div>
+          <div class="cart-summary__payment-mark"></div>
+          <div class="cart-summary__payment-mark"></div>
+          <div class="cart-summary__payment-mark"></div>
+        </div>
       </div>
     </div>
   </div>
