@@ -239,7 +239,10 @@
               loading="lazy"
             >
           {%- else -%}
-            <div class="treatment-tile__image-placeholder"></div>
+            <div class="treatment-tile__image-placeholder" style="background-color: #F5EFE6;">
+              {%- assign product_num = forloop.index | default: 1 | modulo: 6 | plus: 1 -%}
+              {{ 'product-' | append: product_num | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
           {%- endif -%}
           
           <div class="treatment-tile__header">

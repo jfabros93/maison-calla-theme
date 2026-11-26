@@ -198,7 +198,9 @@
               data-before-image
             >
           {%- else -%}
-            <div class="before-after-section__image before-after-section__before" style="background-color: var(--color-beige);" data-before-image></div>
+            <div class="before-after-section__image before-after-section__before" style="background-color: var(--color-beige);" data-before-image>
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
           {%- endif -%}
           
           {%- if section.settings.after_image != blank -%}
@@ -215,7 +217,9 @@
               data-after-image
             >
           {%- else -%}
-            <div class="before-after-section__image before-after-section__after" style="background-color: var(--color-blush);" data-after-image></div>
+            <div class="before-after-section__image before-after-section__after" style="background-color: var(--color-blush);" data-after-image>
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
           {%- endif -%}
           
           <div class="before-after-section__divider" data-divider></div>

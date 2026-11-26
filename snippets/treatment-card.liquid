@@ -98,6 +98,9 @@
           height="{{ card_image.height | default: 400 }}"
           loading="lazy"
         >
+      {%- else -%}
+        {%- assign product_placeholder_name = 'product-' | append: index | default: '1' | modulo: 6 | plus: 1 -%}
+        {{ product_placeholder_name | placeholder_svg_tag: 'placeholder-svg' }}
       {%- endif -%}
     </div>
   </div>

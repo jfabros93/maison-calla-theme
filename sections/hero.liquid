@@ -114,7 +114,9 @@
       height="900"
     >
   {%- else -%}
-    <div class="hero__image" style="background-color: #F5EFE6;"></div>
+    <div class="hero__image" style="background-color: #F5EFE6;">
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
   {%- endif -%}
   
   <div class="hero__overlay"></div>

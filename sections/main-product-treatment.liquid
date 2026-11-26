@@ -502,7 +502,9 @@
               id="main-treatment-image"
             >
           {%- else -%}
-            <div class="treatment-pdp__gallery-image" style="background-color: var(--color-beige);"></div>
+            <div class="treatment-pdp__gallery-image" style="background-color: var(--color-beige);">
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
           {%- endif -%}
         </div>
         
