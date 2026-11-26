@@ -1,5 +1,13 @@
 {
   "sections": {
+    "hero_single": {
+      "type": "hero-single",
+      "settings": {
+        "heading": "Smoother texture, more even tone.",
+        "subheading": "Fractional laser resurfacing, three sessions four weeks apart. Photographed in the same light, no filters.",
+        "button_label": "Book a consultation"
+      }
+    },
     "split_hero": {
       "type": "split-hero",
       "blocks": {
@@ -316,6 +324,7 @@
     }
   },
   "order": [
+    "hero_single",
     "split_hero",
     "filterable_treatments",
     "trust_row",

@@ -4,74 +4,121 @@
 
 <style>
   .trust-row {
-    padding-top: var(--spacing-10);
-    padding-bottom: var(--spacing-10);
-    background-color: var(--color-surface);
+    padding-top: 64px;
+    padding-bottom: 0;
   }
   
-  .trust-row__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--spacing-6);
-  }
-  
-  @media (min-width: 768px) {
-    .trust-row__grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--spacing-8);
-    }
+  .trust-row__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    padding: 28px 40px;
   }
   
   .trust-row__item {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 14px;
   }
   
   .trust-row__icon {
     width: 48px;
     height: 48px;
-    margin: 0 auto var(--spacing-3);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     background-color: var(--color-sage-soft);
     color: var(--color-sage-deep);
+    flex-shrink: 0;
+  }
+  
+  .trust-row__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .trust-row__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
   
   .trust-row__title {
-    font-size: var(--font-size-h3);
-    font-weight: 600;
-    margin-bottom: var(--spacing-2);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.075px;
+    color: var(--color-text);
+    margin: 0;
   }
   
   .trust-row__description {
-    font-size: var(--font-size-body-sm);
+    font-size: 14px;
+    line-height: 20px;
     color: var(--color-text-muted);
-    line-height: 1.5;
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .trust-row__bar {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 24px;
+    }
   }
 </style>
 
 <section class="trust-row">
   <div class="container">
-    <div class="trust-row__grid">
+    <div class="trust-row__bar">
       {%- for block in section.blocks -%}
         {%- if block.type == 'item' -%}
           <div class="trust-row__item" {{ block.shopify_attributes }}>
             {%- if block.settings.show_icon -%}
               <div class="trust-row__icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                {%- case forloop.index -%}
+                  {%- when 1 -%}
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 1.667l2.084 4.166 4.583.667-3.334 3.333.834 4.584L10 12.084l-4.167 2.333.834-4.584L3.333 6.5l4.583-.667L10 1.667z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {%- when 2 -%}
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 18.333A8.333 8.333 0 1010 1.667a8.333 8.333 0 000 16.666z" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M12.5 8.333A2.5 2.5 0 0010 5.833a2.5 2.5 0 00-2.5 2.5c0 1.667 2.5 2.5 2.5 2.5s2.5.833 2.5 2.5A2.5 2.5 0 0010 15.833a2.5 2.5 0 01-2.5-2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  {%- when 3 -%}
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 3.333v13.334M13.333 6.667H8.333a2.5 2.5 0 000 5h3.334a2.5 2.5 0 010 5H6.667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {%- when 4 -%}
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16.667 8.333V5a1.667 1.667 0 00-1.667-1.667H5A1.667 1.667 0 003.333 5v10A1.667 1.667 0 005 16.667h3.333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M11.667 11.667L10 13.333l1.667 1.667 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {%- else -%}
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.5 10l1.667 1.667L12.5 8.333M10 18.333A8.333 8.333 0 1010 1.667a8.333 8.333 0 000 16.666z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                {%- endcase -%}
               </div>
             {%- endif -%}
             
-            {%- if block.settings.title != blank -%}
-              <h3 class="trust-row__title">{{ block.settings.title }}</h3>
-            {%- endif -%}
-            
-            {%- if block.settings.description != blank -%}
-              <p class="trust-row__description">{{ block.settings.description }}</p>
-            {%- endif -%}
+            <div class="trust-row__content">
+              {%- if block.settings.title != blank -%}
+                <div class="trust-row__title">{{ block.settings.title }}</div>
+              {%- endif -%}
+              
+              {%- if block.settings.description != blank -%}
+                <div class="trust-row__description">{{ block.settings.description }}</div>
+              {%- endif -%}
+            </div>
           </div>
         {%- endif -%}
       {%- endfor -%}
@@ -115,29 +162,29 @@
         {
           "type": "item",
           "settings": {
-            "title": "Licensed Providers",
-            "description": "Licensed medical professionals"
+            "title": "Licensed providers",
+            "description": "RNs and NPs, medical director on site"
           }
         },
         {
           "type": "item",
           "settings": {
-            "title": "Medical Grade",
-            "description": "Medical-grade treatments & products"
+            "title": "Medical-grade only",
+            "description": "Clinical formulas, FDA-cleared devices"
           }
         },
         {
           "type": "item",
           "settings": {
-            "title": "15+ Years",
-            "description": "Combined expertise in aesthetics"
+            "title": "4.9 average rating",
+            "description": "From 1,200+ verified client reviews"
           }
         },
         {
           "type": "item",
           "settings": {
-            "title": "Safe & Effective",
-            "description": "Clinically proven results"
+            "title": "Free consultations",
+            "description": "A personal plan, never a hard sell"
           }
         }
       ]

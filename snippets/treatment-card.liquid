@@ -69,41 +69,40 @@
   assign tint_color = tint_colors[tint_index]
 -%}
 
-<div class="treatment-card card card--tinted-{{ tint_color }}" data-category="{{ card_category_handle }}">
-  <div class="treatment-card__header card__image-wrapper">
-    {%- if card_image != blank -%}
-      <img 
-        src="{{ card_image | image_url: width: 600 }}"
-        srcset="{{ card_image | image_url: width: 400 }} 400w,
-                {{ card_image | image_url: width: 600 }} 600w"
-        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-        alt="{{ card_image.alt | default: card_title | escape }}"
-        class="card__image"
-        width="{{ card_image.width | default: 600 }}"
-        height="{{ card_image.height | default: 450 }}"
-        loading="lazy"
+<div class="treatment-card" data-category="{{ card_category_handle }}">
+  <div class="treatment-card__header treatment-card__header--{{ tint_color }}">
+    <div class="treatment-card__header-top">
+      <span class="chip chip--glass">{{ card_category }}</span>
+      <button 
+        type="button" 
+        class="button button--icon treatment-card__favorite" 
+        aria-label="Add to favorites"
+        data-favorite-toggle
       >
-    {%- else -%}
-      <div class="card__image" style="background-color: var(--color-{{ tint_color }});"></div>
-    {%- endif -%}
-    
-    <div class="treatment-card__chips">
-      <span class="chip chip--outlined">{{ card_category }}</span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.367 3.842a4.583 4.583 0 00-6.484 0L10 4.725l-.883-.883a4.583 4.583 0 00-6.484 6.483l.883.884L10 17.692l6.484-6.483.883-.884a4.583 4.583 0 000-6.483z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </button>
     </div>
     
-    <button 
-      type="button" 
-      class="treatment-card__favorite" 
-      aria-label="Add to favorites"
-      data-favorite-toggle
-    >
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17.367 3.842a4.583 4.583 0 00-6.484 0L10 4.725l-.883-.883a4.583 4.583 0 00-6.484 6.483l.883.884L10 17.692l6.484-6.483.883-.884a4.583 4.583 0 000-6.483z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      </svg>
-    </button>
+    <div class="treatment-card__header-center">
+      {%- if card_image != blank -%}
+        <img 
+          src="{{ card_image | image_url: width: 400 }}"
+          srcset="{{ card_image | image_url: width: 300 }} 300w,
+                  {{ card_image | image_url: width: 400 }} 400w"
+          sizes="(min-width: 1024px) 300px, (min-width: 768px) 50vw, 100vw"
+          alt="{{ card_image.alt | default: card_title | escape }}"
+          class="treatment-card__image"
+          width="{{ card_image.width | default: 400 }}"
+          height="{{ card_image.height | default: 400 }}"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
   </div>
   
-  <div class="treatment-card__body card__content">
+  <div class="treatment-card__body">
     <h3 class="treatment-card__title">
       <a href="{{ card_url }}">{{ card_title }}</a>
     </h3>
@@ -112,9 +111,9 @@
     
     <div class="treatment-card__meta">
       {%- if card_duration != blank -%}
-        <span class="chip">{{ card_duration }}</span>
+        <span class="chip chip--subtle">{{ card_duration }}</span>
       {%- endif -%}
-      <span class="chip">No downtime</span>
+      <span class="chip chip--subtle">No downtime</span>
     </div>
     
     <div class="treatment-card__footer">

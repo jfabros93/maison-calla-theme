@@ -132,23 +132,40 @@ img.loaded {
   cursor: not-allowed;
 }
 
-/* Primary Button - Black pill with white circle arrow */
+/* Primary Button - Black pill with white circle arrow (Issue 4) */
 .button--primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 52px;
+  height: 52px;
+  padding: 6px 6px 6px 24px;
+  border-radius: var(--radius-pill);
   background-color: var(--color-text);
   color: var(--color-surface);
-  padding-right: var(--spacing-2);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.075px;
+  text-decoration: none;
+  border: none;
 }
 
 .button--primary::after {
   content: '';
-  display: block;
-  width: 32px;
-  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background-color: var(--color-surface);
-  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 8h10m0 0L9 4m4 4-4 4' stroke='%23151515' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.83331 14.1667L14.1666 5.83337M14.1666 5.83337H5.83331M14.1666 5.83337V14.1667' stroke='%23151515' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 20px 20px;
   flex-shrink: 0;
 }
 
@@ -157,34 +174,101 @@ img.loaded {
   transform: translateY(-1px);
 }
 
-/* Secondary Button - Outlined */
+/* Secondary Button - Outlined with arrow circle (Issue 4) */
 .button--secondary {
-  border: 1.5px solid var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 52px;
+  height: 52px;
+  padding: 6px 6px 6px 24px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-text);
+  background-color: transparent;
   color: var(--color-text);
-  padding: 0 var(--spacing-4);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.075px;
+  text-decoration: none;
+}
+
+.button--secondary::after {
+  content: '';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-text);
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.83331 14.1667L14.1666 5.83337M14.1666 5.83337H5.83331M14.1666 5.83337V14.1667' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px;
+  flex-shrink: 0;
 }
 
 .button--secondary:hover {
-  background-color: var(--color-text);
-  color: var(--color-surface);
+  background-color: rgba(21, 21, 21, 0.05);
 }
 
-/* Light Button */
+/* Light Button - White fill with dark arrow circle (Issue 4) */
 .button--light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 52px;
+  height: 52px;
+  padding: 6px 6px 6px 24px;
+  border-radius: var(--radius-pill);
   background-color: var(--color-surface);
   color: var(--color-text);
-  border: 1.5px solid var(--color-line);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.075px;
+  text-decoration: none;
+  border: none;
+}
+
+.button--light::after {
+  content: '';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-text);
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.83331 14.1667L14.1666 5.83337M14.1666 5.83337H5.83331M14.1666 5.83337V14.1667' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px;
+  flex-shrink: 0;
 }
 
 .button--light:hover {
   background-color: var(--color-subtle-surface);
 }
 
-/* Compact Button */
+/* Compact Button - Smaller variant for treatment cards, hero availability (Issue 4) */
 .button--compact {
-  min-height: 36px;
-  padding: 0 var(--spacing-3);
+  min-height: 44px;
+  height: 44px;
+  padding: 4px 4px 4px 18px;
+  gap: 10px;
   font-size: var(--font-size-body-sm);
+}
+
+.button--compact::after {
+  width: 34px;
+  height: 34px;
+  background-size: 18px 18px;
 }
 
 /* Icon Button - 44px circular */
@@ -279,6 +363,11 @@ img.loaded {
   flex-wrap: wrap;
   gap: var(--spacing-2);
   margin-bottom: var(--spacing-6);
+}
+
+/* Center filter pills for treatments section (Issue 5) */
+.filterable-treatments .filter-pills {
+  justify-content: center;
 }
 
 .filter-pill {
@@ -396,41 +485,53 @@ img.loaded {
   border-color: var(--color-stone);
 }
 
-/* Treatment Card */
+/* Treatment Card (Issue 6) */
 .treatment-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 8px;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  width: 100%;
 }
 
 .treatment-card__header {
+  height: 210px;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   position: relative;
-  padding: var(--spacing-2);
 }
 
-.treatment-card__chips {
-  position: absolute;
-  top: var(--spacing-2);
-  left: var(--spacing-2);
+.treatment-card__header--beige { background-color: var(--color-beige); }
+.treatment-card__header--tan { background-color: var(--color-tan); }
+.treatment-card__header--blush { background-color: var(--color-blush); }
+.treatment-card__header--sage { background-color: var(--color-sage-soft); }
+.treatment-card__header--stone { background-color: var(--color-stone); }
+
+.treatment-card__header-top {
   display: flex;
-  gap: var(--spacing-1);
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
 }
 
 .treatment-card__favorite {
-  position: absolute;
-  top: var(--spacing-2);
-  right: var(--spacing-2);
   width: 36px;
   height: 36px;
-  border-radius: 50%;
   background-color: var(--color-surface);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--transition-speed) var(--transition-easing);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+}
+
+.treatment-card__favorite svg {
+  width: 20px;
+  height: 20px;
 }
 
 .treatment-card__favorite:hover {
@@ -441,90 +542,250 @@ img.loaded {
   color: #E63946;
 }
 
+.treatment-card__header-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.treatment-card__image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
 .treatment-card__body {
-  padding: var(--spacing-4);
-  flex-grow: 1;
+  padding: 18px 12px 10px;
   display: flex;
   flex-direction: column;
+  gap: 14px;
 }
 
 .treatment-card__title {
-  font-size: var(--font-size-h3);
-  margin-bottom: var(--spacing-2);
+  font-size: 19px;
+  line-height: 26px;
+  letter-spacing: -0.19px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.treatment-card__title a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.treatment-card__title a:hover {
+  color: var(--color-sage);
 }
 
 .treatment-card__description {
+  font-size: 14px;
+  line-height: 20px;
   color: var(--color-text-muted);
-  margin-bottom: var(--spacing-3);
-  flex-grow: 1;
-  font-size: var(--font-size-body-sm);
-  line-height: 1.5;
+  margin: 0;
 }
 
 .treatment-card__meta {
   display: flex;
   gap: var(--spacing-2);
-  margin-bottom: var(--spacing-3);
+  flex-wrap: wrap;
 }
 
 .treatment-card__footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: var(--spacing-3);
-  border-top: 1px solid var(--color-line);
+  gap: var(--spacing-2);
 }
 
 .treatment-card__price {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1);
+  gap: 4px;
 }
 
 .treatment-card__price-label {
-  font-size: var(--font-size-body-sm);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
   color: var(--color-text-muted);
 }
 
 .treatment-card__price-value {
-  font-size: var(--font-size-h3);
+  font-size: 15px;
+  line-height: 20px;
   font-weight: 600;
+  color: var(--color-text);
 }
 
-/* Product Card */
+/* Product Card (Issue 11) */
 .product-card {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  gap: 16px;
+  width: 100%;
+}
+
+.product-card__media {
+  height: 380px;
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   position: relative;
 }
 
-.product-card__overlay {
-  position: absolute;
-  bottom: var(--spacing-2);
-  left: var(--spacing-2);
-  right: var(--spacing-2);
+.product-card__media--beige { background-color: var(--color-beige); }
+.product-card__media--tan { background-color: var(--color-tan); }
+.product-card__media--blush { background-color: var(--color-blush); }
+.product-card__media--sage { background-color: var(--color-sage-soft); }
+
+.product-card__media-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  position: relative;
   z-index: 1;
 }
 
-.product-card__body {
-  padding: var(--spacing-3);
-  flex-grow: 1;
+.product-card__wishlist {
+  width: 36px;
+  height: 36px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+}
+
+.product-card__wishlist svg {
+  width: 20px;
+  height: 20px;
+}
+
+.product-card__media-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.product-card__image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.product-card__media-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-2);
+  position: relative;
+  z-index: 1;
+}
+
+.buy-now-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 4px 4px 18px;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-pill);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: -0.075px;
+  color: var(--color-text);
+  text-decoration: none;
+  box-shadow: 0 16px 40px rgba(21, 21, 21, 0.12);
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.buy-now-pill:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: translateY(-1px);
+}
+
+.buy-now-pill__arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.buy-now-pill__arrow svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--color-surface);
+}
+
+.price-pill {
+  padding: 10px 16px;
+  background-color: var(--color-text);
+  color: var(--color-surface);
+  border-radius: var(--radius-pill);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.product-card__info {
+  padding: 0 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .product-card__name {
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-h3);
+  line-height: 32px;
+  letter-spacing: -0.52px;
   font-weight: 600;
-  margin-bottom: var(--spacing-1);
+  margin: 0;
+}
+
+.product-card__name a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.product-card__name a:hover {
+  color: var(--color-sage);
 }
 
 .product-card__subtitle {
-  font-size: var(--font-size-body-sm);
+  font-size: 14px;
+  line-height: 20px;
   color: var(--color-text-muted);
-  margin-bottom: var(--spacing-1);
+  margin: 0;
+}
+
+.product-card__size {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  color: var(--color-text-muted);
+  margin: 0;
 }
 
 /* Membership Card */
@@ -680,7 +941,7 @@ img.loaded {
 
 @media (min-width: 768px) {
   .container {
-    --container-padding: var(--spacing-6);
+    --container-padding: var(--spacing-10);
   }
 }
 

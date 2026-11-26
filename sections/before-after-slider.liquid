@@ -4,23 +4,54 @@
 
 <style>
   .before-after-section {
-    padding-top: var(--section-spacing);
-    padding-bottom: var(--section-spacing);
-    background-color: var(--color-surface);
+    padding-top: 120px;
+    padding-bottom: 0;
   }
   
-  .before-after-section__slider {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
+  .before-after-section__card {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    padding: 12px 56px 12px 12px;
+  }
+  
+  @media (max-width: 1023px) {
+    .before-after-section__card {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 12px;
+      gap: 24px;
+    }
+  }
+  
+  .before-after-section__media {
+    width: 760px;
+    max-width: 100%;
+    flex-shrink: 0;
   }
   
   .before-after-section__container {
     position: relative;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 760 / 520;
+    height: 520px;
     border-radius: var(--radius-lg);
     overflow: hidden;
     background-color: var(--color-beige);
+  }
+  
+  @media (max-width: 1023px) {
+    .before-after-section__container {
+      height: auto;
+      width: 100%;
+    }
+    
+    .before-after-section__media {
+      width: 100%;
+    }
   }
   
   .before-after-section__image {
@@ -40,7 +71,7 @@
     left: 50%;
     top: 0;
     bottom: 0;
-    width: 2px;
+    width: 4px;
     background-color: var(--color-surface);
     transform: translateX(-50%);
     z-index: 2;
@@ -50,130 +81,202 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     background-color: var(--color-surface);
-    box-shadow: 0 4px 12px rgba(21, 21, 21, 0.2);
+    box-shadow: var(--shadow-card);
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 2px;
     transform: translate(-50%, -50%);
     cursor: ew-resize;
     z-index: 3;
   }
   
   .before-after-section__handle svg {
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     color: var(--color-text);
   }
   
   .before-after-section__labels {
     position: absolute;
-    top: var(--spacing-3);
-    left: var(--spacing-3);
-    right: var(--spacing-3);
+    top: 20px;
+    left: 20px;
+    right: 20px;
     display: flex;
     justify-content: space-between;
     z-index: 1;
   }
   
   .before-after-section__label {
-    padding: var(--spacing-1) var(--spacing-2);
-    background-color: rgba(255, 255, 255, 0.9);
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.85);
     border-radius: var(--radius-pill);
-    font-size: var(--font-size-body-sm);
-    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
     color: var(--color-text);
   }
   
-  .before-after-section__info {
-    text-align: center;
-    margin-top: var(--spacing-6);
+  .before-after-section__copy {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
   }
   
-  .before-after-section__treatment {
-    font-size: var(--font-size-body-sm);
+  .before-after-section__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
     color: var(--color-text-muted);
-    margin-bottom: var(--spacing-2);
   }
   
-  .before-after-section__result {
-    font-size: var(--font-size-h3);
+  .before-after-section__eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-sage-soft);
+  }
+  
+  .before-after-section__heading {
+    font-size: 44px;
+    line-height: 50px;
+    letter-spacing: -1.32px;
     font-weight: 600;
+    margin: 0;
+  }
+  
+  .before-after-section__subheading {
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  
+  .before-after-section__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+  
+  .before-after-section__disclaimer {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-text-muted);
+    margin: 0;
   }
 </style>
 
 <section class="before-after-section">
   <div class="container">
-    {%- if section.settings.heading != blank or section.settings.eyebrow != blank -%}
-      <div class="section-header">
-        {%- if section.settings.eyebrow != blank -%}
-          <div class="eyebrow section-header__eyebrow">{{ section.settings.eyebrow }}</div>
-        {%- endif -%}
-        {%- if section.settings.heading != blank -%}
-          <h2 class="section-header__title">{{ section.settings.heading }}</h2>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
-    
-    <div class="before-after-section__slider">
-      <div class="before-after-section__container" data-before-after>
-        {%- if section.settings.before_image != blank -%}
-          <img 
-            src="{{ section.settings.before_image | image_url: width: 1200 }}"
-            srcset="{{ section.settings.before_image | image_url: width: 800 }} 800w,
-                    {{ section.settings.before_image | image_url: width: 1200 }} 1200w"
-            sizes="(min-width: 800px) 800px, 100vw"
-            alt="Before"
-            class="before-after-section__image before-after-section__before"
-            width="{{ section.settings.before_image.width | default: 1200 }}"
-            height="{{ section.settings.before_image.height | default: 900 }}"
-            loading="lazy"
-          >
-        {%- endif -%}
-        
-        {%- if section.settings.after_image != blank -%}
-          <img 
-            src="{{ section.settings.after_image | image_url: width: 1200 }}"
-            srcset="{{ section.settings.after_image | image_url: width: 800 }} 800w,
-                    {{ section.settings.after_image | image_url: width: 1200 }} 1200w"
-            sizes="(min-width: 800px) 800px, 100vw"
-            alt="After"
-            class="before-after-section__image before-after-section__after"
-            width="{{ section.settings.after_image.width | default: 1200 }}"
-            height="{{ section.settings.after_image.height | default: 900 }}"
-            loading="lazy"
-            data-after-image
-          >
-        {%- endif -%}
-        
-        <div class="before-after-section__divider" data-divider></div>
-        
-        <div class="before-after-section__handle" data-handle>
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        
-        <div class="before-after-section__labels">
-          <span class="before-after-section__label">Before</span>
-          <span class="before-after-section__label">After</span>
+    <div class="before-after-section__card">
+      <div class="before-after-section__media">
+        <div class="before-after-section__container" data-before-after>
+          {%- if section.settings.before_image != blank -%}
+            <img 
+              src="{{ section.settings.before_image | image_url: width: 1200 }}"
+              srcset="{{ section.settings.before_image | image_url: width: 800 }} 800w,
+                      {{ section.settings.before_image | image_url: width: 1200 }} 1200w"
+              sizes="(min-width: 800px) 800px, 100vw"
+              alt="Before"
+              class="before-after-section__image before-after-section__before"
+              width="{{ section.settings.before_image.width | default: 1200 }}"
+              height="{{ section.settings.before_image.height | default: 900 }}"
+              loading="lazy"
+              data-before-image
+            >
+          {%- else -%}
+            <div class="before-after-section__image before-after-section__before" style="background-color: var(--color-beige);" data-before-image></div>
+          {%- endif -%}
+          
+          {%- if section.settings.after_image != blank -%}
+            <img 
+              src="{{ section.settings.after_image | image_url: width: 1200 }}"
+              srcset="{{ section.settings.after_image | image_url: width: 800 }} 800w,
+                      {{ section.settings.after_image | image_url: width: 1200 }} 1200w"
+              sizes="(min-width: 800px) 800px, 100vw"
+              alt="After"
+              class="before-after-section__image before-after-section__after"
+              width="{{ section.settings.after_image.width | default: 1200 }}"
+              height="{{ section.settings.after_image.height | default: 900 }}"
+              loading="lazy"
+              data-after-image
+            >
+          {%- else -%}
+            <div class="before-after-section__image before-after-section__after" style="background-color: var(--color-blush);" data-after-image></div>
+          {%- endif -%}
+          
+          <div class="before-after-section__divider" data-divider></div>
+          
+          <div class="before-after-section__handle" data-handle>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          
+          <div class="before-after-section__labels">
+            <span class="before-after-section__label">Before</span>
+            <span class="before-after-section__label">
+              {%- if section.settings.after_label != blank -%}
+                {{ section.settings.after_label }}
+              {%- else -%}
+                After · 3 sessions
+              {%- endif -%}
+            </span>
+          </div>
         </div>
       </div>
       
-      {%- if section.settings.treatment != blank or section.settings.result != blank -%}
-        <div class="before-after-section__info">
-          {%- if section.settings.treatment != blank -%}
-            <div class="before-after-section__treatment">{{ section.settings.treatment }}</div>
-          {%- endif -%}
-          {%- if section.settings.result != blank -%}
-            <div class="before-after-section__result">{{ section.settings.result }}</div>
-          {%- endif -%}
-        </div>
-      {%- endif -%}
+      <div class="before-after-section__copy">
+        {%- if section.settings.eyebrow != blank -%}
+          <div class="before-after-section__eyebrow">{{ section.settings.eyebrow }}</div>
+        {%- endif -%}
+        
+        {%- if section.settings.heading != blank -%}
+          <h2 class="before-after-section__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        
+        {%- if section.settings.subheading != blank -%}
+          <p class="before-after-section__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+        
+        {%- if section.blocks.size > 0 -%}
+          <div class="before-after-section__chips">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'attribute_chip' -%}
+                <span class="chip chip--subtle" {{ block.shopify_attributes }}>
+                  {{ block.settings.text }}
+                </span>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link }}" class="button button--secondary">
+            {{ section.settings.button_label }}
+          </a>
+        {%- endif -%}
+        
+        {%- if section.settings.disclaimer != blank -%}
+          <p class="before-after-section__disclaimer">{{ section.settings.disclaimer }}</p>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 </section>
@@ -186,6 +289,9 @@
     const afterImage = container.querySelector('[data-after-image]');
     const divider = container.querySelector('[data-divider]');
     const handle = container.querySelector('[data-handle]');
+    
+    // Guard: ensure all elements exist (Issue 9 fix)
+    if (!afterImage || !divider || !handle) return;
     
     let isDragging = false;
     
@@ -226,7 +332,7 @@
     document.addEventListener('touchend', onEnd);
     
     container.addEventListener('click', function(e) {
-      if (e.target !== handle) {
+      if (e.target !== handle && !handle.contains(e.target)) {
         updatePosition(e.clientX);
       }
     });
@@ -241,13 +347,19 @@
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow",
-      "default": "Results"
+      "default": "Real results"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
       "default": "Real results from real clients"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Photographed in the same light, no filters or editing."
     },
     {
       "type": "image_picker",
@@ -261,15 +373,53 @@
     },
     {
       "type": "text",
+      "id": "after_label",
+      "label": "After Label",
+      "default": "After · 3 sessions",
+      "info": "Shown in top right corner"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "See more results"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer",
+      "label": "Disclaimer",
+      "default": "Results may vary. Individual results are not guaranteed and may vary from person to person."
+    },
+    {
+      "type": "text",
       "id": "treatment",
-      "label": "Treatment Name",
+      "label": "Treatment Name (deprecated)",
       "default": "Hydrafacial + Microneedling"
     },
     {
       "type": "text",
       "id": "result",
-      "label": "Result Description",
+      "label": "Result Description (deprecated)",
       "default": "Smoother texture and refined pores after 3 sessions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "attribute_chip",
+      "name": "Attribute Chip",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "No downtime"
+        }
+      ]
     }
   ],
   "presets": [
