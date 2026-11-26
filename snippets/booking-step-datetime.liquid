@@ -1,0 +1,231 @@
+{%- comment -%}
+  Step 3: Date & Time Selection
+  Includes @app block support for booking apps
+{%- endcomment -%}
+
+<style>
+  .datetime-wrapper {
+    padding: 24px;
+    background-color: var(--color-subtle-surface);
+    border-radius: var(--radius-lg);
+  }
+  
+  .datetime-label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  .datetime-demo-notice {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background-color: var(--color-sage-soft);
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  
+  .date-week-strip {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .date-pill {
+    flex-shrink: 0;
+    padding: 12px 16px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 80px;
+  }
+  
+  .date-pill:hover {
+    border-color: var(--color-sage);
+  }
+  
+  .date-pill.selected {
+    background-color: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-surface);
+  }
+  
+  .date-pill:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  
+  .date-pill__day {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  
+  .date-pill__date {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .time-section__title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    margin-top: 20px;
+  }
+  
+  .time-pills {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+  
+  .time-pill {
+    padding: 10px 16px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .time-pill:hover {
+    border-color: var(--color-sage);
+  }
+  
+  .time-pill.selected {
+    background-color: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-surface);
+  }
+  
+  .time-pill:disabled {
+    opacity: 0.4;
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
+  
+  .app-block-wrapper {
+    min-height: 300px;
+  }
+</style>
+
+<div class="booking-step-panel" data-step="3" aria-hidden="true">
+  <h2 class="step-panel__title">{{ section.settings.step_3_heading | default: "Select date & time" }}</h2>
+  
+  <!-- @app block support -->
+  {% if section.blocks.size > 0 %}
+    {% for block in section.blocks %}
+      {% if block.type == '@app' %}
+        <div class="app-block-wrapper">
+          {% render block %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <!-- Demo UI when no app block present -->
+    <div class="datetime-wrapper">
+      <span class="datetime-demo-notice">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M6 3v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Live availability · powered by your booking app
+      </span>
+      
+      <label class="datetime-label">Select a date</label>
+      
+      <!-- Week strip (Dec 1, 2026 = Tuesday) -->
+      <div class="date-week-strip">
+        <button 
+          type="button" 
+          class="date-pill" 
+          data-date="Dec 1, 2026"
+          aria-pressed="false"
+        >
+          <div class="date-pill__day">Tue</div>
+          <div class="date-pill__date">1</div>
+        </button>
+        <button 
+          type="button" 
+          class="date-pill" 
+          data-date="Dec 2, 2026"
+          aria-pressed="false"
+        >
+          <div class="date-pill__day">Wed</div>
+          <div class="date-pill__date">2</div>
+        </button>
+        <button 
+          type="button" 
+          class="date-pill" 
+          data-date="Dec 3, 2026"
+          aria-pressed="false"
+        >
+          <div class="date-pill__day">Thu</div>
+          <div class="date-pill__date">3</div>
+        </button>
+        <button 
+          type="button" 
+          class="date-pill" 
+          data-date="Dec 4, 2026"
+          aria-pressed="false"
+        >
+          <div class="date-pill__day">Fri</div>
+          <div class="date-pill__date">4</div>
+        </button>
+        <button 
+          type="button" 
+          class="date-pill" 
+          data-date="Dec 5, 2026"
+          aria-pressed="false"
+        >
+          <div class="date-pill__day">Sat</div>
+          <div class="date-pill__date">5</div>
+        </button>
+      </div>
+      
+      <!-- Time pills by period -->
+      <div class="time-section__title">Morning</div>
+      <div class="time-pills">
+        <button type="button" class="time-pill" data-time="9:00 AM" aria-pressed="false">9:00 AM</button>
+        <button type="button" class="time-pill" data-time="9:30 AM" aria-pressed="false">9:30 AM</button>
+        <button type="button" class="time-pill" data-time="10:00 AM" aria-pressed="false">10:00 AM</button>
+        <button type="button" class="time-pill" data-time="10:30 AM" aria-pressed="false" disabled>10:30 AM</button>
+        <button type="button" class="time-pill" data-time="11:00 AM" aria-pressed="false">11:00 AM</button>
+        <button type="button" class="time-pill" data-time="11:30 AM" aria-pressed="false">11:30 AM</button>
+      </div>
+      
+      <div class="time-section__title">Afternoon</div>
+      <div class="time-pills">
+        <button type="button" class="time-pill" data-time="12:00 PM" aria-pressed="false" disabled>12:00 PM</button>
+        <button type="button" class="time-pill" data-time="1:00 PM" aria-pressed="false">1:00 PM</button>
+        <button type="button" class="time-pill" data-time="2:00 PM" aria-pressed="false">2:00 PM</button>
+        <button type="button" class="time-pill" data-time="3:00 PM" aria-pressed="false">3:00 PM</button>
+        <button type="button" class="time-pill" data-time="3:30 PM" aria-pressed="false">3:30 PM</button>
+        <button type="button" class="time-pill" data-time="4:00 PM" aria-pressed="false">4:00 PM</button>
+      </div>
+      
+      <div class="time-section__title">Evening</div>
+      <div class="time-pills">
+        <button type="button" class="time-pill" data-time="5:00 PM" aria-pressed="false">5:00 PM</button>
+        <button type="button" class="time-pill" data-time="5:30 PM" aria-pressed="false">5:30 PM</button>
+        <button type="button" class="time-pill" data-time="6:00 PM" aria-pressed="false">6:00 PM</button>
+        <button type="button" class="time-pill" data-time="6:30 PM" aria-pressed="false" disabled>6:30 PM</button>
+        <button type="button" class="time-pill" data-time="7:00 PM" aria-pressed="false">7:00 PM</button>
+      </div>
+    </div>
+  {% endif %}
+</div>

@@ -1,0 +1,265 @@
+{%- comment -%}
+  Main Cart Section
+  Groups appointments and products, shows upsells, discount code, and policy checkbox
+{%- endcomment -%}
+
+<style>
+  .main-cart {
+    padding: var(--spacing-4xl) 0;
+    min-height: 60vh;
+  }
+  
+  .cart-layout {
+    display: grid;
+    gap: var(--spacing-3xl);
+  }
+  
+  @media (min-width: 1024px) {
+    .cart-layout {
+      grid-template-columns: 2fr 1fr;
+      align-items: start;
+    }
+  }
+  
+  .cart-heading {
+    font-size: 44px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--spacing-3xl);
+  }
+  
+  .cart-summary {
+    position: sticky;
+    top: 100px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: 0 8px 24px rgba(21, 21, 21, 0.10);
+  }
+  
+  .cart-summary__title {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .cart-upsells {
+    display: grid;
+    gap: 16px;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .upsell-card {
+    padding: 16px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-sage-soft);
+  }
+  
+  .upsell-card__title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .upsell-card__description {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin-bottom: 12px;
+  }
+  
+  .cart-discount {
+    display: flex;
+    gap: 8px;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .discount-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+  }
+  
+  .cart-policy {
+    padding: 16px;
+    background-color: var(--color-sage-soft);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .mobile-checkout-bar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-line);
+    padding: 16px;
+    box-shadow: 0 -4px 16px rgba(21, 21, 21, 0.08);
+  }
+  
+  @media (max-width: 1023px) {
+    .mobile-checkout-bar {
+      display: block;
+    }
+  }
+</style>
+
+<div class="main-cart">
+  <div class="container">
+    <h1 class="cart-heading">{{ section.settings.heading | default: "Your bag" }}</h1>
+    
+    <div class="cart-layout">
+      <!-- Cart Content -->
+      <div class="cart-content">
+        <!-- Populated by cart.js -->
+        <div class="cart-empty" style="display: none;">
+          <h2>Your cart is empty</h2>
+          <p>Add treatments or products to get started</p>
+          <a href="{{ routes.all_products_collection_url }}" class="button">{{ section.settings.continue_shopping_text | default: "Continue shopping" }}</a>
+        </div>
+      </div>
+      
+      <!-- Cart Summary -->
+      <div class="cart-summary">
+        <h2 class="cart-summary__title">Summary</h2>
+        
+        <!-- Upsell Cards -->
+        {% if section.settings.aftercare_product != blank or section.settings.gift_card_product != blank or section.settings.membership_product != blank %}
+          <div class="cart-upsells">
+            {% if section.settings.aftercare_product != blank %}
+              <div class="upsell-card">
+                <h3 class="upsell-card__title">Add aftercare kit</h3>
+                <p class="upsell-card__description">Complete your treatment with professional aftercare products</p>
+                <button type="button" class="button button--compact button--full-width">Add to bag · $45</button>
+              </div>
+            {% endif %}
+            
+            {% if section.settings.gift_card_product != blank %}
+              <div class="upsell-card">
+                <h3 class="upsell-card__title">Gift Card</h3>
+                <p class="upsell-card__description">Share the gift of glowing skin</p>
+                <a href="/products/gift-card" class="button button--compact button--light button--full-width">Shop gift cards</a>
+              </div>
+            {% endif %}
+            
+            {% if section.settings.membership_product != blank %}
+              <div class="upsell-card">
+                <h3 class="upsell-card__title">Glow Club</h3>
+                <p class="upsell-card__description">Save 15% on all treatments + exclusive perks</p>
+                <a href="/pages/membership" class="button button--compact button--light button--full-width">Learn more</a>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+        
+        <!-- Discount Code -->
+        <div class="cart-discount">
+          <input type="text" class="discount-input" placeholder="Discount code" aria-label="Discount code">
+          <button type="button" class="button button--secondary button--compact">Apply</button>
+        </div>
+        
+        <!-- Summary Pricing (populated by JS) -->
+        <div class="cart-summary__pricing"></div>
+        
+        <!-- Glow Club Callout -->
+        <div class="chip chip--save" style="margin-bottom: 16px; justify-content: center;">
+          Glow Club members save $25 on this order
+        </div>
+        
+        <!-- Cancellation Policy -->
+        <div class="cart-policy">
+          <label class="checkbox">
+            <input type="checkbox" id="cancellation-policy-checkbox" required>
+            <span class="checkbox__label">
+              <strong>{{ section.settings.policy_title | default: "Cancellation policy" }}</strong><br>
+              <small>{{ section.settings.policy_text | default: "I understand and accept the cancellation policy for appointments and products." }}</small>
+            </span>
+          </label>
+        </div>
+        
+        <!-- Trust Badges -->
+        {% if section.settings.show_trust_badges %}
+          <div style="font-size: 13px; color: var(--color-text-muted); line-height: 1.6; padding: 12px 0;">
+            ✓ Secure checkout<br>
+            ✓ Licensed providers<br>
+            ✓ 30-day product returns
+          </div>
+        {% endif %}
+        
+        <!-- Checkout Actions -->
+        <div class="cart-summary__actions"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Checkout Bar -->
+<div class="mobile-checkout-bar">
+  <button type="button" class="button button--full-width" onclick="window.location.href='/checkout'" disabled>
+    Checkout
+  </button>
+</div>
+
+{% schema %}
+{
+  "name": "Main Cart",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your bag"
+    },
+    {
+      "type": "text",
+      "id": "continue_shopping_text",
+      "label": "Continue Shopping Text",
+      "default": "Continue shopping"
+    },
+    {
+      "type": "product",
+      "id": "aftercare_product",
+      "label": "Aftercare Kit Product"
+    },
+    {
+      "type": "product",
+      "id": "gift_card_product",
+      "label": "Gift Card Product"
+    },
+    {
+      "type": "product",
+      "id": "membership_product",
+      "label": "Glow Club Membership Product"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show Trust Badges",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "policy_title",
+      "label": "Policy Title",
+      "default": "Cancellation policy"
+    },
+    {
+      "type": "textarea",
+      "id": "policy_text",
+      "label": "Policy Text",
+      "default": "I understand and accept the cancellation policy for appointments and products."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Cart"
+    }
+  ]
+}
+{% endschema %}

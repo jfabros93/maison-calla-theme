@@ -1,0 +1,159 @@
+{%- comment -%}
+  Step 5: Confirmation
+  Shows booking summary with success message and next steps
+{%- endcomment -%}
+
+<style>
+  .booking-confirmation {
+    max-width: 600px;
+    text-align: center;
+  }
+  
+  .confirmation__icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-lg);
+    background-color: var(--color-sage);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .confirmation__icon svg {
+    width: 40px;
+    height: 40px;
+    color: var(--color-surface);
+  }
+  
+  .confirmation__title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .confirmation__message {
+    font-size: 16px;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-3xl);
+  }
+  
+  .confirmation-card {
+    padding: var(--spacing-lg);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    text-align: left;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .confirmation-card__title {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  
+  .confirmation-card__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  
+  .confirmation-card__row:last-child {
+    border-bottom: none;
+  }
+  
+  .confirmation-card__label {
+    font-size: 14px;
+    color: var(--color-text-muted);
+  }
+  
+  .confirmation-card__value {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: right;
+  }
+  
+  .confirmation-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  @media (min-width: 640px) {
+    .confirmation-actions {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+  
+  .confirmation-note {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+</style>
+
+<div class="booking-step-panel" data-step="5" aria-hidden="true">
+  <div class="booking-confirmation">
+    <!-- Success Icon -->
+    <div class="confirmation__icon">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 20l8 8L32 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    
+    <h2 class="confirmation__title">{{ section.settings.confirmation_title | default: "You're all set!" }}</h2>
+    
+    <p class="confirmation__message">
+      {{ section.settings.confirmation_message | default: "We've sent a confirmation email with all the details. We look forward to seeing you." }}
+    </p>
+    
+    <!-- Booking Details Card -->
+    <div class="confirmation-card">
+      <h3 class="confirmation-card__title">Appointment Details</h3>
+      
+      <div class="confirmation-card__row">
+        <span class="confirmation-card__label">Treatment</span>
+        <span class="confirmation-card__value">Signature Facial</span>
+      </div>
+      
+      <div class="confirmation-card__row">
+        <span class="confirmation-card__label">Provider</span>
+        <span class="confirmation-card__value">Dr. Sarah Chen</span>
+      </div>
+      
+      <div class="confirmation-card__row">
+        <span class="confirmation-card__label">Location</span>
+        <span class="confirmation-card__value">Downtown Studio</span>
+      </div>
+      
+      <div class="confirmation-card__row">
+        <span class="confirmation-card__label">Date & Time</span>
+        <span class="confirmation-card__value">Dec 1, 2026 at 3:00 PM</span>
+      </div>
+      
+      <div class="confirmation-card__row">
+        <span class="confirmation-card__label">Duration</span>
+        <span class="confirmation-card__value">60 minutes</span>
+      </div>
+    </div>
+    
+    <!-- Actions -->
+    <div class="confirmation-actions">
+      <button type="button" class="button button--light">
+        Add to calendar
+      </button>
+      <button type="button" class="button button--secondary">
+        Reschedule
+      </button>
+    </div>
+    
+    <p class="confirmation-note">
+      Need to make changes? You can reschedule or cancel up to 24 hours before your appointment by clicking the link in your confirmation email.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,255 @@
+{%- comment -%}
+  Cart Drawer - Slide-out cart with Section Rendering API support
+{%- endcomment -%}
+
+<style>
+  .cart-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 480px;
+    z-index: 1000;
+    pointer-events: none;
+  }
+  
+  .cart-drawer.open {
+    pointer-events: auto;
+  }
+  
+  .cart-drawer__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(21, 21, 21, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .cart-drawer.open .cart-drawer__overlay {
+    opacity: 1;
+  }
+  
+  .cart-drawer__panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 480px;
+    background-color: var(--color-surface);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -4px 0 24px rgba(21, 21, 21, 0.15);
+  }
+  
+  .cart-drawer.open .cart-drawer__panel {
+    transform: translateX(0);
+  }
+  
+  .cart-drawer__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-line);
+  }
+  
+  .cart-drawer__title {
+    font-size: 19px;
+    font-weight: 600;
+  }
+  
+  .cart-drawer__close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-line);
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  .cart-drawer__content {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-lg);
+  }
+  
+  .cart-drawer__footer {
+    padding: var(--spacing-lg);
+    border-top: 1px solid var(--color-line);
+  }
+  
+  .cart-empty {
+    text-align: center;
+    padding: var(--spacing-3xl) var(--spacing-lg);
+  }
+  
+  .cart-section + .cart-section {
+    margin-top: var(--spacing-3xl);
+  }
+  
+  .cart-section__title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .cart-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  
+  .cart-item:last-child {
+    border-bottom: none;
+  }
+  
+  .cart-item__image img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+  }
+  
+  .cart-item__title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  
+  .cart-item__variant {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin-bottom: 8px;
+  }
+  
+  .cart-item__properties {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+  
+  .cart-item__properties a {
+    text-decoration: underline;
+  }
+  
+  .cart-item__quantity {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    padding: 4px;
+  }
+  
+  .quantity-btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .quantity-input {
+    width: 32px;
+    text-align: center;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .cart-item__pricing {
+    text-align: right;
+  }
+  
+  .cart-item__price {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  
+  .cart-item__deposit {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    margin-bottom: 8px;
+  }
+  
+  .cart-item__remove {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .cart-summary__pricing {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+  }
+  
+  .summary-row--highlight {
+    font-weight: 600;
+  }
+  
+  .cart-view-full {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+    text-decoration: underline;
+    color: var(--color-text-muted);
+    margin-top: 12px;
+  }
+</style>
+
+<div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title">
+  <div class="cart-drawer__overlay" data-cart-close></div>
+  
+  <div class="cart-drawer__panel">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title" id="cart-drawer-title">Your bag</h2>
+      <button type="button" class="cart-drawer__close" data-cart-close aria-label="Close cart">
+        ✕
+      </button>
+    </div>
+    
+    <div class="cart-drawer__content">
+      <!-- Content populated by cart.js -->
+      <div class="cart-empty">
+        <p>Your cart is empty</p>
+      </div>
+    </div>
+    
+    <div class="cart-drawer__footer">
+      <!-- Summary populated by cart.js -->
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'cart.js' | asset_url }}" defer></script>

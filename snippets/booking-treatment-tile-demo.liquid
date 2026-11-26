@@ -1,0 +1,30 @@
+{%- comment -%}
+  Demo treatment tile for booking flow
+{%- endcomment -%}
+
+<div 
+  class="treatment-tile" 
+  data-category="{{ category }}"
+  data-treatment-id="{{ id }}"
+  data-treatment-name="{{ name }}"
+  data-treatment-price="{{ price }}"
+  data-treatment-duration="{{ duration }}"
+  role="button"
+  tabindex="0"
+  aria-pressed="false"
+>
+  <div class="treatment-tile__header">
+    <span class="treatment-tile__category">{{ category }}</span>
+  </div>
+  
+  <h3 class="treatment-tile__name">{{ name }}</h3>
+  
+  <p class="treatment-tile__description">{{ description }}</p>
+  
+  <div class="treatment-tile__meta">
+    <span class="treatment-tile__meta-chip">⏱ {{ duration }}</span>
+    <span class="treatment-tile__meta-chip">{{ downtime }} downtime</span>
+  </div>
+  
+  <div class="treatment-tile__price">From ${{ price }}</div>
+</div>
