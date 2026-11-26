@@ -38,9 +38,9 @@
 -%}
 
 <article class="journal-card card">
-  {%- if card_image != blank -%}
-    <div class="card__image-wrapper">
-      <a href="{{ card_url }}">
+  <div class="card__image-wrapper">
+    <a href="{{ card_url }}">
+      {%- if card_image != blank -%}
         <img 
           src="{{ card_image | image_url: width: 600 }}"
           srcset="{{ card_image | image_url: width: 400 }} 400w,
@@ -52,9 +52,11 @@
           height="{{ card_image.height | default: 375 }}"
           loading="lazy"
         >
-      </a>
-    </div>
-  {%- endif -%}
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg journal-card__image card__image' }}
+      {%- endif -%}
+    </a>
+  </div>
   
   <div class="journal-card__content card__content">
     {%- if card_category != blank -%}

@@ -232,6 +232,8 @@
                   height="{{ block.settings.image.height | default: 180 }}"
                   loading="lazy"
                 >
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg location-card__image' }}
               {%- endif -%}
               {%- if block.settings.hours != blank -%}
                 <div class="location-card__hours">{{ block.settings.hours }}</div>

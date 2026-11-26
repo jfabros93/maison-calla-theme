@@ -70,6 +70,8 @@
                 height="{{ block.settings.before_image.height | default: 600 }}"
                 loading="lazy"
               >
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg before-after-strip__image' }}
             {%- endif -%}
             <span class="before-after-strip__label">Before</span>
           </div>
@@ -84,6 +86,8 @@
                 height="{{ block.settings.after_image.height | default: 600 }}"
                 loading="lazy"
               >
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg before-after-strip__image' }}
             {%- endif -%}
             <span class="before-after-strip__label">After</span>
           </div>
