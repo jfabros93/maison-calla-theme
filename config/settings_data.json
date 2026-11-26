@@ -21,7 +21,7 @@
     "radius_md": 20,
     "radius_lg": 28,
     "radius_xl": 36,
-    "container_max_width": 1400,
+    "container_max_width": 1600,
     "mobile_book_bar_enabled": true,
     "mobile_book_bar_label": "Book Treatment",
     "booking_button_label": "Book Treatment",

@@ -1,0 +1,164 @@
+{%- comment -%}
+  Single column hero section with frosted copy overlay (Issue 2)
+{%- endcomment -%}
+
+<style>
+  .hero-single {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  
+  .hero-single__card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    padding: 12px;
+  }
+  
+  .hero-single__media {
+    position: relative;
+    height: 520px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-beige);
+  }
+  
+  .hero-single__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .hero-single__copy {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    bottom: 20px;
+    width: 394px;
+    max-width: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  
+  .hero-single__copy h2 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--font-size-h1);
+    line-height: 50px;
+    letter-spacing: -1.32px;
+    color: var(--color-text);
+    margin: 0;
+  }
+  
+  .hero-single__copy p {
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.18px;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .hero-single__media {
+      height: auto;
+      min-height: 320px;
+    }
+    
+    .hero-single__copy {
+      position: static;
+      width: 100%;
+      max-width: 100%;
+      background: rgba(255, 255, 255, 0.85);
+    }
+    
+    .hero-single__copy h2 {
+      font-size: var(--font-size-h2);
+      line-height: 32px;
+      letter-spacing: -0.52px;
+    }
+  }
+</style>
+
+<section class="hero-single">
+  <div class="container">
+    <div class="hero-single__card">
+      <div class="hero-single__media">
+        {%- if section.settings.image -%}
+          <img 
+            class="hero-single__image"
+            src="{{ section.settings.image | image_url: width: 1600 }}"
+            srcset="{{ section.settings.image | image_url: width: 800 }} 800w,
+                    {{ section.settings.image | image_url: width: 1200 }} 1200w,
+                    {{ section.settings.image | image_url: width: 1600 }} 1600w"
+            sizes="100vw"
+            alt="{{ section.settings.image.alt | escape }}"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+            loading="eager"
+          >
+        {%- endif -%}
+        <div class="hero-single__copy">
+          {%- if section.settings.heading != blank -%}
+            <h2>{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.subheading != blank -%}
+            <p>{{ section.settings.subheading }}</p>
+          {%- endif -%}
+          {%- if section.settings.button_label != blank -%}
+            <a class="button button--primary" href="{{ section.settings.button_link }}" data-book-cta data-cta-type="consult">
+              {{ section.settings.button_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero (single column)",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Smoother texture, more even tone."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Fractional laser resurfacing, three sessions four weeks apart. Photographed in the same light, no filters."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Book a consultation"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero (single column)"
+    }
+  ]
+}
+{% endschema %}

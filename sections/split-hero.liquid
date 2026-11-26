@@ -4,37 +4,38 @@
 
 <style>
   .split-hero {
-    padding-top: var(--spacing-8);
-    padding-bottom: var(--spacing-10);
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
   
   .split-hero__grid {
     display: grid;
-    gap: var(--spacing-4);
+    gap: 20px;
     grid-template-columns: 1fr;
   }
   
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     .split-hero__grid {
-      grid-template-columns: 1fr 1fr;
-      gap: var(--spacing-6);
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: stretch;
     }
   }
   
   .split-hero__info-card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-line);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-card);
     padding: var(--spacing-6);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
   }
   
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     .split-hero__info-card {
-      padding: var(--spacing-8);
+      padding: 56px 56px 48px;
+      min-height: 660px;
     }
   }
   
@@ -45,46 +46,55 @@
     padding: var(--spacing-1) var(--spacing-2);
     background-color: var(--color-subtle-surface);
     border-radius: var(--radius-pill);
-    font-size: var(--font-size-body-sm);
+    font-size: 13px;
     font-weight: 500;
     color: var(--color-text-muted);
     margin-bottom: var(--spacing-4);
     width: fit-content;
   }
   
+  .split-hero__eyebrow-chip::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-sage);
+  }
+  
   .split-hero__heading {
-    font-size: var(--font-size-hero-sm);
-    letter-spacing: var(--letter-spacing-tight);
-    line-height: 1.1;
+    font-size: var(--font-size-h1);
+    letter-spacing: -3.2px;
+    line-height: 84px;
     margin-bottom: var(--spacing-4);
   }
   
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     .split-hero__heading {
       font-size: var(--font-size-hero-lg);
+      letter-spacing: -3.2px;
+      line-height: 84px;
     }
   }
   
   .split-hero__subheading {
-    font-size: var(--font-size-body-lg);
+    font-size: 18px;
+    line-height: 28px;
     color: var(--color-text-muted);
-    line-height: 1.5;
+    max-width: 500px;
     margin-bottom: var(--spacing-6);
   }
   
   .split-hero__buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-3);
+    gap: 12px;
     margin-bottom: var(--spacing-6);
   }
   
   .split-hero__stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-4);
-    padding-top: var(--spacing-6);
-    border-top: 1px solid var(--color-line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
   }
   
   .split-hero__stat {
@@ -94,43 +104,40 @@
   }
   
   .split-hero__stat-value {
-    font-size: var(--font-size-h2);
+    font-size: var(--font-size-h1);
+    line-height: 50px;
+    letter-spacing: -1.32px;
     font-weight: 600;
     color: var(--color-text);
   }
   
   .split-hero__stat-label {
-    font-size: var(--font-size-body-sm);
+    font-size: 14px;
+    line-height: 20px;
     color: var(--color-text-muted);
   }
   
   .split-hero__image-card {
-    background-color: var(--color-beige);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+    background-color: var(--color-tan);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: relative;
     min-height: 500px;
   }
   
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     .split-hero__image-card {
-      min-height: 600px;
+      min-height: 660px;
     }
   }
   
-  .split-hero__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    inset: 0;
-  }
-  
-  .split-hero__image-overlay {
-    position: absolute;
-    bottom: var(--spacing-4);
-    left: var(--spacing-4);
-    right: var(--spacing-4);
+  .split-hero__image-card-top {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
     z-index: 1;
   }
   
@@ -138,21 +145,38 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-2);
-    margin-bottom: var(--spacing-3);
+  }
+  
+  .split-hero__image-card-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 360px;
+    height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .split-hero__image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
   }
   
   .split-hero__availability-bar {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: var(--radius-md);
-    padding: var(--spacing-3);
+    border-radius: var(--radius-lg);
+    padding: 8px 8px 8px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: var(--spacing-3);
-    box-shadow: var(--shadow-glass);
+    position: relative;
+    z-index: 1;
   }
   
   .split-hero__availability-text {
@@ -162,12 +186,14 @@
   }
   
   .split-hero__availability-label {
-    font-size: var(--font-size-body-sm);
+    font-size: 14px;
+    line-height: 20px;
     color: var(--color-text-muted);
   }
   
   .split-hero__availability-time {
-    font-size: var(--font-size-body);
+    font-size: 15px;
+    line-height: 20px;
     font-weight: 600;
     color: var(--color-text);
   }
@@ -226,22 +252,7 @@
       </div>
       
       <div class="split-hero__image-card">
-        {%- if section.settings.image != blank -%}
-          <img 
-            src="{{ section.settings.image | image_url: width: 800 }}"
-            srcset="{{ section.settings.image | image_url: width: 400 }} 400w,
-                    {{ section.settings.image | image_url: width: 600 }} 600w,
-                    {{ section.settings.image | image_url: width: 800 }} 800w"
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            alt="{{ section.settings.image.alt | escape }}"
-            class="split-hero__image"
-            width="{{ section.settings.image.width | default: 800 }}"
-            height="{{ section.settings.image.height | default: 600 }}"
-            loading="eager"
-          >
-        {%- endif -%}
-        
-        <div class="split-hero__image-overlay">
+        <div class="split-hero__image-card-top">
           {%- if section.blocks.size > 0 -%}
             <div class="split-hero__image-chips">
               {%- for block in section.blocks -%}
@@ -253,16 +264,33 @@
               {%- endfor -%}
             </div>
           {%- endif -%}
-          
-          <div class="split-hero__availability-bar">
-            <div class="split-hero__availability-text">
-              <div class="split-hero__availability-label">{{ section.settings.availability_label | default: 'Next available' }}</div>
-              <div class="split-hero__availability-time">{{ section.settings.availability_time | default: 'Today, 3:30 PM' }}</div>
-            </div>
-            <a href="{{ section.settings.availability_link }}" class="button button--compact button--primary split-hero__availability-btn" data-book-cta>
-              {{ section.settings.availability_button | default: 'Reserve' }}
-            </a>
+        </div>
+        
+        {%- if section.settings.image != blank -%}
+          <div class="split-hero__image-card-center">
+            <img 
+              src="{{ section.settings.image | image_url: width: 800 }}"
+              srcset="{{ section.settings.image | image_url: width: 400 }} 400w,
+                      {{ section.settings.image | image_url: width: 600 }} 600w,
+                      {{ section.settings.image | image_url: width: 800 }} 800w"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              alt="{{ section.settings.image.alt | escape }}"
+              class="split-hero__image"
+              width="{{ section.settings.image.width | default: 800 }}"
+              height="{{ section.settings.image.height | default: 600 }}"
+              loading="eager"
+            >
           </div>
+        {%- endif -%}
+        
+        <div class="split-hero__availability-bar">
+          <div class="split-hero__availability-text">
+            <div class="split-hero__availability-label">{{ section.settings.availability_label | default: 'Next available' }}</div>
+            <div class="split-hero__availability-time">{{ section.settings.availability_time | default: 'Today, 3:30 PM' }}</div>
+          </div>
+          <a href="{{ section.settings.availability_link }}" class="button button--compact button--primary split-hero__availability-btn" data-book-cta>
+            {{ section.settings.availability_button | default: 'Reserve' }}
+          </a>
         </div>
       </div>
     </div>

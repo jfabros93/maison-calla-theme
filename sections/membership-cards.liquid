@@ -10,117 +10,176 @@
   
   .membership-cards__grid {
     display: grid;
-    gap: var(--spacing-4);
+    gap: 24px;
     grid-template-columns: 1fr;
   }
   
   @media (min-width: 768px) {
     .membership-cards__grid {
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--spacing-6);
     }
   }
   
   .membership-card {
-    padding: var(--spacing-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    padding: 32px;
     display: flex;
     flex-direction: column;
-    min-height: 400px;
+    gap: 24px;
+    position: relative;
   }
   
   .membership-card--featured {
-    background-color: var(--color-sage);
+    background-color: var(--color-sage-deep);
+    border: none;
     color: var(--color-surface);
+  }
+  
+  .membership-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .membership-card__eyebrow {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  
+  .membership-card--featured .membership-card__eyebrow {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .membership-card__badge {
+    padding: 5px 10px;
+    background-color: var(--color-subtle-surface);
+    color: var(--color-text);
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 500;
   }
   
   .membership-card--featured .membership-card__badge {
-    position: absolute;
-    top: var(--spacing-3);
-    right: var(--spacing-3);
-    padding: var(--spacing-1) var(--spacing-2);
-    background-color: var(--color-surface);
+    background-color: var(--color-sage);
     color: var(--color-text);
-    border-radius: var(--radius-pill);
-    font-size: var(--font-size-body-sm);
-    font-weight: 600;
-  }
-  
-  .membership-card--featured .membership-card__title,
-  .membership-card--featured .membership-card__price,
-  .membership-card--featured .membership-card__feature {
-    color: var(--color-surface);
-  }
-  
-  .membership-card--featured .membership-card__description {
-    color: rgba(249, 249, 249, 0.9);
-  }
-  
-  .membership-card--featured .button--secondary {
-    background-color: var(--color-surface);
-    color: var(--color-sage-deep);
-    border-color: var(--color-surface);
-  }
-  
-  .membership-card--featured .button--secondary:hover {
-    background-color: var(--color-surface);
-    opacity: 0.9;
   }
   
   .membership-card__title {
-    font-size: var(--font-size-h2);
-    margin-bottom: var(--spacing-3);
-  }
-  
-  .membership-card__price {
-    font-size: var(--font-size-h1);
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: -0.52px;
     font-weight: 600;
-    margin-bottom: var(--spacing-1);
+    margin: 0;
+    color: var(--color-text);
   }
   
-  .membership-card__price-period {
-    font-size: var(--font-size-body-sm);
-    color: var(--color-text-muted);
-    margin-bottom: var(--spacing-4);
-  }
-  
-  .membership-card--featured .membership-card__price-period {
-    color: rgba(249, 249, 249, 0.8);
+  .membership-card--featured .membership-card__title {
+    color: var(--color-surface);
   }
   
   .membership-card__description {
-    font-size: var(--font-size-body-sm);
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 20px;
     color: var(--color-text-muted);
-    margin-bottom: var(--spacing-5);
+    margin: 0;
+  }
+  
+  .membership-card--featured .membership-card__description {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .membership-card__price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  
+  .membership-card__price {
+    font-size: 44px;
+    line-height: 50px;
+    letter-spacing: -1.32px;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  
+  .membership-card--featured .membership-card__price {
+    color: var(--color-surface);
+  }
+  
+  .membership-card__price-period {
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-text-muted);
+  }
+  
+  .membership-card--featured .membership-card__price-period {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .membership-card__divider {
+    height: 1px;
+    background: var(--color-line);
+    border: none;
+    margin: 0;
+  }
+  
+  .membership-card--featured .membership-card__divider {
+    background: rgba(255, 255, 255, 0.2);
   }
   
   .membership-card__features {
     list-style: none;
     padding: 0;
-    margin: 0 0 var(--spacing-6) 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     flex-grow: 1;
   }
   
   .membership-card__feature {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--spacing-2);
-    margin-bottom: var(--spacing-3);
-    font-size: var(--font-size-body-sm);
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-text);
+  }
+  
+  .membership-card--featured .membership-card__feature {
+    color: var(--color-surface);
   }
   
   .membership-card__feature-icon {
     flex-shrink: 0;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-sage);
+    background-color: var(--color-sage-soft);
+  }
+  
+  .membership-card__feature-icon svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--color-sage-deep);
   }
   
   .membership-card--featured .membership-card__feature-icon {
-    color: var(--color-surface);
+    background-color: var(--color-surface);
+  }
+  
+  .membership-card--featured .membership-card__feature-icon svg {
+    stroke: var(--color-sage-deep);
   }
 </style>
 
@@ -134,27 +193,43 @@
         {%- if section.settings.heading != blank -%}
           <h2 class="section-header__title">{{ section.settings.heading }}</h2>
         {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <p class="section-header__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
       </div>
     {%- endif -%}
     
     <div class="membership-cards__grid">
       {%- for block in section.blocks -%}
         {%- if block.type == 'membership' -%}
-          <div class="membership-card card{% if block.settings.featured %} membership-card--featured{% endif %}" {{ block.shopify_attributes }}>
-            {%- if block.settings.featured -%}
-              <span class="membership-card__badge">Most Popular</span>
-            {%- endif -%}
+          <div class="membership-card{% if block.settings.featured %} membership-card--featured{% endif %}" {{ block.shopify_attributes }}>
+            <div class="membership-card__header">
+              <div class="membership-card__eyebrow">
+                {%- if block.settings.featured -%}
+                  Most popular
+                {%- else -%}
+                  Membership
+                {%- endif -%}
+              </div>
+              {%- if block.settings.featured -%}
+                <span class="membership-card__badge">Best value</span>
+              {%- endif -%}
+            </div>
             
             <h3 class="membership-card__title">{{ block.settings.title }}</h3>
-            
-            {%- if block.settings.price != blank -%}
-              <div class="membership-card__price">{{ block.settings.price }}</div>
-              <div class="membership-card__price-period">{{ block.settings.price_period | default: 'per month' }}</div>
-            {%- endif -%}
             
             {%- if block.settings.description != blank -%}
               <p class="membership-card__description">{{ block.settings.description }}</p>
             {%- endif -%}
+            
+            {%- if block.settings.price != blank -%}
+              <div class="membership-card__price-row">
+                <div class="membership-card__price">{{ block.settings.price }}</div>
+                <div class="membership-card__price-period">{{ block.settings.price_period | default: 'per month' }}</div>
+              </div>
+            {%- endif -%}
+            
+            <hr class="membership-card__divider">
             
             {%- if block.settings.features != blank -%}
               {%- assign features = block.settings.features | newline_to_br | split: '<br />' -%}
@@ -163,8 +238,8 @@
                   {%- if feature != blank -%}
                     <li class="membership-card__feature">
                       <span class="membership-card__feature-icon">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M16.667 5L7.5 14.167 3.333 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M11.667 3.5L5.25 9.917 2.333 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                       </span>
                       <span>{{ feature | strip }}</span>
@@ -175,7 +250,7 @@
             {%- endif -%}
             
             {%- if block.settings.button_label != blank -%}
-              <a href="{{ block.settings.button_link }}" class="button{% if block.settings.featured %} button--secondary{% else %} button--primary{% endif %} button--full-width">
+              <a href="{{ block.settings.button_link }}" class="button{% if block.settings.featured %} button--light{% else %} button--primary{% endif %}" style="width: 100%;">
                 {{ block.settings.button_label }}
               </a>
             {%- endif -%}
@@ -194,12 +269,24 @@
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow",
-      "default": "Memberships"
+      "default": "Memberships & packages"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
+      "default": "Glow on a schedule, and save while you do."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Monthly memberships and prepaid packages. Pause or cancel anytime."
+    },
+    {
+      "type": "text",
+      "id": "deprecated_ignore",
+      "label": "(deprecated)",
       "default": "Invest in your skin"
     }
   ],

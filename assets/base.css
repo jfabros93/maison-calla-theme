@@ -132,23 +132,40 @@ img.loaded {
   cursor: not-allowed;
 }
 
-/* Primary Button - Black pill with white circle arrow */
+/* Primary Button - Black pill with white circle arrow (Issue 4) */
 .button--primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 52px;
+  height: 52px;
+  padding: 6px 6px 6px 24px;
+  border-radius: var(--radius-pill);
   background-color: var(--color-text);
   color: var(--color-surface);
-  padding-right: var(--spacing-2);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.075px;
+  text-decoration: none;
+  border: none;
 }
 
 .button--primary::after {
   content: '';
-  display: block;
-  width: 32px;
-  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background-color: var(--color-surface);
-  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 8h10m0 0L9 4m4 4-4 4' stroke='%23151515' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.83331 14.1667L14.1666 5.83337M14.1666 5.83337H5.83331M14.1666 5.83337V14.1667' stroke='%23151515' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 20px 20px;
   flex-shrink: 0;
 }
 
@@ -157,34 +174,101 @@ img.loaded {
   transform: translateY(-1px);
 }
 
-/* Secondary Button - Outlined */
+/* Secondary Button - Outlined with arrow circle (Issue 4) */
 .button--secondary {
-  border: 1.5px solid var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 52px;
+  height: 52px;
+  padding: 6px 6px 6px 24px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-text);
+  background-color: transparent;
   color: var(--color-text);
-  padding: 0 var(--spacing-4);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.075px;
+  text-decoration: none;
+}
+
+.button--secondary::after {
+  content: '';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-text);
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.83331 14.1667L14.1666 5.83337M14.1666 5.83337H5.83331M14.1666 5.83337V14.1667' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px;
+  flex-shrink: 0;
 }
 
 .button--secondary:hover {
-  background-color: var(--color-text);
-  color: var(--color-surface);
+  background-color: rgba(21, 21, 21, 0.05);
 }
 
-/* Light Button */
+/* Light Button - White fill with dark arrow circle (Issue 4) */
 .button--light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 52px;
+  height: 52px;
+  padding: 6px 6px 6px 24px;
+  border-radius: var(--radius-pill);
   background-color: var(--color-surface);
   color: var(--color-text);
-  border: 1.5px solid var(--color-line);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.075px;
+  text-decoration: none;
+  border: none;
+}
+
+.button--light::after {
+  content: '';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-text);
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.83331 14.1667L14.1666 5.83337M14.1666 5.83337H5.83331M14.1666 5.83337V14.1667' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px;
+  flex-shrink: 0;
 }
 
 .button--light:hover {
   background-color: var(--color-subtle-surface);
 }
 
-/* Compact Button */
+/* Compact Button - Smaller variant for treatment cards, hero availability (Issue 4) */
 .button--compact {
-  min-height: 36px;
-  padding: 0 var(--spacing-3);
+  min-height: 44px;
+  height: 44px;
+  padding: 4px 4px 4px 18px;
+  gap: 10px;
   font-size: var(--font-size-body-sm);
+}
+
+.button--compact::after {
+  width: 34px;
+  height: 34px;
+  background-size: 18px 18px;
 }
 
 /* Icon Button - 44px circular */
@@ -279,6 +363,11 @@ img.loaded {
   flex-wrap: wrap;
   gap: var(--spacing-2);
   margin-bottom: var(--spacing-6);
+}
+
+/* Center filter pills for treatments section (Issue 5) */
+.filterable-treatments .filter-pills {
+  justify-content: center;
 }
 
 .filter-pill {
@@ -680,7 +769,7 @@ img.loaded {
 
 @media (min-width: 768px) {
   .container {
-    --container-padding: var(--spacing-6);
+    --container-padding: var(--spacing-10);
   }
 }
 
