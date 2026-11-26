@@ -301,8 +301,10 @@
       <!-- Product Info -->
       <div class="product-retail__info">
         {%- liquid
-          assign category = product.metafields.custom.category | default: product.type
-          assign subtitle = product.metafields.custom.subtitle
+          assign category = product.metafields.product.category | default: product.metafields.custom.category | default: product.type
+          assign subtitle = product.metafields.product.subtitle | default: product.metafields.custom.subtitle
+          assign ingredients = product.metafields.product.ingredients | default: product.metafields.custom.ingredients
+          assign how_to_use = product.metafields.product.how_to_use | default: product.metafields.custom.how_to_use
         -%}
         
         {%- if category != blank -%}
@@ -376,28 +378,28 @@
         </form>
         
         <!-- Key Ingredients Accordion -->
-        <div class="ingredients-section">
-          <details>
-            <summary style="cursor: pointer; font-weight: 600; margin-bottom: var(--spacing-md);">Key Ingredients</summary>
-            <div style="color: var(--color-text-muted); line-height: 1.6;">
-              {%- if product.description != blank -%}
-                {{ product.description }}
-              {%- else -%}
-                Formulated with high-quality ingredients for optimal results.
-              {%- endif -%}
-            </div>
-          </details>
-        </div>
+        {%- if ingredients != blank -%}
+          <div class="ingredients-section">
+            <details>
+              <summary style="cursor: pointer; font-weight: 600; margin-bottom: var(--spacing-md);">Key Ingredients</summary>
+              <div style="color: var(--color-text-muted); line-height: 1.6;">
+                {{ ingredients }}
+              </div>
+            </details>
+          </div>
+        {%- endif -%}
         
         <!-- How to Use Accordion -->
-        <div class="ingredients-section">
-          <details>
-            <summary style="cursor: pointer; font-weight: 600; margin-bottom: var(--spacing-md);">How to Use</summary>
-            <div style="color: var(--color-text-muted); line-height: 1.6;">
-              Apply morning and evening to clean, dry skin. Follow with moisturizer and SPF during the day.
-            </div>
-          </details>
-        </div>
+        {%- if how_to_use != blank -%}
+          <div class="ingredients-section">
+            <details>
+              <summary style="cursor: pointer; font-weight: 600; margin-bottom: var(--spacing-md);">How to Use</summary>
+              <div style="color: var(--color-text-muted); line-height: 1.6;">
+                {{ how_to_use }}
+              </div>
+            </details>
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </div>

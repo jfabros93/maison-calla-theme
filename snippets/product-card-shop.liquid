@@ -56,12 +56,12 @@
     endif
   else
     assign card_title = product.title
-    assign card_subtitle = product.metafields.product.subtitle | default: product.type
+    assign card_subtitle = product.metafields.product.subtitle | default: product.metafields.custom.subtitle | default: product.type
     assign card_price = product.price | money_without_currency | remove: ',' | times: 1
-    assign card_size = product.metafields.product.size | default: product.selected_or_first_available_variant.title
+    assign card_size = product.metafields.product.size | default: product.metafields.custom.size | default: product.selected_or_first_available_variant.title
     assign card_url = product.url
     assign card_image = product.featured_image
-    assign card_category = product.metafields.product.category | default: product.type
+    assign card_category = product.metafields.product.category | default: product.metafields.custom.category | default: product.type
     assign card_category_handle = card_category | handleize
   endif
   

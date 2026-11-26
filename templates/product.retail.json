@@ -4,6 +4,14 @@
       "type": "main-product-retail",
       "settings": {}
     },
+    "treatment_upsell": {
+      "type": "retail-treatment-upsell",
+      "settings": {
+        "heading": "Pairs with your treatment",
+        "treatments_collection": "treatments",
+        "treatments_to_show": 3
+      }
+    },
     "related_products": {
       "type": "related-products",
       "settings": {
@@ -14,6 +22,7 @@
   },
   "order": [
     "main",
+    "treatment_upsell",
     "related_products"
   ]
 }
