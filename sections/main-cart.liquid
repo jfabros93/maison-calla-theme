@@ -38,6 +38,10 @@
     box-shadow: 0 8px 24px rgba(21, 21, 21, 0.10);
   }
   
+  .cart-summary.is-empty {
+    display: none;
+  }
+  
   .cart-summary__title {
     font-size: 19px;
     font-weight: 600;
@@ -119,14 +123,33 @@
       <div class="cart-content">
         <!-- Populated by cart.js -->
         <div class="cart-empty" style="display: none;">
-          <h2>Your cart is empty</h2>
-          <p>Add treatments or products to get started</p>
-          <a href="{{ routes.all_products_collection_url }}" class="button">{{ section.settings.continue_shopping_text | default: "Continue shopping" }}</a>
+          <div style="text-align: center; padding: var(--spacing-3xl) var(--spacing-lg); max-width: 500px; margin: 0 auto;">
+            <h2 style="font-size: 28px; font-weight: 600; margin-bottom: var(--spacing-md);">
+              {{ section.settings.empty_heading | default: "Your cart is empty" }}
+            </h2>
+            <p style="font-size: 16px; color: var(--color-text-muted); margin-bottom: var(--spacing-2xl);">
+              {{ section.settings.empty_message | default: "Discover our treatments and products to begin your journey to radiant skin." }}
+            </p>
+            <div style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+              {%- if section.settings.consult_page != blank -%}
+                <a href="{{ section.settings.consult_page.url }}" class="button button--primary">
+                  {{ section.settings.consult_button_label | default: "Book a Consultation" }}
+                </a>
+              {%- elsif settings.booking_page != blank -%}
+                <a href="{{ settings.booking_page.url }}" class="button button--primary">
+                  {{ settings.consult_button_label | default: "Book a Consultation" }}
+                </a>
+              {%- endif -%}
+              <a href="{{ routes.all_products_collection_url }}" class="button button--secondary">
+                {{ section.settings.continue_shopping_text | default: "Shop Products" }}
+              </a>
+            </div>
+          </div>
         </div>
       </div>
       
       <!-- Cart Summary -->
-      <div class="cart-summary">
+      <div class="cart-summary" data-cart-summary>
         <h2 class="cart-summary__title">Summary</h2>
         
         <!-- Upsell Cards -->
@@ -217,10 +240,41 @@
       "default": "Your bag"
     },
     {
+      "type": "header",
+      "content": "Empty State"
+    },
+    {
+      "type": "text",
+      "id": "empty_heading",
+      "label": "Empty Heading",
+      "default": "Your cart is empty"
+    },
+    {
+      "type": "textarea",
+      "id": "empty_message",
+      "label": "Empty Message",
+      "default": "Discover our treatments and products to begin your journey to radiant skin."
+    },
+    {
+      "type": "page",
+      "id": "consult_page",
+      "label": "Consultation Page"
+    },
+    {
+      "type": "text",
+      "id": "consult_button_label",
+      "label": "Consultation Button Label",
+      "default": "Book a Consultation"
+    },
+    {
       "type": "text",
       "id": "continue_shopping_text",
-      "label": "Continue Shopping Text",
-      "default": "Continue shopping"
+      "label": "Products Button Label",
+      "default": "Shop Products"
+    },
+    {
+      "type": "header",
+      "content": "Upsells"
     },
     {
       "type": "product",

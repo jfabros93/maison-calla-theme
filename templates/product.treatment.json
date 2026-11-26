@@ -2,14 +2,6 @@
   "sections": {
     "main": {
       "type": "main-product-treatment",
-      "blocks": {
-        "app_block_1": {
-          "type": "@app"
-        }
-      },
-      "block_order": [
-        "app_block_1"
-      ],
       "settings": {}
     },
     "accordions": {
