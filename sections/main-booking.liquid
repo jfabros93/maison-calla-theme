@@ -643,7 +643,13 @@
     <div class="booking-layout">
       <!-- Step Panels -->
       <div class="booking-steps">
-        {% render 'booking-step-treatment', section: section %}
+        {%- liquid
+          assign treatments_collection = section.settings.treatments_collection
+          if treatments_collection == blank
+            assign treatments_collection = 'treatments'
+          endif
+        -%}
+        {% render 'booking-step-treatment', section: section, treatments_collection_handle: treatments_collection %}
         {% render 'booking-step-provider', section: section %}
         {% render 'booking-step-datetime', section: section %}
         {% render 'booking-step-details', section: section %}
