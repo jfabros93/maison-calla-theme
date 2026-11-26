@@ -39,11 +39,17 @@
     {%- endif -%}
     
     <p class="collection-banner__count">
+      {%- liquid
+        assign is_treatments = false
+        if collection.products.first.type contains 'Treatment' or collection.handle == 'treatments'
+          assign is_treatments = true
+        endif
+      -%}
       {{ collection.products_count }} 
       {%- if collection.products_count == 1 -%}
-        treatment
+        {%- if is_treatments -%}treatment{%- else -%}product{%- endif -%}
       {%- else -%}
-        treatments
+        {%- if is_treatments -%}treatments{%- else -%}products{%- endif -%}
       {%- endif -%}
     </p>
   </div>

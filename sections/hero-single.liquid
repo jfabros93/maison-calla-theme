@@ -89,7 +89,7 @@
 <section class="hero-single">
   <div class="container">
     <div class="hero-single__card">
-      <div class="hero-single__media">
+      <div class="hero-single__media" {% unless section.settings.image %}style="background-color: #F5EFE6;"{% endunless %}>
         {%- if section.settings.image -%}
           <img 
             class="hero-single__image"

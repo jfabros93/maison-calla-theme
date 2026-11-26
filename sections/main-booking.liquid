@@ -8,71 +8,151 @@
     padding: var(--spacing-4xl) 0;
   }
   
+  .booking-breadcrumb {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-4);
+  }
+  
   .booking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     margin-bottom: var(--spacing-3xl);
+    gap: 40px;
+  }
+  
+  .booking-header__left {
+    flex: 1;
+  }
+  
+  .booking-header__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--font-size-eyebrow);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--color-text);
+    margin-bottom: 12px;
+  }
+  
+  .booking-header__eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-sage);
   }
   
   .booking-header__title {
-    font-size: 44px;
+    font-size: 60px;
+    line-height: 64px;
     font-weight: 600;
-    letter-spacing: -0.03em;
-    margin-bottom: var(--spacing-md);
+    letter-spacing: -2.1px;
+    margin: 0;
+  }
+  
+  .booking-header__right {
+    max-width: 380px;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-text-muted);
+  }
+  
+  @media (max-width: 1023px) {
+    .booking-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .booking-header__right {
+      display: none;
+    }
   }
   
   @media (max-width: 767px) {
     .booking-header__title {
-      font-size: 30px;
+      font-size: 42px;
+      line-height: 48px;
+      letter-spacing: -1.5px;
     }
   }
   
   /* Stepper */
   .booking-stepper {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-xl);
+    padding: 20px 32px;
     display: flex;
     align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
+    justify-content: space-between;
     margin-bottom: var(--spacing-4xl);
   }
   
   .stepper__step {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    position: relative;
+    flex: 1;
+  }
+  
+  .stepper__step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: calc(50% + 24px);
+    width: calc(100% - 48px);
+    height: 2px;
+    background-color: var(--color-line);
+    z-index: 0;
+  }
+  
+  .stepper__step[data-status="done"]:not(:last-child)::after {
+    background-color: var(--color-sage-soft);
   }
   
   .stepper__number {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border: 2px solid var(--color-line);
     border-radius: 50%;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     color: var(--color-text-muted);
     background-color: var(--color-surface);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    z-index: 1;
   }
   
   .stepper__label {
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 400;
     color: var(--color-text-muted);
+    text-align: center;
   }
   
   .stepper__step[data-status="done"] .stepper__number {
-    background-color: var(--color-sage);
-    border-color: var(--color-sage);
-    color: transparent;
+    background-color: var(--color-sage-soft);
+    border-color: var(--color-sage-soft);
+    color: var(--color-sage-deep);
   }
   
-  .stepper__step[data-status="done"] .stepper__number:after {
+  .stepper__step[data-status="done"] .stepper__number::after {
     content: '✓';
     position: absolute;
-    color: var(--color-surface);
-    font-size: 20px;
+    font-size: 14px;
+  }
+  
+  .stepper__step[data-status="done"] .stepper__label {
+    color: var(--color-text-muted);
   }
   
   .stepper__step[data-status="active"] .stepper__number {
@@ -83,7 +163,6 @@
   
   .stepper__step[data-status="active"] .stepper__label {
     color: var(--color-text);
-    font-weight: 600;
   }
   
   @media (max-width: 767px) {
@@ -139,12 +218,12 @@
   /* Main Layout */
   .booking-layout {
     display: grid;
-    gap: var(--spacing-3xl);
+    gap: 32px;
   }
   
   @media (min-width: 1024px) {
     .booking-layout {
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 828px 420px;
       align-items: start;
     }
   }
@@ -156,6 +235,11 @@
   
   .booking-step-panel {
     display: none;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    padding: 32px;
   }
   
   .booking-step-panel.active {
@@ -174,10 +258,18 @@
     }
   }
   
+  .step-panel__eyebrow {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-text-muted);
+    margin-bottom: 8px;
+  }
+  
   .step-panel__title {
-    font-size: 26px;
+    font-size: var(--font-size-h1);
+    line-height: 50px;
     font-weight: 600;
-    margin-bottom: var(--spacing-lg);
+    margin: 0 0 var(--spacing-6) 0;
   }
   
   /* Summary Card */
@@ -186,9 +278,12 @@
     top: 100px;
     background-color: var(--color-surface);
     border: 1px solid var(--color-line);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-lg);
-    box-shadow: 0 8px 24px rgba(21, 21, 21, 0.10);
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
   }
   
   @media (max-width: 1023px) {
@@ -198,18 +293,29 @@
   }
   
   .booking-summary__title {
-    font-size: 19px;
+    font-size: var(--font-size-h2);
+    line-height: 32px;
+    letter-spacing: -0.52px;
     font-weight: 600;
-    margin-bottom: var(--spacing-md);
+    margin: 0;
+  }
+  
+  .booking-summary__held-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background-color: var(--color-sage-soft);
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text);
   }
   
   .booking-summary__rows {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-lg);
-    border-bottom: 1px solid var(--color-line);
+    gap: 10px;
   }
   
   .summary-row {
@@ -225,57 +331,126 @@
   }
   
   .summary-row__value {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     text-align: right;
   }
   
-  .booking-summary__pricing {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: var(--spacing-lg);
+  .booking-summary__divider {
+    height: 1px;
+    background-color: var(--color-line);
   }
   
-  .summary-price {
+  .booking-summary__due-today {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   
-  .summary-price__label {
+  .booking-summary__due-today-label {
+    font-size: 19px;
+    line-height: 26px;
+  }
+  
+  .booking-summary__due-today-amount {
+    font-size: 26px;
+    line-height: 32px;
+    font-weight: 600;
+  }
+  
+  .booking-summary__due-visit {
+    padding: 12px 14px;
+    background-color: var(--color-subtle-surface);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .booking-summary__due-visit-label {
     font-size: 14px;
+    flex: 1;
+  }
+  
+  .booking-summary__due-visit-amount {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  
+  .booking-summary__member-callout {
+    padding: 14px;
+    background-color: var(--color-sage-soft);
+    border-radius: var(--radius-md);
+    display: flex;
+    gap: 12px;
+  }
+  
+  .booking-summary__member-callout-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  
+  .booking-summary__member-callout-text {
+    font-size: 14px;
+    line-height: 20px;
     color: var(--color-text-muted);
   }
   
-  .summary-price__amount {
-    font-size: 19px;
-    font-weight: 600;
-  }
-  
   .booking-summary__policy {
-    padding: 16px;
-    background-color: var(--color-sage-soft);
-    border-radius: var(--radius-sm);
-    margin-bottom: var(--spacing-lg);
+    padding: 14px;
+    background-color: var(--color-subtle-surface);
+    border-radius: var(--radius-md);
   }
   
   .policy__title {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 4px;
   }
   
   .policy__text {
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 14px;
+    line-height: 20px;
     color: var(--color-text-muted);
   }
   
   .booking-summary__actions {
     display: flex;
-    flex-direction: column;
     gap: 12px;
+  }
+  
+  .booking-summary__trust {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .booking-summary__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+  }
+  
+  .booking-summary__trust-item svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  
+  .booking-summary__payment-marks {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .booking-summary__payment-mark {
+    width: 40px;
+    height: 26px;
+    background-color: var(--color-subtle-surface);
+    border-radius: 6px;
   }
   
   /* Mobile Bottom Bar */
@@ -412,6 +587,11 @@
 
 <div class="booking-container">
   <div class="container">
+    <!-- Breadcrumb -->
+    <div class="booking-breadcrumb">
+      Home / Book online
+    </div>
+    
     <!-- Mobile Progress Bar -->
     <div class="mobile-progress-bar">
       <div class="container">
@@ -426,30 +606,36 @@
     
     <!-- Header -->
     <div class="booking-header">
-      <h1 class="booking-header__title">{{ section.settings.heading | default: "Book your visit." }}</h1>
-      
-      <!-- Desktop Stepper -->
-      <div class="booking-stepper" role="navigation" aria-label="Booking progress">
-        <div class="stepper__step" data-status="active">
-          <div class="stepper__number">1</div>
-          <span class="stepper__label">{{ section.settings.step_1_label | default: "Treatment" }}</span>
-        </div>
-        <div class="stepper__step" data-status="todo">
-          <div class="stepper__number">2</div>
-          <span class="stepper__label">{{ section.settings.step_2_label | default: "Provider & location" }}</span>
-        </div>
-        <div class="stepper__step" data-status="todo">
-          <div class="stepper__number">3</div>
-          <span class="stepper__label">{{ section.settings.step_3_label | default: "Date & time" }}</span>
-        </div>
-        <div class="stepper__step" data-status="todo">
-          <div class="stepper__number">4</div>
-          <span class="stepper__label">{{ section.settings.step_4_label | default: "Your details" }}</span>
-        </div>
-        <div class="stepper__step" data-status="todo">
-          <div class="stepper__number">5</div>
-          <span class="stepper__label">{{ section.settings.step_5_label | default: "Confirm" }}</span>
-        </div>
+      <div class="booking-header__left">
+        <div class="booking-header__eyebrow">Book online</div>
+        <h1 class="booking-header__title">{{ section.settings.heading | default: "Book your visit." }}</h1>
+      </div>
+      <div class="booking-header__right">
+        Deposits are applied to your visit total. Free reschedule up to 24 hours before.
+      </div>
+    </div>
+    
+    <!-- Desktop Stepper -->
+    <div class="booking-stepper" role="navigation" aria-label="Booking progress">
+      <div class="stepper__step" data-status="active">
+        <div class="stepper__number">1</div>
+        <span class="stepper__label">{{ section.settings.step_1_label | default: "Treatment" }}</span>
+      </div>
+      <div class="stepper__step" data-status="todo">
+        <div class="stepper__number">2</div>
+        <span class="stepper__label">{{ section.settings.step_2_label | default: "Provider & location" }}</span>
+      </div>
+      <div class="stepper__step" data-status="todo">
+        <div class="stepper__number">3</div>
+        <span class="stepper__label">{{ section.settings.step_3_label | default: "Date & time" }}</span>
+      </div>
+      <div class="stepper__step" data-status="todo">
+        <div class="stepper__number">4</div>
+        <span class="stepper__label">{{ section.settings.step_4_label | default: "Your details" }}</span>
+      </div>
+      <div class="stepper__step" data-status="todo">
+        <div class="stepper__number">5</div>
+        <span class="stepper__label">{{ section.settings.step_5_label | default: "Confirm" }}</span>
       </div>
     </div>
     
@@ -466,35 +652,90 @@
       
       <!-- Summary Card (Desktop) -->
       <div class="booking-summary">
-        <h3 class="booking-summary__title">{{ section.settings.summary_title | default: "Your booking" }}</h3>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <h3 class="booking-summary__title">{{ section.settings.summary_title | default: "Your booking" }}</h3>
+          <span class="booking-summary__held-chip" style="display: none;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 13A6 6 0 107 1a6 6 0 000 12z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7 3.5V7l2.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Held 09:42
+          </span>
+        </div>
         
         <div class="booking-summary__rows">
           <!-- Populated by JavaScript as user selects -->
         </div>
         
-        <div class="booking-summary__pricing">
-          <div class="summary-price booking-summary__due-today">
-            <span class="summary-price__label">{{ section.settings.due_today_label | default: "Due today" }}</span>
-            <span class="summary-price__amount">$0</span>
-          </div>
-          <div class="summary-price booking-summary__due-visit">
-            <span class="summary-price__label">{{ section.settings.due_visit_label | default: "Due at visit" }}</span>
-            <span class="summary-price__amount">$0</span>
+        <div class="booking-summary__divider"></div>
+        
+        <div class="booking-summary__due-today">
+          <span class="booking-summary__due-today-label">{{ section.settings.due_today_label | default: "Due today" }}</span>
+          <span class="booking-summary__due-today-amount">$0</span>
+        </div>
+        
+        <div class="booking-summary__due-visit">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span class="booking-summary__due-visit-label">{{ section.settings.due_visit_label | default: "Due at visit" }} (Dec 4)</span>
+          <span class="booking-summary__due-visit-amount">$0</span>
+        </div>
+        
+        <div class="booking-summary__member-callout">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 3.333l1.667 3.334 3.666.5-2.666 2.5.666 3.666L10 11.667l-3.333 1.666.666-3.666-2.666-2.5 3.666-.5L10 3.333z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div>
+            <div class="booking-summary__member-callout-title">Glow Club members save $X on this order</div>
+            <div class="booking-summary__member-callout-text">Join for $149/mo and the savings apply today</div>
           </div>
         </div>
         
         <div class="booking-summary__policy">
           <div class="policy__title">{{ section.settings.policy_title | default: "Cancellation policy" }}</div>
-          <p class="policy__text">{{ section.settings.policy_text | default: "Cancel or reschedule up to 24 hours before your appointment for a full refund." }}</p>
+          <p class="policy__text">{{ section.settings.policy_text | default: "Free reschedule or cancel up to 24 hours before. Later changes forfeit the $50 deposit." }}</p>
         </div>
         
         <div class="booking-summary__actions">
-          <button type="button" class="button button--secondary" data-booking-back>
+          <button type="button" class="button button--compact button--secondary" data-booking-back style="padding: 12px 20px;">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
             {{ section.settings.back_label | default: "Back" }}
           </button>
-          <button type="button" class="button" data-booking-continue>
-            {{ section.settings.continue_label | default: "Continue" }}
+          <button type="button" class="button button--primary" data-booking-continue style="flex: 1; justify-content: space-between;">
+            <span>{{ section.settings.continue_label | default: "Continue to details" }}</span>
+            <span style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.833 14.167L14.167 5.833M14.167 5.833H5.833M14.167 5.833v8.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
           </button>
+        </div>
+        
+        <div class="booking-summary__trust">
+          <div class="booking-summary__trust-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 1.333v13.334M11.333 4.667H6.667a2 2 0 100 4h2.666a2 2 0 010 4H4.667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Secure booking · card never stored by us
+          </div>
+          <div class="booking-summary__trust-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 1.333l1.333 2.667 2.934.4-2.134 2 .534 2.933L8 7.667 5.333 9.333l.534-2.933-2.134-2 2.934-.4L8 1.333z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Glow Club members pay $148 for this visit
+          </div>
+        </div>
+        
+        <div class="booking-summary__payment-marks">
+          <div class="booking-summary__payment-mark"></div>
+          <div class="booking-summary__payment-mark"></div>
+          <div class="booking-summary__payment-mark"></div>
+          <div class="booking-summary__payment-mark"></div>
+          <div class="booking-summary__payment-mark"></div>
         </div>
       </div>
     </div>
@@ -635,6 +876,35 @@
       "id": "continue_label",
       "label": "Continue Button Label",
       "default": "Continue"
+    },
+    {
+      "type": "text",
+      "id": "step_1_heading",
+      "label": "Step 1 Heading",
+      "default": "Choose your treatment"
+    },
+    {
+      "type": "text",
+      "id": "step_2_heading",
+      "label": "Step 2 Heading",
+      "default": "Choose provider & location"
+    },
+    {
+      "type": "text",
+      "id": "step_3_heading",
+      "label": "Step 3 Heading",
+      "default": "Pick a date & time."
+    },
+    {
+      "type": "text",
+      "id": "step_4_heading",
+      "label": "Step 4 Heading",
+      "default": "Your details"
+    },
+    {
+      "type": "collection",
+      "id": "treatments_collection",
+      "label": "Treatments Collection"
     }
   ],
   "presets": [

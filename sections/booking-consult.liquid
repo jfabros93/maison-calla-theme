@@ -5,169 +5,247 @@
 
 <style>
   .booking-consult {
-    padding: var(--spacing-4xl) 0;
+    padding-top: var(--spacing-15);
+    padding-bottom: var(--spacing-4xl);
   }
   
-  .consult-card {
-    padding: var(--spacing-3xl);
+  .consult-cards {
+    display: flex;
+    gap: 24px;
+  }
+  
+  @media (max-width: 768px) {
+    .consult-cards {
+      flex-direction: column;
+    }
+  }
+  
+  .consult-card--left {
+    flex: 1;
+    padding: 40px;
     background-color: var(--color-sage-soft);
     border-radius: var(--radius-xl);
-    max-width: 900px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
   }
   
-  .consult-card__header {
-    text-align: center;
-    margin-bottom: var(--spacing-3xl);
+  .consult-card--right {
+    flex: 1;
+    padding: 40px 32px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+  
+  .consult-card__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--font-size-eyebrow);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--color-text-muted);
+  }
+  
+  .consult-card__eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-sage);
   }
   
   .consult-card__heading {
-    font-size: 26px;
+    font-size: var(--font-size-h1);
+    line-height: 50px;
+    letter-spacing: -1.32px;
     font-weight: 600;
-    margin-bottom: 12px;
-  }
-  
-  .consult-card__subheading {
-    font-size: 19px;
-    color: var(--color-text-muted);
-    margin-bottom: 12px;
+    margin: 0;
   }
   
   .consult-card__description {
-    font-size: 16px;
+    font-size: 18px;
+    line-height: 28px;
     color: var(--color-text-muted);
+    margin: 0;
+  }
+  
+  .consult-card__format-label {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 12px;
   }
   
   .consult-toggle {
     display: flex;
-    justify-content: center;
-    gap: 8px;
-    padding: 6px;
-    background-color: var(--color-surface);
+    gap: 2px;
+    padding: 4px;
+    background-color: var(--color-subtle-surface);
     border-radius: var(--radius-pill);
-    margin-bottom: var(--spacing-3xl);
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
   }
   
   .consult-toggle__option {
     flex: 1;
-    padding: 10px 20px;
+    padding: 8px 16px;
     border: none;
     border-radius: var(--radius-pill);
     background-color: transparent;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .consult-toggle__option[aria-pressed="true"] {
-    background-color: var(--color-text);
-    color: var(--color-surface);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    box-shadow: var(--shadow-card);
+  }
+  
+  .consult-card__chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .consult-card__chip {
+    padding: 7px 12px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 500;
   }
   
   .consult-steps {
-    display: grid;
-    gap: 24px;
-    grid-template-columns: 1fr;
-    margin-bottom: var(--spacing-3xl);
-  }
-  
-  @media (min-width: 768px) {
-    .consult-steps {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
   
   .consult-step {
-    text-align: center;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
   }
   
   .consult-step__number {
-    display: inline-flex;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--color-sage-soft);
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background-color: var(--color-surface);
-    font-size: 19px;
-    font-weight: 600;
-    margin-bottom: 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-sage-deep);
+    flex-shrink: 0;
+  }
+  
+  .consult-step__content {
+    flex: 1;
+    padding-top: 4px;
   }
   
   .consult-step__title {
-    font-size: 16px;
+    font-size: 19px;
+    line-height: 26px;
+    font-family: var(--font-heading);
     font-weight: 600;
-    margin-bottom: 8px;
+    margin: 0 0 4px 0;
   }
   
   .consult-step__description {
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 24px;
     color: var(--color-text-muted);
+    margin: 0;
   }
   
-  .consult-cta {
-    text-align: center;
+  .consult-card--right h3 {
+    font-size: var(--font-size-h2);
+    line-height: 32px;
+    letter-spacing: -0.52px;
+    margin: 0;
   }
 </style>
 
 <div class="booking-consult">
   <div class="container">
-    <div class="consult-card">
-      <div class="consult-card__header">
-        <h2 class="consult-card__heading">{{ section.settings.heading | default: "Not sure where to start?" }}</h2>
-        <p class="consult-card__subheading">{{ section.settings.subheading | default: "Book a free 15-minute consultation" }}</p>
-        <p class="consult-card__description">{{ section.settings.description | default: "Connect with one of our licensed providers to discuss your skin goals and get personalized treatment recommendations." }}</p>
-      </div>
-      
-      <!-- Video vs In-Studio Toggle -->
-      <div class="consult-toggle">
-        <button 
-          type="button" 
-          class="consult-toggle__option" 
-          data-consult-type="video"
-          aria-pressed="true"
-        >
-          Video call
-        </button>
-        <button 
-          type="button" 
-          class="consult-toggle__option" 
-          data-consult-type="studio"
-          aria-pressed="false"
-        >
-          In studio
-        </button>
-      </div>
-      
-      <!-- 3-Step Process -->
-      <div class="consult-steps">
-        <div class="consult-step">
-          <div class="consult-step__number">1</div>
-          <h3 class="consult-step__title">{{ section.settings.step_1_title | default: "Book your time" }}</h3>
-          <p class="consult-step__description">{{ section.settings.step_1_description | default: "Choose a convenient 15-minute slot" }}</p>
+    <div class="consult-cards">
+      <!-- Left Card -->
+      <div class="consult-card--left">
+        <div class="consult-card__eyebrow">Not sure where to start?</div>
+        <h2 class="consult-card__heading">Free 15-min virtual consultation.</h2>
+        <p class="consult-card__description">Talk through your goals with a licensed provider before you book anything. No cost, no obligation, no hard sell.</p>
+        
+        <div>
+          <div class="consult-card__format-label">Choose a format</div>
+          <div class="consult-toggle">
+            <button 
+              type="button" 
+              class="consult-toggle__option" 
+              data-consult-type="video"
+              aria-pressed="true"
+            >
+              Video call
+            </button>
+            <button 
+              type="button" 
+              class="consult-toggle__option" 
+              data-consult-type="studio"
+              aria-pressed="false"
+            >
+              In-studio
+            </button>
+          </div>
         </div>
         
-        <div class="consult-step">
-          <div class="consult-step__number">2</div>
-          <h3 class="consult-step__title">{{ section.settings.step_2_title | default: "Meet your provider" }}</h3>
-          <p class="consult-step__description">{{ section.settings.step_2_description | default: "Discuss your concerns and goals" }}</p>
+        <div class="consult-card__chips">
+          <span class="consult-card__chip">15 minutes</span>
+          <span class="consult-card__chip">Free</span>
+          <span class="consult-card__chip">Any time zone</span>
         </div>
         
-        <div class="consult-step">
-          <div class="consult-step__number">3</div>
-          <h3 class="consult-step__title">{{ section.settings.step_3_title | default: "Get recommendations" }}</h3>
-          <p class="consult-step__description">{{ section.settings.step_3_description | default: "Receive a personalized treatment plan" }}</p>
-        </div>
-      </div>
-      
-      <div class="consult-cta">
-        <a href="{{ section.settings.consult_link | default: '#book-consult' }}" class="button" data-book-cta data-cta-type="consult">
-          {{ section.settings.cta_label | default: "Book free consultation" }}
+        <a href="{{ section.settings.consult_link | default: '/pages/book' }}" class="button button--primary" data-book-cta data-cta-type="consult">
+          Book a free consultation
         </a>
+      </div>
+      
+      <!-- Right Card -->
+      <div class="consult-card--right">
+        <h3>What happens in a consult</h3>
+        
+        <div class="consult-steps">
+          <div class="consult-step">
+            <div class="consult-step__number">1</div>
+            <div class="consult-step__content">
+              <h4 class="consult-step__title">Tell us your goals</h4>
+              <p class="consult-step__description">Share what you want to change and any treatments you have had before.</p>
+            </div>
+          </div>
+          
+          <div class="consult-step">
+            <div class="consult-step__number">2</div>
+            <div class="consult-step__content">
+              <h4 class="consult-step__title">Quick skin review</h4>
+              <p class="consult-step__description">Your provider looks at your skin on video and flags what is realistic.</p>
+            </div>
+          </div>
+          
+          <div class="consult-step">
+            <div class="consult-step__number">3</div>
+            <div class="consult-step__content">
+              <h4 class="consult-step__title">A plan, no pressure</h4>
+              <p class="consult-step__description">Leave with a suggested treatment plan, pricing and a time to book if you like.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

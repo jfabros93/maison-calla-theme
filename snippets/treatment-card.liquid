@@ -56,7 +56,7 @@
   else
     assign card_title = product.title
     assign card_description = product.description | strip_html | truncate: 100
-    assign card_price = product.price | money_without_currency | remove: ',' | times: 1
+    assign card_price = product.price
     assign card_url = product.url
     assign card_image = product.featured_image
     assign card_duration = product.metafields.treatment.duration | default: '60 min'
@@ -119,7 +119,13 @@
     <div class="treatment-card__footer">
       <div class="treatment-card__price">
         <div class="treatment-card__price-label">From</div>
-        <div class="treatment-card__price-value">${{ card_price }}</div>
+        <div class="treatment-card__price-value">
+          {%- if demo -%}
+            ${{ card_price }}
+          {%- else -%}
+            {{ card_price | money }}
+          {%- endif -%}
+        </div>
       </div>
       
       <a href="{{ card_url }}" class="button button--compact button--primary">

@@ -28,7 +28,7 @@
         "chip_3": {
           "type": "attribute_chip",
           "settings": {
-            "text": "Medical grade",
+            "text": "Licensed providers",
             "style": "blush"
           }
         }
@@ -112,8 +112,8 @@
           "type": "item",
           "settings": {
             "show_icon": true,
-            "title": "Medical Grade",
-            "description": "Medical-grade treatments & products"
+            "title": "Licensed providers",
+            "description": "RNs and NPs, medical director on site"
           }
         },
         "trust_3": {
@@ -128,8 +128,8 @@
           "type": "item",
           "settings": {
             "show_icon": true,
-            "title": "Safe & Effective",
-            "description": "Clinically proven results"
+            "title": "Thoughtful aftercare",
+            "description": "Post-treatment support and guidance"
           }
         }
       },
