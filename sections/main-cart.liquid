@@ -115,7 +115,7 @@
               {{ section.settings.products_button_label | default: 'Shop Products' }}
             </a>
           {%- else -%}
-            <a href="/collections/all" class="button button--secondary">
+            <a href="{{ routes.all_products_collection_url }}" class="button button--secondary">
               {{ section.settings.products_button_label | default: 'Shop Products' }}
             </a>
           {%- endif -%}
