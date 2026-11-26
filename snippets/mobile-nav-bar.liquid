@@ -127,7 +127,7 @@
   -%}
   
   <a 
-    href="{{ book_link | default: '#book' }}" 
+    href="{{ book_link | default: '/pages/book' }}" 
     class="mobile-nav-bar__book"
     data-book-cta
     data-cta-type="book"
@@ -190,7 +190,7 @@
             {{ settings.mobile_book_bar_app_trigger }}
           } catch (error) {
             console.error('Booking app trigger error:', error);
-            if (this.href && this.href !== '#book') {
+            if (this.href) {
               window.location.href = this.href;
             }
           }

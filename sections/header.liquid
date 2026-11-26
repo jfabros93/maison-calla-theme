@@ -357,7 +357,7 @@
         -%}
         
         <a 
-          href="{{ book_link | default: '#book' }}" 
+          href="{{ book_link | default: '/pages/book' }}" 
           class="button button--primary header__book-btn"
           data-book-cta
           data-cta-type="book"
@@ -424,7 +424,7 @@
   </nav>
   
   <a 
-    href="{{ book_link | default: '#book' }}" 
+    href="{{ book_link | default: '/pages/book' }}" 
     class="button button--primary mobile-menu__book-btn"
     data-book-cta
     data-cta-type="book"
