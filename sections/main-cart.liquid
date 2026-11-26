@@ -1,0 +1,202 @@
+{%- comment -%}
+  Main Cart - Shopping cart page
+{%- endcomment -%}
+
+<style>
+  .cart {
+    padding: var(--section-spacing) 0;
+  }
+  
+  .cart__container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+  }
+  
+  .cart__header {
+    margin-bottom: var(--spacing-2xl);
+  }
+  
+  .cart__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-3xl);
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .cart__empty {
+    text-align: center;
+    padding: var(--spacing-3xl) var(--spacing-lg);
+  }
+  
+  .cart__empty-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text);
+  }
+  
+  .cart__empty-message {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-2xl);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .cart__empty-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  @media (min-width: 640px) {
+    .cart__empty-actions {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+  
+  .cart__grid {
+    display: grid;
+    gap: var(--spacing-2xl);
+  }
+  
+  @media (min-width: 1024px) {
+    .cart__grid {
+      grid-template-columns: 1fr 400px;
+    }
+  }
+  
+  .cart__items {
+    /* Cart items styling would go here */
+  }
+  
+  .cart__summary {
+    background: var(--color-surface);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    height: fit-content;
+    position: sticky;
+    top: var(--spacing-lg);
+  }
+</style>
+
+<div class="cart">
+  <div class="cart__container">
+    <div class="cart__header">
+      <h1 class="cart__title">{{ section.settings.heading | default: 'Shopping Cart' }}</h1>
+    </div>
+    
+    {%- if cart.item_count == 0 -%}
+      <div class="cart__empty">
+        <h2 class="cart__empty-title">{{ section.settings.empty_heading | default: 'Your cart is empty' }}</h2>
+        <p class="cart__empty-message">
+          {{ section.settings.empty_message | default: 'Discover our treatments and products to begin your journey to radiant skin.' }}
+        </p>
+        
+        <div class="cart__empty-actions">
+          {%- if section.settings.consult_page != blank -%}
+            <a href="{{ section.settings.consult_page.url }}" class="button button--primary">
+              {{ section.settings.consult_button_label | default: 'Book a Consultation' }}
+            </a>
+          {%- endif -%}
+          
+          {%- if section.settings.products_collection != blank -%}
+            <a href="{{ section.settings.products_collection.url }}" class="button button--secondary">
+              {{ section.settings.products_button_label | default: 'Shop Products' }}
+            </a>
+          {%- elsif section.settings.products_page != blank -%}
+            <a href="{{ section.settings.products_page.url }}" class="button button--secondary">
+              {{ section.settings.products_button_label | default: 'Shop Products' }}
+            </a>
+          {%- else -%}
+            <a href="/collections/all" class="button button--secondary">
+              {{ section.settings.products_button_label | default: 'Shop Products' }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- else -%}
+      <div class="cart__grid">
+        <div class="cart__items">
+          <form action="{{ routes.cart_url }}" method="post" id="cart">
+            {%- for item in cart.items -%}
+              {%- comment -%} Cart item markup would go here {%- endcomment -%}
+              <div class="cart-item">
+                {{ item.title }}
+              </div>
+            {%- endfor -%}
+          </form>
+        </div>
+        
+        <div class="cart__summary">
+          <h2>Summary</h2>
+          {%- comment -%} Summary content {%- endcomment -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Main Cart",
+  "class": "section-main-cart",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shopping Cart"
+    },
+    {
+      "type": "header",
+      "content": "Empty State"
+    },
+    {
+      "type": "text",
+      "id": "empty_heading",
+      "label": "Empty Heading",
+      "default": "Your cart is empty"
+    },
+    {
+      "type": "textarea",
+      "id": "empty_message",
+      "label": "Empty Message",
+      "default": "Discover our treatments and products to begin your journey to radiant skin."
+    },
+    {
+      "type": "page",
+      "id": "consult_page",
+      "label": "Consultation Page"
+    },
+    {
+      "type": "text",
+      "id": "consult_button_label",
+      "label": "Consultation Button Label",
+      "default": "Book a Consultation"
+    },
+    {
+      "type": "collection",
+      "id": "products_collection",
+      "label": "Products Collection"
+    },
+    {
+      "type": "page",
+      "id": "products_page",
+      "label": "Products Page (fallback)"
+    },
+    {
+      "type": "text",
+      "id": "products_button_label",
+      "label": "Products Button Label",
+      "default": "Shop Products"
+    }
+  ]
+}
+{% endschema %}
