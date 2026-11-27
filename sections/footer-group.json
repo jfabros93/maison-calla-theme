@@ -4,10 +4,44 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "treatments_menu": {
+          "type": "menu",
+          "settings": {
+            "heading": "Treatments",
+            "menu": "",
+            "fallback_links": "Facials:/collections/facials\nInjectables:/collections/injectables\nLaser:/collections/laser\nBody:/collections/body"
+          }
+        },
+        "shop_menu": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop",
+            "menu": "",
+            "fallback_links": "Best sellers:/collections/best-sellers\nSkincare sets:/collections/skincare-sets\nGift cards:/products/gift-card\nMemberships:/pages/packages"
+          }
+        },
+        "visit_menu": {
+          "type": "menu",
+          "settings": {
+            "heading": "Visit",
+            "menu": "",
+            "fallback_links": "Locations:/pages/locations\nBook online:/pages/booking\nFAQ:/pages/faq\nContact:/pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "treatments_menu",
+        "shop_menu",
+        "visit_menu"
+      ],
       "settings": {
-        "heading": "Maison Calla",
-        "description": "Clinical excellence meets luxurious care. Book your treatment today.",
-        "menu_heading": "Quick Links"
+        "cta_text": "Ready when you are",
+        "cta_button_text": "Book a treatment",
+        "cta_button_link": "/pages/booking",
+        "newsletter_heading": "Get our emails",
+        "legal_text": "Maison Calla. All rights reserved.",
+        "instagram_url": "https://instagram.com/maisoncalla"
       }
     }
   },

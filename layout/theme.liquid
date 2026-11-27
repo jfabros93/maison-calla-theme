@@ -87,7 +87,17 @@
         --spacing-10: calc(var(--spacing-unit) * 10);
         --spacing-12: calc(var(--spacing-unit) * 12);
         --spacing-15: calc(var(--spacing-unit) * 15);
+        --spacing-16: calc(var(--spacing-unit) * 16);
         --section-spacing: {{ settings.section_spacing }}px;
+        
+        /* Spacing Aliases (for legacy compatibility) */
+        --spacing-sm: var(--spacing-2);
+        --spacing-md: var(--spacing-4);
+        --spacing-lg: var(--spacing-6);
+        --spacing-xl: var(--spacing-8);
+        --spacing-2xl: var(--spacing-10);
+        --spacing-3xl: var(--spacing-12);
+        --spacing-4xl: var(--spacing-16);
         
         /* Border Radius */
         --radius-sm: {{ settings.radius_sm }}px;
