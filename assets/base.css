@@ -505,6 +505,7 @@ img.loaded {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  overflow: hidden;
 }
 
 .treatment-card__header--beige { background-color: var(--color-beige); }
@@ -518,7 +519,7 @@ img.loaded {
   justify-content: space-between;
   align-items: flex-start;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .treatment-card__favorite {
@@ -544,24 +545,18 @@ img.loaded {
 
 .treatment-card__header-center {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120px;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-radius: 50%;
+  inset: 0;
 }
 
 .treatment-card__image {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
+  z-index: 0;
 }
 
 .treatment-card__body {
@@ -644,6 +639,7 @@ img.loaded {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  overflow: hidden;
 }
 
 .product-card__media--beige { background-color: var(--color-beige); }
@@ -656,7 +652,7 @@ img.loaded {
   justify-content: space-between;
   align-items: flex-start;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .product-card__wishlist {
@@ -674,23 +670,18 @@ img.loaded {
 
 .product-card__media-center {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  inset: 0;
 }
 
 .product-card__image {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
+  z-index: 0;
 }
 
 .product-card__media-bottom {
