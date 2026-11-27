@@ -126,6 +126,7 @@
     justify-content: space-between;
     position: relative;
     min-height: 500px;
+    overflow: hidden;
   }
   
   @media (min-width: 768px) {
@@ -138,7 +139,7 @@
     display: flex;
     justify-content: flex-end;
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
   
   .split-hero__image-chips {
@@ -151,6 +152,7 @@
     position: absolute;
     inset: 0;
     overflow: hidden;
+    border-radius: inherit;
   }
   
   .split-hero__image {
@@ -197,7 +199,7 @@
     align-items: center;
     gap: var(--spacing-3);
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
   
   .split-hero__availability-text {
