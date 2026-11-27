@@ -731,6 +731,9 @@ img.loaded {
 .buy-now-pill__arrow svg {
   width: 20px;
   height: 20px;
+}
+
+.buy-now-pill__arrow svg path {
   stroke: var(--color-surface);
 }
 

@@ -160,6 +160,14 @@
     border-radius: var(--radius-pill);
   }
   
+  @media (max-width: 1023px) {
+    .header__search-btn,
+    .header__cart-btn {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  
   .header__search-btn svg,
   .header__cart-btn svg {
     width: 20px;
@@ -183,6 +191,13 @@
     background-color: var(--color-surface);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-pill);
+  }
+  
+  @media (max-width: 1023px) {
+    .header__menu-toggle {
+      width: 40px;
+      height: 40px;
+    }
   }
   
   .header__menu-toggle svg {
@@ -313,14 +328,25 @@
       
       <nav class="header__nav" role="navigation" aria-label="Main navigation">
         <div class="header__nav-pill">
-          {%- for link in section.settings.menu.links -%}
-            <a 
-              href="{{ link.url }}" 
-              class="header__nav-link{% if link.active %} active{% endif %}"
-            >
-              {{ link.title }}
-            </a>
-          {%- endfor -%}
+          {%- if section.settings.use_concept_nav -%}
+            {%- assign treatments_collection_url = routes.collections_url | append: '/treatments' -%}
+            {%- assign is_treatments = false -%}
+            {%- if request.path contains '/collections/treatments' -%}{%- assign is_treatments = true -%}{%- endif -%}
+            {%- if template == 'product' -%}{%- if product.type == 'Treatment' -%}{%- assign is_treatments = true -%}{%- endif -%}{%- endif -%}
+            <a href="{{ treatments_collection_url }}" class="header__nav-link{% if is_treatments %} active{% endif %}">Treatments</a>
+            <a href="/pages/packages" class="header__nav-link{% if request.path == '/pages/packages' %} active{% endif %}">Memberships</a>
+            <a href="{{ routes.collections_url }}/all" class="header__nav-link{% if request.path contains '/collections/' %} active{% endif %}">Shop</a>
+            <a href="/pages/locations" class="header__nav-link{% if request.path contains '/pages/location' %} active{% endif %}">Locations</a>
+          {%- else -%}
+            {%- for link in section.settings.menu.links -%}
+              <a 
+                href="{{ link.url }}" 
+                class="header__nav-link{% if link.active %} active{% endif %}"
+              >
+                {{ link.title }}
+              </a>
+            {%- endfor -%}
+          {%- endif -%}
         </div>
       </nav>
       
@@ -416,11 +442,19 @@
   </div>
   
   <nav class="mobile-menu__nav" role="navigation">
-    {%- for link in section.settings.menu.links -%}
-      <a href="{{ link.url }}" class="mobile-menu__link">
-        {{ link.title }}
-      </a>
-    {%- endfor -%}
+    {%- if section.settings.use_concept_nav -%}
+      {%- assign treatments_collection_url = routes.collections_url | append: '/treatments' -%}
+      <a href="{{ treatments_collection_url }}" class="mobile-menu__link">Treatments</a>
+      <a href="/pages/packages" class="mobile-menu__link">Memberships</a>
+      <a href="{{ routes.collections_url }}/all" class="mobile-menu__link">Shop</a>
+      <a href="/pages/locations" class="mobile-menu__link">Locations</a>
+    {%- else -%}
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}" class="mobile-menu__link">
+          {{ link.title }}
+        </a>
+      {%- endfor -%}
+    {%- endif -%}
   </nav>
   
   <a 
@@ -539,10 +573,18 @@
       "info": "Used if no logo image is uploaded"
     },
     {
+      "type": "checkbox",
+      "id": "use_concept_nav",
+      "label": "Use concept default menu",
+      "info": "Renders Treatments, Memberships, Shop, Locations. Uncheck to use custom link list below.",
+      "default": true
+    },
+    {
       "type": "link_list",
       "id": "menu",
       "label": "Menu",
-      "default": "main-menu"
+      "default": "main-menu",
+      "info": "Only used when concept nav is disabled"
     },
     {
       "type": "text",

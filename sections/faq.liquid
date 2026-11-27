@@ -1,34 +1,74 @@
 {%- comment -%}
-  FAQ Section with accordion
+  FAQ Section - Two column layout with plus/minus accordion
 {%- endcomment -%}
 
 <style>
   .faq {
     background-color: var(--color-bg);
+    padding: var(--spacing-16) 0;
+  }
+  
+  .faq__grid {
+    display: grid;
+    gap: var(--spacing-10);
+  }
+  
+  @media (min-width: 1024px) {
+    .faq__grid {
+      grid-template-columns: 440px 1fr;
+      gap: var(--spacing-10);
+      padding-top: var(--spacing-16);
+    }
   }
   
   .faq__header {
-    text-align: center;
-    margin-bottom: var(--spacing-2xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+  }
+  
+  .faq__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+  
+  .faq__eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-sage);
+    flex-shrink: 0;
   }
   
   .faq__heading {
-    font-size: var(--font-size-2xl);
-    margin-bottom: var(--spacing-md);
+    font-size: 44px;
+    line-height: 50px;
+    font-weight: 600;
+    letter-spacing: -0.44px;
+    margin: 0;
   }
   
-  .faq__subheading {
-    color: var(--color-text-light);
-    font-size: var(--font-size-lg);
+  .faq__description {
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-text-muted);
+    margin: 0;
   }
   
   .faq__list {
-    max-width: 800px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
   }
   
   .faq-item {
-    border-bottom: 1px solid var(--color-stone);
+    border-bottom: 1px solid var(--color-line);
   }
   
   .faq-item__question {
@@ -36,36 +76,39 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-lg) 0;
+    padding: var(--spacing-5) 0;
     background: none;
     border: none;
     font-family: var(--font-heading);
-    font-size: var(--font-size-lg);
+    font-size: 18px;
+    line-height: 26px;
     font-weight: 600;
     text-align: left;
     color: var(--color-text);
     cursor: pointer;
-    min-height: var(--tap-target-min);
+    min-height: 44px;
   }
   
   .faq-item__question:hover {
-    color: var(--color-accent);
+    color: var(--color-sage);
   }
   
   .faq-item__icon {
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
-    margin-left: var(--spacing-md);
-    transition: transform var(--transition-speed) var(--transition-easing);
+    margin-left: var(--spacing-4);
   }
   
-  .faq-item.is-open .faq-item__icon {
-    transform: rotate(180deg);
+  .faq-item__icon svg {
+    width: 100%;
+    height: 100%;
   }
   
   .faq-item__answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s var(--transition-easing);
+    transition: max-height 0.3s ease-in-out;
   }
   
   .faq-item.is-open .faq-item__answer {
@@ -73,73 +116,105 @@
   }
   
   .faq-item__answer-content {
-    padding-bottom: var(--spacing-lg);
-    color: var(--color-text-light);
-    line-height: 1.7;
+    padding-bottom: var(--spacing-5);
+    color: var(--color-text-muted);
+    font-size: 15px;
+    line-height: 24px;
   }
 </style>
 
 <section class="faq section">
   <div class="container">
-    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+    <div class="faq__grid">
       <div class="faq__header">
+        {%- if section.settings.eyebrow != blank -%}
+          <div class="faq__eyebrow">
+            <span class="faq__eyebrow-dot" aria-hidden="true"></span>
+            {{ section.settings.eyebrow }}
+          </div>
+        {%- endif -%}
+        
         {%- if section.settings.heading != blank -%}
           <h2 class="faq__heading">{{ section.settings.heading }}</h2>
         {%- endif -%}
         
-        {%- if section.settings.subheading != blank -%}
-          <p class="faq__subheading">{{ section.settings.subheading }}</p>
+        {%- if section.settings.description != blank -%}
+          <p class="faq__description">{{ section.settings.description }}</p>
+        {%- endif -%}
+        
+        {%- if section.settings.cta_label != blank -%}
+          <div>
+            <a 
+              href="{{ section.settings.cta_link | default: '/pages/book' }}"
+              class="button button--secondary"
+            >
+              <span>{{ section.settings.cta_label }}</span>
+              <span class="button__arrow">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5.83331 14.1667L14.1666 5.83337M14.1666 5.83337H5.83331M14.1666 5.83337V14.1667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+          </div>
         {%- endif -%}
       </div>
-    {%- endif -%}
-    
-    <div class="faq__list">
-      {%- for block in section.blocks -%}
-        <div class="faq-item" {{ block.shopify_attributes }}>
-          <button 
-            type="button"
-            class="faq-item__question"
-            aria-expanded="false"
-            aria-controls="faq-answer-{{ block.id }}"
-          >
-            <span>{{ block.settings.question }}</span>
-            <span class="faq-item__icon">
-              {% render 'icon', icon: 'chevron-down' %}
-            </span>
-          </button>
-          
-          <div id="faq-answer-{{ block.id }}" class="faq-item__answer">
-            <div class="faq-item__answer-content">
-              {{ block.settings.answer }}
+      
+      <div class="faq__list">
+        {%- for block in section.blocks -%}
+          <div class="faq-item{% if forloop.first %} is-open{% endif %}" {{ block.shopify_attributes }}>
+            <button 
+              type="button"
+              class="faq-item__question"
+              aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+              aria-controls="faq-answer-{{ block.id }}"
+            >
+              <span>{{ block.settings.question }}</span>
+              <span class="faq-item__icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {%- if forloop.first -%}
+                    <path d="M5 10h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  {%- else -%}
+                    <path d="M10 5v10M5 10h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  {%- endif -%}
+                </svg>
+              </span>
+            </button>
+            
+            <div id="faq-answer-{{ block.id }}" class="faq-item__answer"{% unless forloop.first %} hidden{% endunless %}>
+              <div class="faq-item__answer-content">
+                {{ block.settings.answer }}
+              </div>
             </div>
           </div>
-        </div>
-      {%- endfor -%}
+        {%- endfor -%}
+      </div>
     </div>
   </div>
 </section>
 
 <script>
   (function() {
-    const faqItems = document.querySelectorAll('.faq-item');
+    const faqTriggers = document.querySelectorAll('.faq-item__question');
     
-    faqItems.forEach(item => {
-      const button = item.querySelector('.faq-item__question');
-      
-      button.addEventListener('click', () => {
-        const isOpen = item.classList.contains('is-open');
+    faqTriggers.forEach(function(trigger) {
+      trigger.addEventListener('click', function() {
+        const item = this.closest('.faq-item');
+        const content = document.getElementById(this.getAttribute('aria-controls'));
+        const isOpen = this.getAttribute('aria-expanded') === 'true';
+        const icon = this.querySelector('.faq-item__icon svg');
         
-        // Close all items
-        faqItems.forEach(otherItem => {
-          otherItem.classList.remove('is-open');
-          const otherButton = otherItem.querySelector('.faq-item__question');
-          otherButton.setAttribute('aria-expanded', 'false');
-        });
+        this.setAttribute('aria-expanded', !isOpen);
+        item.classList.toggle('is-open');
         
-        // Open clicked item if it was closed
+        if (content) {
+          content.hidden = isOpen;
+        }
+        
+        // Toggle between plus and minus icons
         if (!isOpen) {
-          item.classList.add('is-open');
-          button.setAttribute('aria-expanded', 'true');
+          icon.innerHTML = '<path d="M5 10h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>';
+        } else {
+          icon.innerHTML = '<path d="M10 5v10M5 10h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>';
         }
       });
     });
@@ -152,33 +227,51 @@
   "settings": [
     {
       "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "FAQ"
+    },
+    {
+      "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Frequently Asked Questions"
+      "default": "Questions, answered."
     },
     {
       "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Everything you need to know about our treatments"
+      "id": "description",
+      "label": "Description",
+      "default": "Still unsure? A free 15-minute consultation is always an option."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Button Label",
+      "default": "Book a free consultation"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Button Link",
+      "default": "/pages/book"
     }
   ],
   "blocks": [
     {
-      "type": "faq",
+      "type": "faq_item",
       "name": "FAQ Item",
       "settings": [
         {
           "type": "text",
           "id": "question",
           "label": "Question",
-          "default": "How long does a treatment take?"
+          "default": "How often should I get this treatment?"
         },
         {
           "type": "richtext",
           "id": "answer",
           "label": "Answer",
-          "default": "<p>Treatment times vary depending on the service, typically ranging from 30 to 90 minutes.</p>"
+          "default": "<p>For best results, we recommend treatments every 4-6 weeks.</p>"
         }
       ]
     }
@@ -188,24 +281,31 @@
       "name": "FAQ",
       "blocks": [
         {
-          "type": "faq",
+          "type": "faq_item",
           "settings": {
-            "question": "How do I book an appointment?",
-            "answer": "<p>You can book online through our booking system or call us directly.</p>"
+            "question": "How often should I get this treatment?",
+            "answer": "<p>Most clients see a brighter, plumper look for 3–4 weeks. Monthly visits or the 3-session package keep results consistent.</p>"
           }
         },
         {
-          "type": "faq",
+          "type": "faq_item",
           "settings": {
-            "question": "What should I expect during my first visit?",
-            "answer": "<p>Your first visit includes a consultation to discuss your goals and create a personalized treatment plan.</p>"
+            "question": "Will I see results immediately?",
+            "answer": "<p>Yes, your skin will look refreshed and glowing right away. Full benefits build over 24-48 hours as hydration settles.</p>"
           }
         },
         {
-          "type": "faq",
+          "type": "faq_item",
           "settings": {
-            "question": "Do you require a consultation before treatment?",
-            "answer": "<p>Some treatments require a consultation. This will be noted on the treatment page.</p>"
+            "question": "Can I wear makeup afterwards?",
+            "answer": "<p>We recommend waiting 24 hours before applying makeup to let your skin fully absorb the treatment.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is there any downtime?",
+            "answer": "<p>No downtime. You may experience mild redness for 1-2 hours, but most clients return to normal activities immediately.</p>"
           }
         }
       ]
