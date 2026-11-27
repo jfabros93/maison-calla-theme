@@ -233,7 +233,16 @@
                   loading="lazy"
                 >
               {%- else -%}
-                {{ 'image' | placeholder_svg_tag: 'placeholder-svg location-card__image' }}
+                {%- assign loc_num = forloop.index | default: 1 | modulo: 3 | plus: 1 -%}
+                {%- assign fallback_file = 'mc-location-0' | append: loc_num | append: '.jpg' -%}
+                <img
+                  src="{{ fallback_file | asset_url }}"
+                  alt="{{ block.settings.name | default: 'Location' | escape }}, Maison Calla concept"
+                  class="location-card__image"
+                  width="1920"
+                  height="1080"
+                  loading="lazy"
+                >
               {%- endif -%}
               {%- if block.settings.hours != blank -%}
                 <div class="location-card__hours">{{ block.settings.hours }}</div>

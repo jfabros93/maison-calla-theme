@@ -32,7 +32,7 @@
         
         if blog != blank and blog.articles.size > 0
           for article in blog.articles limit: articles_to_show
-            render 'journal-card', article: article
+            render 'journal-card', article: article, index: forloop.index
           endfor
         else
           for i in (1..articles_to_show)
