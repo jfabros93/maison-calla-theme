@@ -442,6 +442,59 @@
 {% schema %}
 {
   "name": "Retail Product",
-  "settings": []
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "SKINCARE / BARRIER CARE",
+      "info": "Category label shown above product title"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "recommendation_text",
+      "label": "Recommendation callout",
+      "default": "✦ Recommended by our aestheticians",
+      "info": "Callout text shown above add to cart"
+    },
+    {
+      "type": "text",
+      "id": "delivery_icon",
+      "label": "Delivery icon",
+      "default": "✦"
+    },
+    {
+      "type": "text",
+      "id": "delivery_text",
+      "label": "Delivery text",
+      "default": "Free 2-day delivery on orders $50+",
+      "info": "Delivery information shown below add to cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_attributes",
+      "label": "Show product attributes",
+      "default": true,
+      "info": "Display attribute icons (clean, vegan, cruelty-free, etc.)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_size_selector",
+      "label": "Show size selector",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quantity",
+      "label": "Show quantity selector",
+      "default": true
+    }
+  ]
 }
 {% endschema %}

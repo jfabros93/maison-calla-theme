@@ -2,27 +2,68 @@
   "sections": {
     "main": {
       "type": "main-product-retail",
-      "settings": {}
+      "settings": {
+        "eyebrow": "SKINCARE / BARRIER CARE"
+      }
+    },
+    "ingredients": {
+      "type": "product-ingredients",
+      "settings": {
+        "eyebrow": "INCI IT NOTES",
+        "heading": "Short ingredient list. Nothing you need to google.",
+        "description": "Every formula on our shelf is built for real medical-grade efficacy by our science team. Expect visible results, nothing unnecessary."
+      }
+    },
+    "how_to": {
+      "type": "product-how-to",
+      "settings": {
+        "heading": "How to use"
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "AM + PM",
+            "description": "Apply 3-5 drops to clean, damp skin. Use it twice a day for stronger results."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Layer",
+            "description": "Follow with moisturizer, then SPF during the day. Locks everything in."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "After treatments",
+            "description": "Use this post-facial to amplify hydration and calm redness. Pairs perfectly."
+          }
+        }
+      },
+      "block_order": ["step_1", "step_2", "step_3"]
     },
     "treatment_upsell": {
       "type": "retail-treatment-upsell",
       "settings": {
-        "heading": "Pairs with your treatment",
+        "heading": "Treatments and routine partners",
         "treatments_collection": "treatments",
         "treatments_to_show": 3
       }
     },
-    "related_products": {
-      "type": "related-products",
+    "reviews": {
+      "type": "reviews",
       "settings": {
-        "heading": "You May Also Like",
-        "products_to_show": 4
+        "heading": "Client reviews"
       }
     }
   },
   "order": [
     "main",
+    "ingredients",
+    "how_to",
     "treatment_upsell",
-    "related_products"
+    "reviews"
   ]
 }
