@@ -142,7 +142,7 @@
           
           if collection != blank and collection.products.size > 0
             for product in collection.products limit: products_to_show
-              render 'product-card-shop', product: product
+              render 'product-card-shop', product: product, index: forloop.index
             endfor
           else
             for i in (1..products_to_show)

@@ -96,7 +96,15 @@
         >
       {%- else -%}
         {%- assign product_num = index | default: 1 | modulo: 6 | plus: 1 -%}
-        {{ 'product-' | append: product_num | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- assign fallback_file = 'mc-product-0' | append: product_num | append: '.jpg' -%}
+        <img
+          src="{{ fallback_file | asset_url }}"
+          alt="{{ card_title | escape }}, Maison Calla concept"
+          class="product-card__image"
+          width="1600"
+          height="1600"
+          loading="lazy"
+        >
       {%- endif -%}
     </div>
     

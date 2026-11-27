@@ -181,7 +181,7 @@
         <div class="grid grid--3-col">
           {%- assign treatments = collections[section.settings.treatments_collection].products -%}
           {%- for product in treatments limit: 6 -%}
-            {% render 'treatment-card', product: product %}
+            {% render 'treatment-card', product: product, index: forloop.index %}
           {%- endfor -%}
         </div>
       </div>
