@@ -339,6 +339,24 @@
           {%- endif -%}
         </div>
         
+        {%- if section.settings.show_rating and product.metafields.reviews.rating.value != blank -%}
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="display: flex; gap: 2px; color: #FFB800;">
+              {%- assign rating = product.metafields.reviews.rating.value | round -%}
+              {%- for i in (1..5) -%}
+                {%- if i <= rating -%}★{%- else -%}☆{%- endif -%}
+              {%- endfor -%}
+            </div>
+            <span style="font-size: 14px; color: var(--color-text-muted);">
+              {{ product.metafields.reviews.rating.value }} ({{ product.metafields.reviews.rating_count | default: 0 }})
+            </span>
+          </div>
+        {%- endif -%}
+        
+        <div class="product-retail__description">
+          {{ product.description }}
+        </div>
+        
         <form id="product-form" method="post" action="{{ routes.cart_add_url }}">
           <input type="hidden" name="id" id="variant-id" value="{{ product.selected_or_first_available_variant.id }}">
           
@@ -371,6 +389,12 @@
             </div>
           </div>
           
+          {%- if section.settings.recommendation_text != blank -%}
+            <div class="product-retail__provider-rec">
+              {{ section.settings.recommendation_text }}
+            </div>
+          {%- endif -%}
+          
           <!-- Add to Bag Button -->
           <button
             type="submit"
@@ -385,6 +409,15 @@
             {% endif %}
           </button>
         </form>
+        
+        {%- if section.settings.delivery_text != blank -%}
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--color-text-muted);">
+            {%- if section.settings.delivery_icon != blank -%}
+              <span>{{ section.settings.delivery_icon }}</span>
+            {%- endif -%}
+            <span>{{ section.settings.delivery_text }}</span>
+          </div>
+        {%- endif -%}
         
         <!-- Key Ingredients Accordion -->
         {%- if ingredients != blank -%}

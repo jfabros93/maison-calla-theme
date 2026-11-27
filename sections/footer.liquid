@@ -285,12 +285,15 @@
     <div class="footer__bottom">
       <div class="footer__bottom-inner">
         <div class="footer__legal">
-          {{ section.settings.legal_text | default: "© 2024 Maison Calla. All rights reserved." }}
+          © {{ 'now' | date: '%Y' }} {{ section.settings.legal_text | default: "Maison Calla. All rights reserved." }}
         </div>
         
         <div class="footer__bottom-right">
           <a href="https://cursor.com" class="footer__concept-pill" target="_blank" rel="noopener">
-            <img src="{{ 'mc-concept-logo.png' | asset_url }}" alt="Concept" width="20" height="20">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M10 6v8M6 10h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
             <span>A concept store</span>
           </a>
           
@@ -362,7 +365,8 @@
       "type": "text",
       "id": "legal_text",
       "label": "Legal Text",
-      "default": "© 2024 Maison Calla. All rights reserved."
+      "default": "Maison Calla. All rights reserved.",
+      "info": "Year is added automatically"
     },
     {
       "type": "url",
@@ -402,7 +406,7 @@
       "cta_text": "Ready when you are",
       "cta_button_text": "Book a treatment",
       "newsletter_heading": "Get our emails",
-      "legal_text": "© 2024 Maison Calla. All rights reserved."
+      "legal_text": "Maison Calla. All rights reserved."
     }
   }
 }
