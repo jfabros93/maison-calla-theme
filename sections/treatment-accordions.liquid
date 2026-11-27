@@ -154,8 +154,12 @@
 <section class="treatment-accordions">
   <div class="container">
     <div class="treatment-accordions__header">
-      <div class="treatment-accordions__eyebrow">About this treatment</div>
-      <h2 class="treatment-accordions__heading">Everything you should know before you book.</h2>
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="treatment-accordions__eyebrow">{{ section.settings.eyebrow }}</div>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="treatment-accordions__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
     </div>
     
     <div class="treatment-accordions__grid">
@@ -194,36 +198,46 @@
       
       <div>
         <div class="treatment-accordions__visit-card">
-          <h3 class="treatment-accordions__visit-title">Your visit, step by step</h3>
+          {%- if section.settings.visit_title != blank -%}
+            <h3 class="treatment-accordions__visit-title">{{ section.settings.visit_title }}</h3>
+          {%- endif -%}
           <div class="treatment-accordions__visit-steps">
-            <div class="treatment-accordions__visit-step">
-              <div class="treatment-accordions__visit-number">01</div>
-              <div class="treatment-accordions__visit-content">
-                <h4>Skin analysis</h4>
-                <p>Your provider maps concerns and adjusts the protocol.</p>
+            {%- if section.settings.step1_title != blank -%}
+              <div class="treatment-accordions__visit-step">
+                <div class="treatment-accordions__visit-number">01</div>
+                <div class="treatment-accordions__visit-content">
+                  <h4>{{ section.settings.step1_title }}</h4>
+                  <p>{{ section.settings.step1_text }}</p>
+                </div>
               </div>
-            </div>
-            <div class="treatment-accordions__visit-step">
-              <div class="treatment-accordions__visit-number">02</div>
-              <div class="treatment-accordions__visit-content">
-                <h4>Cleanse + extract</h4>
-                <p>Double cleanse and painless vortex extraction.</p>
+            {%- endif -%}
+            {%- if section.settings.step2_title != blank -%}
+              <div class="treatment-accordions__visit-step">
+                <div class="treatment-accordions__visit-number">02</div>
+                <div class="treatment-accordions__visit-content">
+                  <h4>{{ section.settings.step2_title }}</h4>
+                  <p>{{ section.settings.step2_text }}</p>
+                </div>
               </div>
-            </div>
-            <div class="treatment-accordions__visit-step">
-              <div class="treatment-accordions__visit-number">03</div>
-              <div class="treatment-accordions__visit-content">
-                <h4>Infuse</h4>
-                <p>Peptides and hyaluronic acid pushed deep into skin.</p>
+            {%- endif -%}
+            {%- if section.settings.step3_title != blank -%}
+              <div class="treatment-accordions__visit-step">
+                <div class="treatment-accordions__visit-number">03</div>
+                <div class="treatment-accordions__visit-content">
+                  <h4>{{ section.settings.step3_title }}</h4>
+                  <p>{{ section.settings.step3_text }}</p>
+                </div>
               </div>
-            </div>
-            <div class="treatment-accordions__visit-step">
-              <div class="treatment-accordions__visit-number">04</div>
-              <div class="treatment-accordions__visit-content">
-                <h4>Protect</h4>
-                <p>LED, mineral SPF and an aftercare plan to take home.</p>
+            {%- endif -%}
+            {%- if section.settings.step4_title != blank -%}
+              <div class="treatment-accordions__visit-step">
+                <div class="treatment-accordions__visit-number">04</div>
+                <div class="treatment-accordions__visit-content">
+                  <h4>{{ section.settings.step4_title }}</h4>
+                  <p>{{ section.settings.step4_text }}</p>
+                </div>
               </div>
-            </div>
+            {%- endif -%}
           </div>
         </div>
       </div>
@@ -262,6 +276,78 @@
 {% schema %}
 {
   "name": "Treatment Accordions",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "About this treatment"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Everything you should know before you book."
+    },
+    {
+      "type": "header",
+      "content": "Visit Steps Card"
+    },
+    {
+      "type": "text",
+      "id": "visit_title",
+      "label": "Visit Card Title",
+      "default": "Your visit, step by step"
+    },
+    {
+      "type": "text",
+      "id": "step1_title",
+      "label": "Step 1 Title",
+      "default": "Skin analysis"
+    },
+    {
+      "type": "textarea",
+      "id": "step1_text",
+      "label": "Step 1 Text",
+      "default": "Your provider maps concerns and adjusts the protocol."
+    },
+    {
+      "type": "text",
+      "id": "step2_title",
+      "label": "Step 2 Title",
+      "default": "Cleanse + extract"
+    },
+    {
+      "type": "textarea",
+      "id": "step2_text",
+      "label": "Step 2 Text",
+      "default": "Double cleanse and painless vortex extraction."
+    },
+    {
+      "type": "text",
+      "id": "step3_title",
+      "label": "Step 3 Title",
+      "default": "Infuse"
+    },
+    {
+      "type": "textarea",
+      "id": "step3_text",
+      "label": "Step 3 Text",
+      "default": "Peptides and hyaluronic acid pushed deep into skin."
+    },
+    {
+      "type": "text",
+      "id": "step4_title",
+      "label": "Step 4 Title",
+      "default": "Protect"
+    },
+    {
+      "type": "textarea",
+      "id": "step4_text",
+      "label": "Step 4 Text",
+      "default": "LED, mineral SPF and an aftercare plan to take home."
+    }
+  ],
   "blocks": [
     {
       "type": "accordion",
