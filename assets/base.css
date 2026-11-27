@@ -552,12 +552,16 @@ img.loaded {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .treatment-card__image {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .treatment-card__body {
@@ -678,13 +682,15 @@ img.loaded {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  overflow: hidden;
 }
 
 .product-card__image {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .product-card__media-bottom {
@@ -866,7 +872,12 @@ img.loaded {
 }
 
 .journal-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
   aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: center;
 }
 
 .journal-card__content {
