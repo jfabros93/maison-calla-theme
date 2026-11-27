@@ -149,23 +149,41 @@
   
   .split-hero__image-card-center {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 360px;
-    height: 360px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    inset: 0;
     overflow: hidden;
-    border-radius: 20px;
   }
   
   .split-hero__image {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: center top;
+    z-index: 0;
+  }
+  
+  /* Gradient scrims for text legibility over photos */
+  .split-hero__image-card::before,
+  .split-hero__image-card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .split-hero__image-card::before {
+    top: 0;
+    height: 120px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, transparent 100%);
+  }
+  
+  .split-hero__image-card::after {
+    bottom: 0;
+    height: 140px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
   }
   
   .split-hero__availability-bar {
