@@ -279,9 +279,18 @@
               width="{{ section.settings.image.width | default: 800 }}"
               height="{{ section.settings.image.height | default: 600 }}"
               loading="eager"
+              fetchpriority="high"
             >
           {%- else -%}
-            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            <img
+              src="{{ 'mc-split-hero-01.jpg' | asset_url }}"
+              alt="Maison Calla concept — facial ritual"
+              class="split-hero__image"
+              width="1400"
+              height="1750"
+              loading="eager"
+              fetchpriority="high"
+            >
           {%- endif -%}
         </div>
         

@@ -198,9 +198,15 @@
               data-before-image
             >
           {%- else -%}
-            <div class="before-after-section__image before-after-section__before" style="background-color: var(--color-beige);" data-before-image>
-              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-            </div>
+            <img 
+              src="{{ 'mc-ba-slider-before.jpg' | asset_url }}"
+              alt="Before, Maison Calla concept"
+              class="before-after-section__image before-after-section__before"
+              width="1520"
+              height="1040"
+              loading="lazy"
+              data-before-image
+            >
           {%- endif -%}
           
           {%- if section.settings.after_image != blank -%}
@@ -217,9 +223,15 @@
               data-after-image
             >
           {%- else -%}
-            <div class="before-after-section__image before-after-section__after" style="background-color: var(--color-blush);" data-after-image>
-              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-            </div>
+            <img 
+              src="{{ 'mc-ba-slider-after.jpg' | asset_url }}"
+              alt="After, Maison Calla concept"
+              class="before-after-section__image before-after-section__after"
+              width="1520"
+              height="1040"
+              loading="lazy"
+              data-after-image
+            >
           {%- endif -%}
           
           <div class="before-after-section__divider" data-divider></div>
@@ -245,6 +257,10 @@
           </div>
         </div>
       </div>
+      
+      {%- if section.settings.before_image == blank or section.settings.after_image == blank -%}
+        <p style="font-size: 0.875rem; color: var(--color-text-muted, #666); text-align: center; margin-top: 0.5rem;">Illustrative concept imagery. Not a real client result.</p>
+      {%- endif -%}
       
       <div class="before-after-section__copy">
         {%- if section.settings.eyebrow != blank -%}

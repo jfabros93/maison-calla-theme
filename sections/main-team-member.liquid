@@ -138,7 +138,15 @@
             height="800"
           >
         {%- else -%}
-          {{ 'lifestyle-1' | placeholder_svg_tag: 'team-member-page__image' }}
+          <img
+            src="{{ 'mc-team-01.jpg' | asset_url }}"
+            alt="{{ page.title | escape }}, Maison Calla concept"
+            class="team-member-page__image"
+            width="1200"
+            height="1600"
+            loading="eager"
+            fetchpriority="high"
+          >
         {%- endif -%}
       </div>
       

@@ -28,7 +28,7 @@
     <div class="grid grid--3-col" id="related-products-{{ section.id }}">
       {%- if recommendations.performed and recommendations.products_count > 0 -%}
         {%- for product in recommendations.products limit: limit -%}
-          {% render 'treatment-card', product: product %}
+          {% render 'treatment-card', product: product, index: forloop.index %}
         {%- endfor -%}
       {%- else -%}
         {%- comment -%} Fallback to same collection {%- endcomment -%}
@@ -36,7 +36,7 @@
           {%- assign collection = product.collections.first -%}
           {%- for related_product in collection.products limit: limit -%}
             {%- unless related_product.id == product.id -%}
-              {% render 'treatment-card', product: related_product %}
+              {% render 'treatment-card', product: related_product, index: forloop.index %}
             {%- endunless -%}
           {%- endfor -%}
         {%- endif -%}

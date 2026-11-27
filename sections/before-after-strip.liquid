@@ -71,7 +71,16 @@
                 loading="lazy"
               >
             {%- else -%}
-              {{ 'image' | placeholder_svg_tag: 'placeholder-svg before-after-strip__image' }}
+              {%- assign pair_num = forloop.index | default: 1 | modulo: 3 | plus: 1 -%}
+              {%- assign fallback_file = 'mc-ba-strip-0' | append: pair_num | append: '-before.jpg' -%}
+              <img
+                src="{{ fallback_file | asset_url }}"
+                alt="Before, Maison Calla concept"
+                class="before-after-strip__image"
+                width="1200"
+                height="1200"
+                loading="lazy"
+              >
             {%- endif -%}
             <span class="before-after-strip__label">Before</span>
           </div>
@@ -87,7 +96,16 @@
                 loading="lazy"
               >
             {%- else -%}
-              {{ 'image' | placeholder_svg_tag: 'placeholder-svg before-after-strip__image' }}
+              {%- assign pair_num = forloop.index | default: 1 | modulo: 3 | plus: 1 -%}
+              {%- assign fallback_file = 'mc-ba-strip-0' | append: pair_num | append: '-after.jpg' -%}
+              <img
+                src="{{ fallback_file | asset_url }}"
+                alt="After, Maison Calla concept"
+                class="before-after-strip__image"
+                width="1200"
+                height="1200"
+                loading="lazy"
+              >
             {%- endif -%}
             <span class="before-after-strip__label">After</span>
           </div>

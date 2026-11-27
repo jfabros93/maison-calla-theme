@@ -37,7 +37,7 @@
           {%- assign treatments_collection = collections[section.settings.treatments_collection] -%}
           {%- if treatments_collection != blank and treatments_collection.products.size > 0 -%}
             {%- for product in treatments_collection.products limit: 3 -%}
-              {% render 'treatment-card', product: product %}
+              {% render 'treatment-card', product: product, index: forloop.index %}
             {%- endfor -%}
           {%- else -%}
             {%- for i in (1..3) -%}
@@ -55,7 +55,7 @@
           {%- assign products_collection = collections[section.settings.products_collection] -%}
           {%- if products_collection != blank and products_collection.products.size > 0 -%}
             {%- for product in products_collection.products limit: 4 -%}
-              {% render 'product-card-shop', product: product %}
+              {% render 'product-card-shop', product: product, index: forloop.index %}
             {%- endfor -%}
           {%- else -%}
             {%- for i in (1..4) -%}
