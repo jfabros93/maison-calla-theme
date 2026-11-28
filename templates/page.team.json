@@ -1,0 +1,168 @@
+{
+  "sections": {
+    "founder_story": {
+      "type": "team-founder-story",
+      "settings": {
+        "eyebrow": "THE HOUSE",
+        "heading": "Care that feels considered.",
+        "body": "<p>Maison Calla began as Dr. Elena Voss's answer to rushed med-spa visits. The house is small on purpose: a medical director on site, a short roster of specialists, and enough time in the room to do the work properly. Every guest is invited to request the same practitioner again.</p>",
+        "signature": "Dr. Elena Voss, Founder"
+      }
+    },
+    "values": {
+      "type": "team-values",
+      "settings": {
+        "eyebrow": "WHAT WE HOLD TO",
+        "heading": "A few rules for a quieter kind of spa."
+      },
+      "blocks": {
+        "value_1": {
+          "type": "value",
+          "settings": {
+            "icon": "shield-check",
+            "title": "Clinical rigor",
+            "text": "Every injectable visit is physician-led or supervised, with a clear plan before anything is placed."
+          }
+        },
+        "value_2": {
+          "type": "value",
+          "settings": {
+            "icon": "sparkles",
+            "title": "Considered luxury",
+            "text": "Quiet rooms, unhurried appointments, and no hard sell — the room is set up for the work, not a retail script."
+          }
+        },
+        "value_3": {
+          "type": "value",
+          "settings": {
+            "icon": "leaf",
+            "title": "Continuity of care",
+            "text": "Guests can request the same practitioner each visit, so results and relationships compound over time."
+          }
+        }
+      },
+      "block_order": [
+        "value_1",
+        "value_2",
+        "value_3"
+      ]
+    },
+    "carousel": {
+      "type": "team-carousel",
+      "settings": {
+        "eyebrow": "THE PRACTITIONERS",
+        "heading": "A small roster, known by name.",
+        "helper_text": "Select a practitioner to read their bio, certifications, treatments, and next openings."
+      },
+      "blocks": {
+        "member_1": {
+          "type": "member",
+          "settings": {
+            "name": "Dr. Elena Voss",
+            "role": "Founder & Medical Director",
+            "credentials": "MD, Medical Director & Founder",
+            "years": "18 years",
+            "bio": "<p>Elena founded Maison Calla so clinical injectables and facial care could live under one unhurried roof. Guests can request her or the practitioner who last saw them.</p>",
+            "certifications": "Board-certified physician\nMedical director, Maison Calla\nLicensed in California",
+            "treatments_labels": "Neuromodulators, Regenerative",
+            "next_openings": "",
+            "booking_link": "/pages/book"
+          }
+        },
+        "member_2": {
+          "type": "member",
+          "settings": {
+            "name": "Marcus Hale",
+            "role": "Lead Injector, NP",
+            "credentials": "NP, Lead Injector",
+            "years": "12 years",
+            "bio": "<p>Marcus leads the injectable practice with a preference for conservative, balanced work. Guests often book him for first-time filler and profile-balancing consults.</p>",
+            "certifications": "ANCC board-certified nurse practitioner\nAesthetic injector fellowship\nLicensed in California",
+            "treatments_labels": "Filler, Profile balancing, Skin boosters",
+            "next_openings": "Fri 2:00, Fri 4:30, Sat 11:00",
+            "booking_link": "/pages/book"
+          }
+        },
+        "member_3": {
+          "type": "member",
+          "settings": {
+            "name": "Amira Chen",
+            "role": "Lead Esthetician",
+            "credentials": "LE, Lead Esthetician",
+            "years": "8 years",
+            "bio": "<p>Amira leads facial care at the house, with a calm, thorough approach to peels and the HydraGlow ritual.</p>",
+            "certifications": "Licensed esthetician\nAdvanced peel certification",
+            "treatments_labels": "HydraGlow, Peels",
+            "next_openings": "",
+            "booking_link": "/pages/book"
+          }
+        },
+        "member_4": {
+          "type": "member",
+          "settings": {
+            "name": "Simone Adler",
+            "role": "Wellness Director",
+            "credentials": "Wellness Director",
+            "years": "20 years",
+            "bio": "<p>Simone directs recovery and wellness at Maison Calla, with an emphasis on lymphatic work and unhurried aftercare.</p>",
+            "certifications": "Licensed wellness practitioner",
+            "treatments_labels": "Lymphatic, Recovery",
+            "next_openings": "",
+            "booking_link": "/pages/book"
+          }
+        },
+        "member_5": {
+          "type": "member",
+          "settings": {
+            "name": "Luca Moretti",
+            "role": "Senior Stylist",
+            "credentials": "Senior Stylist",
+            "years": "11 years",
+            "bio": "<p>Luca is the house's senior stylist, known for considered cuts and color.</p>",
+            "certifications": "Licensed stylist",
+            "treatments_labels": "Cut & color, Bridal",
+            "next_openings": "",
+            "booking_link": "/pages/book"
+          }
+        },
+        "member_6": {
+          "type": "member",
+          "settings": {
+            "name": "Priya Raman",
+            "role": "Injector, RN",
+            "credentials": "RN, Injector",
+            "years": "7 years",
+            "bio": "<p>Priya focuses on lips and skin boosters, with a light, conservative hand.</p>",
+            "certifications": "Registered nurse\nLicensed in California",
+            "treatments_labels": "Lips, Skin boosters",
+            "next_openings": "",
+            "booking_link": "/pages/book"
+          }
+        }
+      },
+      "block_order": [
+        "member_1",
+        "member_2",
+        "member_3",
+        "member_4",
+        "member_5",
+        "member_6"
+      ]
+    },
+    "cta_band": {
+      "type": "team-cta-band",
+      "settings": {
+        "heading": "Start with a consultation.",
+        "subheading": "We'll match you with the right practitioner.",
+        "button_label": "Book a consultation",
+        "button_link": "/pages/book"
+      }
+    }
+  },
+  "order": [
+    "founder_story",
+    "values",
+    "carousel",
+    "cta_band"
+  ]
+}
